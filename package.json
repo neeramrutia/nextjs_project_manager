@@ -1,0 +1,35 @@
+{
+  "name": "mantine-minimal-next-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@mantine/core": "7.2.1",
+    "@mantine/hooks": "7.2.1",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0",
+    "next": "14.0.1",
+    "next-auth": "^4.24.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.8.10",
+    "@types/react": "18.2.36",
+    "@types/react-dom": "18.2.14",
+    "eslint": "8.53.0",
+    "eslint-config-next": "14.0.1",
+    "postcss": "^8.4.31",
+    "postcss-preset-mantine": "1.11.0",
+    "postcss-simple-vars": "^7.0.1",
+    "typescript": "5.2.2"
+  },
+  "packageManager": "yarn@4.0.1"
+}
