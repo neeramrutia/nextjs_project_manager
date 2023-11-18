@@ -11,6 +11,7 @@
   "dependencies": {
     "@mantine/core": "7.2.1",
     "@mantine/hooks": "7.2.1",
+    "@tabler/icons-react": "^2.40.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "mongodb": "^6.2.0",
@@ -18,7 +19,8 @@
     "next": "14.0.1",
     "next-auth": "^4.24.5",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "tabler-icons-react": "^1.56.0"
   },
   "devDependencies": {
     "@types/node": "20.8.10",
