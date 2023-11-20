@@ -486,6 +486,11 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
+aws4@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.npmjs.org/aws4/-/aws4-1.12.0.tgz"
+  integrity sha512-NmWvPnx0F1SfrQbYwOi7OeaNGokp9XhzNioJ/CSBs8Qa4vxug81mhJEAVZwxXuBmYB5KDRfMq/F3RR0BIU7sWg==
+
 axe-core@=4.7.0:
   version "4.7.0"
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.7.0.tgz"
@@ -1738,7 +1743,7 @@ mongodb-connection-string-url@^2.6.0:
     "@types/whatwg-url" "^8.2.1"
     whatwg-url "^11.0.0"
 
-mongodb@^6.2.0, mongodb@6.2.0:
+mongodb@6.2.0:
   version "6.2.0"
   resolved "https://registry.npmjs.org/mongodb/-/mongodb-6.2.0.tgz"
   integrity sha512-d7OSuGjGWDZ5usZPqfvb36laQ9CPhnWkAGHT61x5P95p/8nMVeH8asloMwW6GcYFeB0Vj4CB/1wOTDG2RA9BFA==
@@ -1747,10 +1752,10 @@ mongodb@^6.2.0, mongodb@6.2.0:
     bson "^6.2.0"
     mongodb-connection-string-url "^2.6.0"
 
-mongoose@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.npmjs.org/mongoose/-/mongoose-8.0.0.tgz"
-  integrity sha512-PzwkLgm1Jhj0NQdgGfnFsu0QP9V1sBFgbavEgh/IPAUzKAagzvEhuaBuAQOQGjczVWnpIU9tBqyd02cOTgsPlA==
+mongoose@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.npmjs.org/mongoose/-/mongoose-8.0.1.tgz"
+  integrity sha512-O3TJrtLCt4H1eGf2HoHGcnOcCTWloQkpmIP3hA9olybX3OX2KUjdIIq135HD5paGjZEDJYKn9fw4eH5N477zqQ==
   dependencies:
     bson "^6.2.0"
     kareem "2.5.1"

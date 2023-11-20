@@ -13,7 +13,9 @@ export async function GET(request){
     });
     } catch (error) {
         console.log(error);
-        return getResponseMessage("Couldn't fetch data!!" , 404 ,false);
+        return NextResponse.json({
+            message:error.message
+        })
     }
 }
 export async function POST(request){

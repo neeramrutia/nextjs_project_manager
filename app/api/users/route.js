@@ -1,18 +1,19 @@
-import { User } from "../../../models/userModel"
+import { User } from '../../../models/userModel'
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs"
-
+import dbconnect from '../../../utils/database';
+dbconnect();
 export async function GET(req,res){
     let users = [];
     try {
-        users = await User.find().select("-password");
+        // users = await User.find().select("-password");
+        users = await User.find();
         return NextResponse.json(users);
     } catch (error) {
-        response = NextResponse.json({
+        return NextResponse.json({
             message : "error occured while fetching data" , 
             status:false
         });
-        return response;
     }
     
 }

@@ -1,20 +1,18 @@
-"use client"
-import { dbconnect } from "../utils/database"
+"use client";
 import { useState } from "react";
-
-import { Button } from '@mantine/core';
+import { signIn, signOut , useSession} from 'next-auth/react'
 import { useDisclosure } from '@mantine/hooks';
-import { AppShell, Burger, Group, Skeleton } from '@mantine/core';
-import { Text } from '@mantine/core';
+import { AppShell, Burger, Group } from '@mantine/core';
 import { NavLink } from '@mantine/core';
-import { IconGauge, IconFingerprint , IconBrandGoogle , IconBrandGithub , IconPassword , IconHome , IconHistory , IconFileLike} from '@tabler/icons-react';
+import { IconFingerprint , IconBrandGoogle , IconBrandGithub , IconPassword , IconHome , IconHistory , IconFileLike} from '@tabler/icons-react';
 import Home from "../components/homeComponent";
-
-
-export default function ResponsiveSizes() {
+import { useRouter } from 'next/navigation'
+export default function myHome() {
   const [opened, { toggle }] = useDisclosure();
   const [active, setActive] = useState(-1);
-  // const dbconnection = dbconnect();
+  const router = useRouter();
+  const { data : session } = useSession();
+  console.log(session)
   return (
     <AppShell
       header={{ height: { base: 60, md: 70, lg: 80 } }}
@@ -27,7 +25,10 @@ export default function ResponsiveSizes() {
     >
       <AppShell.Header>
         <Group h="100%" px="md">
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          <Burger 
+          opened={opened} 
+          onClick={toggle} 
+          hiddenFrom="sm" size="sm" />
           {/* <MantineLogo size={30} /> */}
         </Group>
       </AppShell.Header>
@@ -51,21 +52,30 @@ export default function ResponsiveSizes() {
           leftSection={<IconBrandGoogle size="1rem" stroke={1.5}/>} 
           label="Sign Up with google" 
           active={1===active}
-          onClick={() => setActive(1)}
+          onClick={() => {
+            setActive(1); 
+            signIn('google')
+          }}
           color="teal"
         />
         <NavLink 
           leftSection={<IconBrandGithub size="1rem" stroke={1.5}/>} 
           label="Sign Up with github" 
           active={2===active}
-          onClick={() => setActive(2)}
+          onClick={() => {
+            setActive(2); 
+            signIn('github')
+          }}
           color="teal"
         />
         <NavLink 
           leftSection={<IconPassword size="1rem" stroke={1.5}/>} 
           label="Sign Up with Credentials" 
           active={3===active}
-          onClick={() => setActive(3)}
+          onClick={() => {
+            setActive(3);
+            
+          }}
           color="teal"
         />
       </NavLink>
@@ -75,7 +85,6 @@ export default function ResponsiveSizes() {
         leftSection={<IconFingerprint size="1rem" stroke={1.5} />}
         childrenOffset={28}
         active={4===active}
-        defaultOpened
         onClick={() => setActive(4)}
         color="cyan"
       >
@@ -96,7 +105,10 @@ export default function ResponsiveSizes() {
         <NavLink 
           leftSection={<IconPassword size="1rem" stroke={1.5}/>}
           label="Sign In with Credentials" 
-          onClick={() => setActive(7)}
+          onClick={() => {
+            setActive(7)
+            router.push('/api/auth/signin');
+          }}
           color="teal"
           active={7===active}
         />
@@ -115,11 +127,27 @@ export default function ResponsiveSizes() {
           onClick={() => setActive(10)}
           color="cyan"
         />       
+        <NavLink  
+          label="Sign Out" 
+          active={11===active}
+          onClick={() => {
+            setActive(11);
+            signOut();
+          }}
+          color="cyan"
+        />       
       </AppShell.Navbar>
       <AppShell.Main>
         Main
-        <Home/>
+        {/* <Home/> */}
       </AppShell.Main>
     </AppShell>
+    
   );
 }
+
+// import dbconnect from "../utils/database"
+// export default function myHome(){
+//   const db = dbconnect();
+//   return <h1>Home</h1>
+// }

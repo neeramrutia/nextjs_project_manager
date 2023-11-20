@@ -7,8 +7,6 @@ export const dbconnect = async() => {
             return
         }
         const db = await mongoose.connect(process.env.MONGODB_URI , {
-            useNewUrlParser:true,
-            useUnifiedTopology:true,
             dbName:"nextjs_project"
         });
     
