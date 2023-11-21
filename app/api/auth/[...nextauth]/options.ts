@@ -51,9 +51,14 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks:{
-        async session({session}){
+        async session({session }){
             try {
+                const user = await User.findOne({email:session.user?.email});
+                session.user.id = user._id;
+                session.user.isCoordinator = user.isCoordinator;
+                session.user.isAdmin = user.isAdmin;
                 console.log(session);
+
                 return session
             } catch (error) {
                 console.log(error);
