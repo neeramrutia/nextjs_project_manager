@@ -26,6 +26,14 @@ const ProjectSchema = new mongoose.Schema({
     ProjectType:{
         type : String,
         required : true
+    },
+    ProjectLink:{
+        type: URL,
+        required:true
+    },
+    Mentor:{
+        type:String,
+        default:"none"
     }
 });
 

@@ -8,13 +8,14 @@ import {
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "../public/Demo.module.css";
-import { IconFileLike, IconHistory, IconHome } from "@tabler/icons-react";
+import { IconFileLike, IconHistory, IconHome, IconPlaylistAdd } from "@tabler/icons-react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Home from "./homeComponent";
 import RecentlyUploaded from "./recentlyUploaded";
 import MostLiked from "./mostLiked";
+import AddProject from "./addProject";
 export default function SignedInNavbar() {
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
@@ -36,7 +37,7 @@ export default function SignedInNavbar() {
       padding="md"
     >
       <AppShell.Header>
-        <Group h="100%" px="md">
+        <Group h="100%" px="md" justify="space-between">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           {/* <MantineLogo size={30} /> */}
           <Text
@@ -82,6 +83,20 @@ export default function SignedInNavbar() {
           onClick={() => setActive(10)}
           color="cyan"
         />
+        {
+          (session?.user.isAdmin || session?.user.isCoordinator) && (
+            <NavLink
+            leftSection={<IconPlaylistAdd size="1rem" stroke={1.5} />}
+            label="Add Project"
+            active={12 === active}
+            onClick={(e) => {
+              e.preventDefault();
+              setActive(12);
+            }}
+            color="cyan"
+          />
+          )
+        }
         {session && (
           <NavLink
             label="Sign Out"
@@ -94,12 +109,14 @@ export default function SignedInNavbar() {
             color="cyan"
           />
         )}
+        
       </AppShell.Navbar>
       <AppShell.Main>
         Main
         {active == 8 && <Home />}
         {active == 9 && <RecentlyUploaded />}
         {active == 10 && <MostLiked />}
+        {active == 12 && <AddProject />}
       </AppShell.Main>
     </AppShell>
   );
