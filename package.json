@@ -21,12 +21,15 @@
     "next-auth": "^4.24.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-markdown": "^9.0.1",
+    "react-syntax-highlighter": "^15.5.0",
     "tabler-icons-react": "^1.56.0"
   },
   "devDependencies": {
     "@types/node": "20.8.10",
     "@types/react": "18.2.36",
     "@types/react-dom": "18.2.14",
+    "@types/react-syntax-highlighter": "^15.5.10",
     "eslint": "8.53.0",
     "eslint-config-next": "14.0.1",
     "postcss": "^8.4.31",

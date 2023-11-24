@@ -1,0 +1,25 @@
+.App{
+    display: flex;
+}
+.textarea{
+    width: 50%;
+    height: 70vh;
+    padding: 20px;
+    font-size: 1rem;
+    outline: none;
+    margin-top: 30px;
+}
+.markdown{
+    width: 50%;
+    height: 70vh;
+    padding: 20px;
+    outline: none;
+    margin-top: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
