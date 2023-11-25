@@ -4,6 +4,9 @@ import { AddProjectStep2, step2Object } from "./addProjectStep2";
 import { AddProjectStep3, step3Object } from "./addProjectStep3";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
+import LoadingState from "./States/LoadingState"; 
+import SuccessState from "./States/SuccessState";
+import ErrorState from "./States/ErrorState"; 
 export default function AddProject() {
   console.log(step1Object);
   console.log(step2Object);
@@ -72,9 +75,9 @@ export default function AddProject() {
       {active == 0 && <AddProjectStep1 />}
       {active == 1 && <AddProjectStep2 />}
       {active == 2 && <AddProjectStep3 />}
-      {/* {active == 3 && success == 0 && <LoadingState />}
-      {active == 3 && success == 1 && <SuceesState />}
-      {active == 3 && success == -1 && <ErrorState />} */}
+      {active == 3 && success == 0 && <LoadingState />}
+      {active == 3 && success == 1 && <SuccessState />}
+      {active == 3 && success == -1 && <ErrorState />} 
       {
         (active == 1 || active == 0 || active == 2) && (
       
