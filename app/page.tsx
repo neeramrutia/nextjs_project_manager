@@ -9,9 +9,11 @@ import Home from "../components/homeComponent";
 import { useRouter } from 'next/navigation'
 import SignedOutNavbar from "../components/signedOutNavbar";
 import SignedInNavbar from "../components/signedInNavbar";
-export default function myHome() {
-  const [opened, { toggle }] = useDisclosure();
+
+export default function MyHome() {
   const { data : session } = useSession();
+  const [opened, { toggle }] = useDisclosure();
+  
   console.log(session)
   
   return (

@@ -3,10 +3,13 @@ import { AddProjectStep1, step1Object } from "./addProjectStep1";
 import { AddProjectStep2, step2Object } from "./addProjectStep2";
 import { AddProjectStep3, step3Object } from "./addProjectStep3";
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 export default function AddProject() {
   console.log(step1Object);
   console.log(step2Object);
   console.log(step3Object);
+  const [success , setSuccess] = useState(0);
+  const { data: session } = useSession();
   const [Project, setProject] = useState({
     title: "",
     status: "",
@@ -14,7 +17,25 @@ export default function AddProject() {
     ProjectLink: "",
     Mentor: "none",
     content: "",
+    userId:session?.user.id
   });
+  const RegisterProject = async()=>{
+    const res = await fetch('api/projects',{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Project),
+    })
+    console.log(res);
+    if(res.status == 201)
+    {
+      setSuccess(1);
+    }
+    else{
+      setSuccess(-1);
+    }
+  }
   console.log(Project);
   const saveProject = () => {
     Project.title = step1Object.title;
@@ -51,9 +72,11 @@ export default function AddProject() {
       {active == 0 && <AddProjectStep1 />}
       {active == 1 && <AddProjectStep2 />}
       {active == 2 && <AddProjectStep3 />}
-      {/* {active == 3 && <AddProjectStep4 />} */}
+      {/* {active == 3 && success == 0 && <LoadingState />}
+      {active == 3 && success == 1 && <SuceesState />}
+      {active == 3 && success == -1 && <ErrorState />} */}
       {
-        (active == 1 || active == 0  || active == 2) && (
+        (active == 1 || active == 0 || active == 2) && (
       
       <Group justify="center" mt="xl">
         <Button
@@ -77,6 +100,22 @@ export default function AddProject() {
       </Group>
 
         )}
+
+        {
+          active == 2 && (
+            <Group justify="center" mt="xl">
+            <Button
+              variant="default"
+              onClick={() => {
+                saveProject();
+                RegisterProject();
+              }}
+            >
+              Add Project
+            </Button>
+          </Group>
+          )
+        }
     </>
   );
 }

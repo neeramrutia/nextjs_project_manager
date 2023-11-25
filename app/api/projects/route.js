@@ -19,7 +19,7 @@ export async function GET(request){
     }
 }
 export async function POST(request){
-    const { title , content , userId , status , ProjectType } = await request.json();
+    const { title , content , userId , status , ProjectType , Mentor , ProjectLink} = await request.json();
 
     // const loginToken = request.cookies.get("loginToken")?.value;
     // const data = jwt.verify(loginToken , process.env.JWT_KEY);
@@ -29,7 +29,9 @@ export async function POST(request){
             content,
             userId ,
             status,
-            ProjectType
+            ProjectType,
+            Mentor,
+            ProjectLink
         });
         const createdProject = await project.save();
         return NextResponse.json(createdProject , {
@@ -41,6 +43,9 @@ export async function POST(request){
         return NextResponse.json({
             message:"Failed to create the task",
             success:false
-        });
+        },{
+            status:500
+        }
+        );
     }
 }
