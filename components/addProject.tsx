@@ -22,6 +22,14 @@ export default function AddProject() {
     content: "",
     userId:session?.user.id
   });
+  const resetProject = ()=>{
+    Project.Mentor='';
+    Project.title='';
+    Project.ProjectLink='';
+    Project.ProjectType='';
+    Project.content='';
+    Project.status='';
+  }
   const RegisterProject = async()=>{
     const res = await fetch('api/projects',{
       method: "POST",
@@ -38,6 +46,8 @@ export default function AddProject() {
     else{
       setSuccess(-1);
     }
+    resetProject();
+    
   }
   console.log(Project);
   const saveProject = () => {
@@ -69,7 +79,11 @@ export default function AddProject() {
           label="Final step"
           description="Add mentor details"
         ></Stepper.Step>
-        <Stepper.Completed>Creating Project...</Stepper.Completed>
+        <Stepper.Completed>
+          {active == 3 && success == 0 && 'Creating Project...'}
+          Creating Project...
+          
+          </Stepper.Completed>
       </Stepper>
 
       {active == 0 && <AddProjectStep1 />}
@@ -91,15 +105,18 @@ export default function AddProject() {
         >
           Back
         </Button>
-        <Button
-          onClick={() => {
-            nextStep();
-            saveProject();
-          }}
-          color="cyan"
-        >
-          Next step
-        </Button>
+        {
+          active!=2 && (<Button
+            onClick={() => {
+              nextStep();
+              saveProject();
+            }}
+            color="cyan"
+          >
+            Next step
+          </Button>)
+        }
+        
       </Group>
 
         )}
@@ -112,6 +129,7 @@ export default function AddProject() {
               onClick={() => {
                 saveProject();
                 RegisterProject();
+                nextStep();
               }}
             >
               Add Project
@@ -122,3 +140,5 @@ export default function AddProject() {
     </>
   );
 }
+
+
