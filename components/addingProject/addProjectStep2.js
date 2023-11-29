@@ -1,13 +1,10 @@
 import { Box, Button, Flex, Grid } from "@mantine/core";
-import "../public/styleForAddProjectStep2.css";
+import "../../public/styleForAddProjectStep2.css";
 import Markdown from "react-markdown";
 import { useState } from "react";
 // import SyntaxHighlighter from 'react-syntax-highlighter';
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import prism from "react-syntax-highlighter/dist/esm/styles/prism/prism";
 const step2Object = {
   content:""
 }

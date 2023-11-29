@@ -15,7 +15,7 @@ import { useState } from "react";
 import Home from "./homeComponent";
 import RecentlyUploaded from "./recentlyUploaded";
 import MostLiked from "./mostLiked";
-import AddProject from "./addProject";
+import AddProject from "./addingProject/addProject";
 export default function SignedInNavbar() {
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {

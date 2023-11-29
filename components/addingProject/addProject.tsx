@@ -4,9 +4,9 @@ import { AddProjectStep2, step2Object } from "./addProjectStep2";
 import { AddProjectStep3, step3Object } from "./addProjectStep3";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import LoadingState from "./States/LoadingState"; 
-import SuccessState from "./States/SuccessState";
-import ErrorState from "./States/ErrorState"; 
+import LoadingState from "../States/LoadingState"; 
+import SuccessState from "../States/SuccessState";
+import ErrorState from "../States/ErrorState"; 
 export default function AddProject() {
   console.log(step1Object);
   console.log(step2Object);

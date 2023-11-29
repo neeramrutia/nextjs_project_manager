@@ -6,6 +6,7 @@ interface Session{
         id:String;
         isCoordinator:Boolean;
         isAdmin:Boolean;
+        role:String
     } & DefaultSession["user"];
 }
 }
