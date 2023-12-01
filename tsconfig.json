@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "components/Provider.jsx", "components/Provider.jsx", "components/addProjectStep2.tsx "],
+, "components/Provider.jsx", "components/Provider.jsx", "components/addProjectStep2.tsx ", "components/showProjects/showAllProjects.tsx"],
   "exclude": [
     "node_modules"
   ]

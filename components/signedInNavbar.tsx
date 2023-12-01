@@ -5,6 +5,7 @@ import {
   useMantineColorScheme,
   useComputedColorScheme,
 } from "@mantine/core";
+import ShowAllProjects from "./showProjects/showAllProjects";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "../public/Demo.module.css";
@@ -83,6 +84,12 @@ export default function SignedInNavbar() {
           onClick={() => setActive(10)}
           color="cyan"
         />
+        <NavLink
+          label="Show All Projects"
+          active={13 === active}
+          onClick={() => setActive(13)}
+          color="cyan"
+        />
         {
           (session?.user.isAdmin || session?.user.isCoordinator) && (
             <NavLink
@@ -112,11 +119,11 @@ export default function SignedInNavbar() {
         
       </AppShell.Navbar>
       <AppShell.Main>
-        Main
         {active == 8 && <Home />}
         {active == 9 && <RecentlyUploaded />}
         {active == 10 && <MostLiked />}
         {active == 12 && <AddProject />}
+        {active == 13 && <ShowAllProjects />}
       </AppShell.Main>
     </AppShell>
   );
