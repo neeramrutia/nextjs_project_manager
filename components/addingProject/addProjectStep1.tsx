@@ -1,5 +1,5 @@
-import { Button, Card, TextInput } from "@mantine/core";
-import { useState  , useContext} from "react";
+import { Button, Card, Select, TextInput } from "@mantine/core";
+import { useState  , useContext, ChangeEvent} from "react";
 const step1Object = {
   title: "",
   status: "",
@@ -9,9 +9,10 @@ const step1Object = {
 
 
  export function AddProjectStep1(){
+  const [value , setValue] = useState("pending");
     const [Project , setProject] = useState({
         title: "",
-        status: "",
+        status: "pending",
         ProjectType: "",
         ProjectLink: "",
         Mentor: "none",
@@ -47,7 +48,15 @@ const step1Object = {
               value={Project.title}
               onChange={(e)=>{setProject({...Project , title : e.target.value})}}
             />
-            <TextInput
+            <Select
+            label="Your favorite library"
+            placeholder="Pick value"
+            data={['pending', 'Completed']}
+            required
+            value={Project.status}
+            onChange={(event)=>{setProject({...Project , status:event || 'pending'})}}
+          />
+            {/* <TextInput
               m={"sm"}
               withAsterisk
               label="Status"
@@ -55,7 +64,7 @@ const step1Object = {
               required
               value={Project.status}
               onChange={(e)=>{setProject({...Project,status:e.target.value})}}
-            />
+            /> */}
             <TextInput
               m={"sm"}
               withAsterisk
