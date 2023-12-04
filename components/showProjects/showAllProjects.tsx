@@ -7,6 +7,8 @@ import {
   Center,
   Grid,
   Group,
+  MultiSelect,
+  Select,
   Text,
   TextInput,
 } from "@mantine/core";
@@ -31,9 +33,11 @@ export default function ShowAllProjects() {
       content: "",
       Mentor: "",
       new: false,
+      status:"",
       _id: "",
     },
   ]);
+  const [status , setStatus] = useState('0');
   const fetchData = useCallback(async () => {
     const data = await fetch("api/projects");
     const res = await data.json();
@@ -56,6 +60,7 @@ export default function ShowAllProjects() {
       )
       .map((item) => (
         <Link
+        key={counter++}
           href={`/project/${item._id}`}
           target="_blank"
           style={{ textDecoration: "none" }}
@@ -84,7 +89,8 @@ export default function ShowAllProjects() {
         </Link>
       ));
 
-    var cards = data.map((card) => (
+    var cards = data.reverse().map((card) => (
+      (card.status == status ) ? 
       <Grid.Col span={4} key={counter++}>
         <Card shadow="sm" padding="lg" radius="md" withBorder className="">
           <Card.Section></Card.Section>
@@ -103,10 +109,16 @@ export default function ShowAllProjects() {
           </Text>
 
           <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-            Book classic tour now
+            <Link
+              href={`/project/${card._id}`}
+              target="_blank"
+              style={{ textDecoration: "none" }}
+            >
+              Project Details
+            </Link>
           </Button>
         </Card>
-      </Grid.Col>
+      </Grid.Col> : <></>
     ));
 
     return (
@@ -136,7 +148,22 @@ export default function ShowAllProjects() {
             )}
           </Spotlight.ActionsList>
         </Spotlight.Root>
-        <Grid m={"lg"}>{cards.length > 0 ? cards : "Nothing found..."}</Grid>
+        <Grid>
+          <Grid.Col span={4}>
+          <Select
+            m={"lg"}
+            label="Status"
+            placeholder="Pick value"
+            data={['Completed', 'pending']}
+            value={status}
+            onChange={(event)=>{setStatus(event || "0")}}
+          />
+          </Grid.Col>
+          <Grid.Col span={4}></Grid.Col>
+        </Grid>
+        <Grid m={"lg"}>
+          {cards.length > 0 ? cards.reverse() : "Nothing found..."}
+        </Grid>
       </>
     );
   }

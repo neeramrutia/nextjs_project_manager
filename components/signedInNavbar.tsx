@@ -9,7 +9,7 @@ import ShowAllProjects from "./showProjects/showAllProjects";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "../public/Demo.module.css";
-import { IconFileLike, IconHistory, IconHome, IconPlaylistAdd } from "@tabler/icons-react";
+import { IconFileLike, IconHistory, IconHome, IconPlaylistAdd, IconUser } from "@tabler/icons-react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -99,6 +99,21 @@ export default function SignedInNavbar() {
             onClick={(e) => {
               e.preventDefault();
               setActive(12);
+            }}
+            color="cyan"
+          />
+          )
+        }
+        {
+          (session?.user.isAdmin ) && (
+            <NavLink
+            leftSection={<IconUser size="1rem" stroke={1.5} />}
+            label="User List"
+            active={14 === active}
+            onClick={(e) => {
+              e.preventDefault();
+              setActive(14);
+              window.open('/users' , '_blank' , 'noopener')
             }}
             color="cyan"
           />
