@@ -18,6 +18,8 @@ export async function DELETE(request , {params}){
         return NextResponse.json({
             message:"error deleting user",
             success:false
+        } , {
+            status:500
         })
     }
 }
@@ -42,11 +44,13 @@ export async function GET(request , { params }){
 export async function PUT(request , { params }){
     try {
         const { userId } = params;
-        const{ name , password } =await request.json();
+        const{ name , password , isAdmin , isCoordinator } =await request.json();
         
         const user = await User.findById(userId);
-        user.name = name;
-        user.password = password;
+        if(name) user.name = name;
+        if(password) user.password = password;
+        if(isAdmin == true || isAdmin == false) user.isAdmin = isAdmin;
+        if(isCoordinator == true || isCoordinator == false) user.isCoordinator = isCoordinator;
         const updatedUser = await user.save();
         return NextResponse.json(updatedUser , {
             status:200,
@@ -59,6 +63,8 @@ export async function PUT(request , { params }){
         return NextResponse.json({
             message:"user not updated",
             success:false
+        } , {
+            status:500
         })
     }
 }
