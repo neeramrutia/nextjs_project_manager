@@ -49,7 +49,8 @@ const step1Object = {
               onChange={(e)=>{setProject({...Project , title : e.target.value})}}
             />
             <Select
-            label="Your favorite library"
+            m={"sm"}
+            label="Status"
             placeholder="Pick value"
             data={['pending', 'Completed']}
             required
