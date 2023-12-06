@@ -133,14 +133,15 @@ export default function SignedOutNavbar() {
           <NavLink
             leftSection={<IconBrandGoogle size="1rem" stroke={1.5} />}
             label="Sign In with google"
-            onClick={() => setActive(5)}
+            onClick={() =>{ setActive(5) ; signIn("google");}}
             color="teal"
+            
             active={5 === active}
           />
           <NavLink
             leftSection={<IconBrandGithub size="1rem" stroke={1.5} />}
             label="Sign In with github"
-            onClick={() => setActive(6)}
+            onClick={() => {setActive(6) ; signIn("github");}}
             color="teal"
             active={6 === active}
           />
