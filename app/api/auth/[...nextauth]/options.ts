@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from '../../../../models/userModel'
 import dbconnect from "../../../../utils/database";
 import { GithubProfile } from "next-auth/providers/github";
+dbconnect();
 export const options: NextAuthOptions = {
     providers: [
         GoogleProvider({

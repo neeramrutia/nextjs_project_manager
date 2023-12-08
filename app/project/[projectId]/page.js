@@ -75,7 +75,7 @@ export default function specificProject(){
       aria-label="Open in a new tab"
       color="cyan"
       m={"lg"}
-      onClick={(event) => event.preventDefault()}
+      onClick={(event) => {event.preventDefault(); window.open(mydata.ProjectLink , '_blank')}}
     >
       <IconExternalLink />
     </ActionIcon>

@@ -9,7 +9,7 @@ import ShowAllProjects from "./showProjects/showAllProjects";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "../public/Demo.module.css";
-import { IconFileLike, IconHistory, IconHome, IconPlaylistAdd, IconUser } from "@tabler/icons-react";
+import { IconFileLike, IconHistory, IconHome, IconPlaylistAdd, IconUser , IconUserCheck , IconUserShield } from "@tabler/icons-react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -114,6 +114,36 @@ export default function SignedInNavbar() {
               e.preventDefault();
               setActive(14);
               window.open('/users' , '_blank' , 'noopener')
+            }}
+            color="cyan"
+          />
+          )
+        }
+        {
+          (session?.user.isAdmin ) && (
+            <NavLink
+            leftSection={<IconUser size="1rem" stroke={1.5} />}
+            label="Co-ordinators List"
+            active={16 === active}
+            onClick={(e) => {
+              e.preventDefault();
+              setActive(16);
+              window.open('/coordinators' , '_blank' , 'noopener')
+            }}
+            color="cyan"
+          />
+          )
+        }
+        {
+          (session?.user.isAdmin ) && (
+            <NavLink
+            leftSection={<IconUserShield size="1rem" stroke={1.5} />}
+            label="Admins List"
+            active={15 === active}
+            onClick={(e) => {
+              e.preventDefault();
+              setActive(15);
+              window.open('/admins' , '_blank' , 'noopener')
             }}
             color="cyan"
           />

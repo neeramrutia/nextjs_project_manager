@@ -1,20 +1,23 @@
 "use client";
-import { useState } from "react";
-import { signIn, signOut , useSession} from 'next-auth/react'
+import { useState , useEffect } from "react";
+import { useSession } from 'next-auth/react'
 import { useDisclosure } from '@mantine/hooks';
-import { AppShell, Burger, Group } from '@mantine/core';
-import { NavLink } from '@mantine/core';
-import { IconFingerprint , IconBrandGoogle , IconBrandGithub , IconPassword , IconHome , IconHistory , IconFileLike} from '@tabler/icons-react';
-import Home from "../components/homeComponent";
-import { useRouter } from 'next/navigation'
 import SignedOutNavbar from "../components/signedOutNavbar";
 import SignedInNavbar from "../components/signedInNavbar";
+import  dbconnect  from "../utils/database";
 
 export default function MyHome() {
   const { data : session } = useSession();
   const [opened, { toggle }] = useDisclosure();
+  useEffect(() => {
+    async function connectToDB(){
+      console.log("useEffect running")
+      let db = await dbconnect();
+    }
+    connectToDB();
+  }, [])
   
-  console.log(session)
+  
   
   return (
     <div>

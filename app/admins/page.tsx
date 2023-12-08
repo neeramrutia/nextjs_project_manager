@@ -2,9 +2,11 @@
 import { Accordion, Button, Grid, Text, rem } from "@mantine/core";
 import { error } from "console";
 import { useCallback, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import useSWR from "swr";
 
 export default function Users() {
+    const { data: session } = useSession();
   const [usersData, setusersData] = useState([
     {
       name: "",
@@ -45,8 +47,7 @@ export default function Users() {
   );
   return (
     <>
-      {/* {JSON.stringify(usersData)} */}
-      <div>
+      { session?.user.isAdmin && ( <div>
         <Accordion
           style={{ verticalAlign: "middle" }}
           m={"lg"}
@@ -55,7 +56,15 @@ export default function Users() {
         >
           {items}
         </Accordion>
-      </div>
+      </div>)}
+
+      {
+        !session && (<>
+        <h1>Please sign in !!</h1>
+        </>)
+      }
+      
+     
     </>
   );
 }

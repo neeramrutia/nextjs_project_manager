@@ -108,7 +108,7 @@ export default function ShowAllProjects() {
             Norway
           </Text>
 
-          <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+          <Button onClick={()=>{window.open(`/project/${card._id}`) , '_blank'}} variant="light" color="blue" fullWidth mt="md" radius="md">
             <Link
               href={`/project/${card._id}`}
               target="_blank"
