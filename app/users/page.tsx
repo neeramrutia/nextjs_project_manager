@@ -23,7 +23,7 @@ export default function Users() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ isAdmin: true }),
+      body: JSON.stringify({ isAdmin: true , role : "admin" }),
     });
   }
   const promoteToCoordinator = async (userId: String) => {
@@ -32,7 +32,7 @@ export default function Users() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ isCoordinator: true }),
+      body: JSON.stringify({ isCoordinator: true , role : "coordinator"}),
     });
 
     if (res.status == 200) console.log("user is promoted to co-ordinator");

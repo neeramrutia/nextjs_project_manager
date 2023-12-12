@@ -44,13 +44,13 @@ export async function GET(request , { params }){
 export async function PUT(request , { params }){
     try {
         const { userId } = params;
-        const{ name , password , isAdmin , isCoordinator } =await request.json();
+        const{ name , password , isAdmin , isCoordinator , role } =await request.json();
         
         const user = await User.findById(userId);
         if(name) user.name = name;
         if(password) user.password = password;
-        if(isAdmin == true || isAdmin == false) user.isAdmin = isAdmin;
-        if(isCoordinator == true || isCoordinator == false) user.isCoordinator = isCoordinator;
+        if(isAdmin == true || isAdmin == false) {user.isAdmin = isAdmin; user.role = role}
+        if(isCoordinator == true || isCoordinator == false) {user.isCoordinator = isCoordinator; user.role = role; }
         const updatedUser = await user.save();
         return NextResponse.json(updatedUser , {
             status:200,

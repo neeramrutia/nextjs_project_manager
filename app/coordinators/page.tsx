@@ -21,7 +21,7 @@ export default function Users() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ isAdmin: true }),
+      body: JSON.stringify({ isAdmin: true , isCoordinator : false , role : "admin"}),
     });
   }
   const demoteToUser = async (userId: String) => {
@@ -30,7 +30,7 @@ export default function Users() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ isCoordinator: false }),
+      body: JSON.stringify({ isCoordinator: false , role : "user"}),
     });
 
     if (res.status == 200) console.log("user is demoted to user");

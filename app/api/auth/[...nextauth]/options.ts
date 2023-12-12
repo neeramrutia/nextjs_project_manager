@@ -1,12 +1,28 @@
-import type { NextAuthOptions } from "next-auth";
+import type { ISODateString, NextAuthOptions } from "next-auth";
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from '../../../../models/userModel'
 import dbconnect from "../../../../utils/database";
-import { GithubProfile } from "next-auth/providers/github";
+import { JWT } from "next-auth/jwt";
+export type CustomSession = {
+    user?:CustomUser;
+    expires:ISODateString;
+}
+export type CustomUser = {
+    id?:string|null;
+    name?:string|null;
+    email?:string|null;
+    password?:string|null;
+    isAdmin?:boolean|null;
+    isCoordinator?:boolean|null;
+    role?:string|null;
+}
 dbconnect();
 export const options: NextAuthOptions = {
+    session:{
+        strategy:"jwt"
+    } , 
     providers: [
         GoogleProvider({
             clientId:process.env.GOOGLE_ID as string,
@@ -16,6 +32,7 @@ export const options: NextAuthOptions = {
         GitHubProvider({
             clientId : process.env.GITHUB_ID as string,
             clientSecret : process.env.GITHUB_SECRET as string,
+            
         }),
         CredentialsProvider({
             name:"Credentials",
@@ -40,7 +57,7 @@ export const options: NextAuthOptions = {
                     try {
                         if(user.password == credentials?.password){
                             console.log('user is verified');
-                            const returnUser = {id:user._id,name : user.name , email:user.email}
+                            const returnUser = {id:user._id,name : user.name , email:user.email , role : user?.role == null ? "user" : user.role}
                             return returnUser;
                         }
                         else return null;
@@ -54,6 +71,21 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks:{
+        async jwt({ token , user} : {token : JWT , user : CustomUser}){
+            
+            if(user)
+            {
+               token.role = user.role
+               if(user.role == undefined){
+                const tokenUser = await User.findOne({email:token.email})
+                token.role = tokenUser?.role
+               }
+            }
+            console.log("token " + token)
+            console.log("token " + token.role)
+            return token
+        },
+
         async session({session }){
             try {
                 const user = await User.findOne({email:session.user?.email});
@@ -65,7 +97,7 @@ export const options: NextAuthOptions = {
                 session.user.isCoordinator = user.isCoordinator;
                 session.user.isAdmin = user.isAdmin;
                 session.user.role = userRole;
-                console.log(session);
+                // console.log(session);
 
                 return session
             } catch (error) {
