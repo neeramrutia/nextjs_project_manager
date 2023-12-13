@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from '../../../../models/userModel'
 import dbconnect from "../../../../utils/database";
 import { JWT } from "next-auth/jwt";
+import { Profile } from "next-auth";
 export type CustomSession = {
     user?:CustomUser;
     expires:ISODateString;
@@ -97,23 +98,18 @@ export const options: NextAuthOptions = {
                 session.user.isCoordinator = user.isCoordinator;
                 session.user.isAdmin = user.isAdmin;
                 session.user.role = userRole;
-                // console.log(session);
 
                 return session
             } catch (error) {
                 console.log(error);
                 return session
             }
-            // const sessionUser = await User.findOne({email : session?.user?.email});
-            // console.log(sessionUser);
-            // console.log("----------");
-            // console.log(session);
-            // return session
         },
-        async signIn({profile}){
+        async signIn({user , profile}){
             try {
-                if(profile == undefined){return true} // returning true for objects whose origin was authorize fun
-                console.log(profile);
+                // if(profile == undefined){return true} // returning true for objects whose origin was authorize fun
+                if(user) {console.log("user : "+ user.email + user); return true ;}
+                console.log("profile : " + profile);
                 var userExist = await User.findOne({email : profile?.email});
                 if(!userExist){
                     const usertobecreated = await User.create({
