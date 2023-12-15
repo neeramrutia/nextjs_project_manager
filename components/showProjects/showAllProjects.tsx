@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import DotLoader from "../Loader/loader";
 import { Spotlight, spotlight } from "@mantine/spotlight";
 import {
   Badge,
@@ -7,6 +8,7 @@ import {
   Center,
   Grid,
   Group,
+  Loader,
   MultiSelect,
   Select,
   Text,
@@ -124,11 +126,13 @@ export default function ShowAllProjects() {
     return (
       <>
         <TextInput
+          leftSection = {<IconSearch stroke={1.5} />}
           m={"lg"}
           onClick={spotlight.open}
           w={"30%"}
           placeholder="search by project name"
-        />
+          
+        ></TextInput>
 
         <Spotlight.Root
           m={"lg"}
@@ -165,6 +169,11 @@ export default function ShowAllProjects() {
           {cards.length > 0 ? cards.reverse() : "Nothing found..."}
         </Grid>
       </>
+    );
+  }
+  else{
+    return(
+      <DotLoader/>
     );
   }
 }

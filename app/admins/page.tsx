@@ -4,9 +4,10 @@ import { error } from "console";
 import { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
-
+import DotLoader from "../../components/Loader/loader";
 export default function Users() {
-    const { data: session } = useSession();
+  const [loading, setLoading] = useState(true);
+  const { data: session } = useSession();
   const [usersData, setusersData] = useState([
     {
       name: "",
@@ -22,6 +23,7 @@ export default function Users() {
     console.log("fetch data called");
     // console.log(data)
     setusersData(data);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -45,26 +47,24 @@ export default function Users() {
       <></>
     )
   );
-  return (
-    <>
-      { session?.user.isAdmin && ( <div>
-        <Accordion
-          style={{ verticalAlign: "middle" }}
-          m={"lg"}
-          variant="separated"
-          radius="md"
-        >
-          {items}
-        </Accordion>
-      </div>)}
-
-      {
-        !session && (<>
-        <h1>Please sign in !!</h1>
-        </>)
-      }
-      
-     
-    </>
-  );
+  if (loading) {
+    return <DotLoader />;
+  } else {
+    return (
+      <>
+        {session?.user.isAdmin && (
+          <div>
+            <Accordion
+              style={{ verticalAlign: "middle" }}
+              m={"lg"}
+              variant="separated"
+              radius="md"
+            >
+              {items}
+            </Accordion>
+          </div>
+        )}
+      </>
+    );
+  }
 }

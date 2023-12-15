@@ -3,8 +3,10 @@ import { Accordion, Button, Grid, Text, rem } from "@mantine/core";
 import { error } from "console";
 import { useCallback, useEffect, useState } from "react";
 import useSWR from "swr";
+import DotLoader from "../../components/Loader/loader";
 
 export default function Users() {
+  const [loading, setLoading] = useState(true);
   const removeUser = async (_id: String) => {
     const res = await fetch(`/api/users/${_id}`, {
       method: "DELETE",
@@ -23,16 +25,16 @@ export default function Users() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ isAdmin: true , role : "admin" }),
+      body: JSON.stringify({ isAdmin: true, role: "admin" }),
     });
-  }
+  };
   const promoteToCoordinator = async (userId: String) => {
     const res = await fetch(`/api/users/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ isCoordinator: true , role : "coordinator"}),
+      body: JSON.stringify({ isCoordinator: true, role: "coordinator" }),
     });
 
     if (res.status == 200) console.log("user is promoted to co-ordinator");
@@ -56,6 +58,7 @@ export default function Users() {
     console.log("fetch data called");
     // console.log(data)
     setusersData(data);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -100,12 +103,14 @@ export default function Users() {
               {" "}
               Promote to co-ordinator{" "}
             </Button>
-            <Button color="teal" m={"lg"}
-            onClick={()=> {
-              promoteToAdmin(item._id).then(() => {
-                fetchdata();
-              });
-            }}
+            <Button
+              color="teal"
+              m={"lg"}
+              onClick={() => {
+                promoteToAdmin(item._id).then(() => {
+                  fetchdata();
+                });
+              }}
             >
               {" "}
               Promote to admin{" "}
@@ -117,19 +122,23 @@ export default function Users() {
       <></>
     )
   );
-  return (
-    <>
-      {/* {JSON.stringify(usersData)} */}
-      <div>
-        <Accordion
-          style={{ verticalAlign: "middle" }}
-          m={"lg"}
-          variant="separated"
-          radius="md"
-        >
-          {items}
-        </Accordion>
-      </div>
-    </>
-  );
+  if (loading) {
+    return <DotLoader />;
+  } else {
+    return (
+      <>
+        {/* {JSON.stringify(usersData)} */}
+        <div>
+          <Accordion
+            style={{ verticalAlign: "middle" }}
+            m={"lg"}
+            variant="separated"
+            radius="md"
+          >
+            {items}
+          </Accordion>
+        </div>
+      </>
+    );
+  }
 }
