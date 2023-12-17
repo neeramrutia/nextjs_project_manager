@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { User } from '../../../../models/userModel'
 import dbconnect from "../../../../utils/database";
 import { JWT } from "next-auth/jwt";
+import bcrypt from "bcryptjs";
 import { Profile } from "next-auth";
 export type CustomSession = {
     user?:CustomUser;
@@ -46,6 +47,7 @@ export const options: NextAuthOptions = {
                 password:{
                     label:"Password : ",
                     type: "password",
+                    required:true,
                     placeholder: "enter you password"
                 },
             },
@@ -56,7 +58,9 @@ export const options: NextAuthOptions = {
                 if(!user){return null}
                 else{
                     try {
-                        if(user.password == credentials?.password){
+                        const hashPass = await bcrypt.compare(credentials?.password || "",user.password);
+                        console.log('hashPass : ' + hashPass);
+                        if(hashPass){
                             console.log('user is verified');
                             const returnUser = {id:user._id,name : user.name , email:user.email , role : user?.role == null ? "user" : user.role}
                             return returnUser;
