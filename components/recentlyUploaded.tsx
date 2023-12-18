@@ -1,35 +1,70 @@
-import { Badge, Button, Card, Grid, Group ,Image , Text } from "@mantine/core";
+import { Badge, Button, Card, Grid, Group, Image, Pill, Text } from "@mantine/core";
+import { error } from "console";
+import { useState, useEffect, useCallback } from "react";
 
-export default function RecentlyUploaded(){
-    return (
-    <Grid>
+import DotLoader from "./Loader/loader";
+export default function RecentlyUploaded() {
+  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState([{
+    title : "",
+    ProjectLink : "",
+    _id : ""
+  }]);
+
+  const fetchData = useCallback(async () => {
+    console.log("fetch data called in recents");
+    const res = await fetch("/api/projects/recentlyUploaded");
+    const data = await res.json();
+    setLoading(false);
+    setProjects(data);
+  }, []);
+  useEffect(() => {
+    fetchData().catch(console.error);
+  }, [fetchData]);
+
+  var items = projects.map((item) => (
     <Grid.Col span={4}>
-    <Card shadow="sm" padding="lg" radius="md" withBorder className=''  >
-    <Card.Section>
-      <Image
-        src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-        height={160}
-        alt="Norway"
-      />
-    </Card.Section>
+    <Card key={item.title} shadow="sm" padding="lg" radius="md" withBorder className="">
+      <Card.Section>
+      </Card.Section>
 
-    <Group justify="space-between" mt="md" mb="xs">
-      <Text fw={500}>Recently Uploaded</Text>
-      <Badge color="pink" variant="light">
-        On Sale
-      </Badge>
-    </Group>
+      <Group justify="space-between" mt="md" mb="xs">
+        <Text fw={500}>{item.title}</Text>
+        <Badge color="lime" variant="light">
+          Recently Added
+        </Badge>
+      </Group>
 
-    <Text size="sm" c="dimmed">
-      With Fjord Tours you can explore more of the magical fjord landscapes with tours and
-      activities on and around the fjords of Norway
-    </Text>
+      <Text size="sm" c="dimmed" lineClamp={4}>
+        <Text size="sm" c = "dimmed" ml={"xs"}> Technology used :  </Text> 
+        <br></br>
+        <Pill ml={"xs"} mb={"xs"}>neer</Pill>
+        <Pill ml={"xs"} mb={"xs"}>neer</Pill>
+        <Pill ml={"xs"} mb={"xs"}>neer</Pill>
+        <Pill ml={"xs"} mb={"xs"}>neer</Pill>
+        <Pill ml={"xs"} mb={"xs"}>neer</Pill>
+        <Pill ml={"xs"} mb={"xs"}>neer</Pill>
+        <Pill ml={"xs"} mb={"xs"}>neer</Pill>
+        <Pill ml={"xs"} mb={"xs"}>neer</Pill>
+        <Pill ml={"xs"} mb={"xs"}>neer</Pill>
+      </Text>
 
-    <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-      Book classic tour now
-    </Button>
-  </Card>
+      <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={()=>{window.open(`/project/${item._id}`, "_blank");}}>
+        See Details
+      </Button>
+    </Card>
     </Grid.Col>
-    </Grid>
-    )
+  ));
+
+  if (loading) {
+    return <DotLoader />;
+  } else {
+    return (
+      <>
+        <Grid>
+          {items}
+        </Grid>
+      </>
+    );
+  }
 }
