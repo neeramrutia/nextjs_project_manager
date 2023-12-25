@@ -112,7 +112,8 @@ export const options: NextAuthOptions = {
         async signIn({user , profile}){
             try {
                 // if(profile == undefined){return true} // returning true for objects whose origin was authorize fun
-                if(user) {console.log("user : "+ user.email + user); return true ;}
+                if(profile != undefined)
+                {
                 console.log("profile : " + profile);
                 var userExist = await User.findOne({email : profile?.email});
                 if(!userExist){
@@ -125,6 +126,12 @@ export const options: NextAuthOptions = {
 
                 console.log(profile);
                 return true;
+            }
+            else{
+                    console.log("user : "+ user.email + user); 
+                    return true ;
+                
+            }
             } catch (error) {
                 console.log(error);
                 return false;

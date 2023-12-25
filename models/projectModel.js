@@ -34,6 +34,14 @@ const ProjectSchema = new mongoose.Schema({
     Mentor:{
         type:String,
         default:"none"
+    },
+    members:{
+        type : Array,
+        default : []
+    } , 
+    technologiesUsed:{
+        type : Array,
+        default : []
     }
 });
 

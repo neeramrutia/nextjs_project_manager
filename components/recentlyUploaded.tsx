@@ -23,7 +23,7 @@ export default function RecentlyUploaded() {
   }, [fetchData]);
 
   var items = projects.map((item) => (
-    <Grid.Col span={4}>
+    <Grid.Col span={4} key={item.title}>
     <Card key={item.title} shadow="sm" padding="lg" radius="md" withBorder className="">
       <Card.Section>
       </Card.Section>
