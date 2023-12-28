@@ -1,4 +1,6 @@
 "use client";
+// import Error from "next/error"
+import ErrorPage from "../../404"
 import DotLoader from "../../../components/Loader/loader"
 import {
   ActionIcon,
@@ -10,7 +12,10 @@ import {
   Group,
   Text,
   Loader,
+  rem
 } from "@mantine/core";
+import { IconTrash } from "@tabler/icons-react";
+
 import { IconExternalLink } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -22,6 +27,7 @@ import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 export default function specificProject() {
   const [loading, setLoading] = useState(true);
+  const [projectExist, setProjectExist] = useState(true);
   const pathname = usePathname();
   const projectId = pathname.split("/")[2];
   const [mydata, setmyData] = useState({
@@ -32,18 +38,39 @@ export default function specificProject() {
     ProjectType: "",
     ProjectLink: "",
   });
+  const deleteProject = useCallback(async()=>{
+    const res = await fetch(`/api/projects/${projectId}`,{
+      method: "DELETE",
+    });
+    const data = await res.json();
+    if(res.status == 200){
+      console.log("project deleted");
+    }
+  })
   const fetchData = useCallback(async () => {
     const res = await fetch(`/api/projects/${projectId}`);
     const data = await res.json();
-    console.log(data);
-    setmyData(data);
-    setLoading(false);
-    console.log(mydata);
+    console.log(res)
+    if(data == null || res.status == 500){
+      console.log("NO DATA FOUND");
+      setProjectExist(false);
+    }else{
+      console.log(data);
+      setmyData(data);
+      setLoading(false);
+      console.log(mydata);
+    }
+    
   }, []);
   useEffect(() => {
     fetchData().catch(console.error);
   }, [fetchData]);
 
+  if(!projectExist){
+    return (
+       <ErrorPage title="Project not Found" des="This project is either deleted or doesn't exist" statuscode={400} />
+    )
+  }
   if (loading) {
     return (
       <DotLoader/>
@@ -51,7 +78,7 @@ export default function specificProject() {
   } else {
     return (
       <>
-        <Grid h={"100%"}>
+        <Grid h={"90%"}>
           <Grid.Col span={6}>
             <Card
               m={"xl"}
@@ -65,37 +92,37 @@ export default function specificProject() {
 
               <Group justify="space-around" mt="md" mb="xs">
                 <Text size="xl" fw={700}>
-                  {mydata.title}
+                  {mydata?.title}
                 </Text>
               </Group>
               <Fieldset m={"lg"} legend="Team Details">
                 <Text size="lg" c="dimmed">
-                  Mentor: {mydata.Mentor}
+                  Mentor: {mydata?.Mentor}
                 </Text>
                 <Text size="lg" c="dimmed">
-                  Team Members: {mydata.Mentor}
+                  Team Members: {mydata?.Mentor}
                 </Text>
               </Fieldset>
 
               <Fieldset m={"lg"} legend="Project Details">
                 <Text size="lg" c="dimmed">
-                  Status: {mydata.status}
+                  Status: {mydata?.status}
                 </Text>
                 <Text size="lg" c="dimmed">
-                  Project Type: {mydata.ProjectType}
+                  Project Type: {mydata?.ProjectType}
                 </Text>
               </Fieldset>
               <Group justify="space-around">
                 <ActionIcon
                   component="a"
-                  href={mydata.ProjectLink}
+                  href={mydata?.ProjectLink}
                   size="xl"
                   aria-label="Open in a new tab"
                   color="cyan"
                   m={"lg"}
                   onClick={(event) => {
                     event.preventDefault();
-                    window.open(mydata.ProjectLink, "_blank");
+                    window.open(mydata?.ProjectLink, "_blank");
                   }}
                 >
                   <IconExternalLink />
@@ -115,7 +142,7 @@ export default function specificProject() {
               <Card.Section></Card.Section>
               <Markdown
                 className="markdown1"
-                children={mydata.content}
+                children={mydata?.content}
                 components={{
                   code(props) {
                     const { children, className, node, ...rest } = props;
@@ -139,7 +166,20 @@ export default function specificProject() {
               />
             </Card>
           </Grid.Col>
+          
         </Grid>
+        <Grid>
+          <Grid.Col span={4} offset={4} >
+            <Group justify="space-around">
+          <Button
+           leftSection={<IconTrash style={{ width: rem(15), height: rem(15) }} />} 
+           color="red"
+           onClick={() => {deleteProject(); location.reload();}}
+           >Delete</Button>
+          </Group>
+          </Grid.Col>
+        </Grid>
+       
       </>
     );
   }

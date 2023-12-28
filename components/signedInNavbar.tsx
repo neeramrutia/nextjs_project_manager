@@ -17,6 +17,7 @@ import Home from "./homeComponent";
 import RecentlyUploaded from "./recentlyUploaded";
 import MostLiked from "./mostLiked";
 import AddProject from "./addingProject/addProject";
+import Image from "next/image";
 export default function SignedInNavbar() {
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
@@ -41,6 +42,8 @@ export default function SignedInNavbar() {
         <Group h="100%" px="md" justify="space-between">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           {/* <MantineLogo size={30} /> */}
+          <Group>
+          <Image src="/logo.png" alt="logo" width={50} height={50}></Image>
           <Text
             size="xl"
             fw={"bolder"}
@@ -49,6 +52,7 @@ export default function SignedInNavbar() {
           >
             NextGen Project Management
           </Text>
+          </Group>
           <ActionIcon
             onClick={() =>
               setColorScheme(computedColorScheme === "light" ? "dark" : "light")

@@ -14,7 +14,9 @@ export async function GET(request , { params }){
     } catch (error) {
         return NextResponse.json({
             success:false,
-            statusText:"error fetching task !!"
+            statusText:"error fetching task !!",
+        },{
+            status:500
         });    
     }
 }
@@ -51,6 +53,8 @@ export async function DELETE(request , { params }){
         return NextResponse.json({
             message:"Error occurred while deleting the task !!",
             success:false
+        },{
+            status:500
         });
     }
 }
