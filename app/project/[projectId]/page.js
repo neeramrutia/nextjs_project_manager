@@ -37,7 +37,19 @@ export default function specificProject() {
     status: "",
     ProjectType: "",
     ProjectLink: "",
+    members : [{}]
   });
+  const mem = mydata?.members.map((m)=>{
+    if(m.name)
+    return(
+      <>
+      <Group key={m.id || "1"}  justify="space-around">
+      <Text >name : {m.name}</Text>
+      <Text>id : {m.id}</Text>
+      </Group>
+      </>
+    )
+  })
   const deleteProject = useCallback(async()=>{
     const res = await fetch(`/api/projects/${projectId}`,{
       method: "DELETE",
@@ -100,7 +112,7 @@ export default function specificProject() {
                   Mentor: {mydata?.Mentor}
                 </Text>
                 <Text size="lg" c="dimmed">
-                  Team Members: {mydata?.Mentor}
+                  Team Members: {mem}
                 </Text>
               </Fieldset>
 

@@ -56,12 +56,13 @@ export default function Users() {
     const res = await fetch("/api/users");
     const data = await res.json();
     console.log("fetch data called");
-    // console.log(data)
+     console.log("useCallback called")
     setusersData(data);
     setLoading(false);
   }, []);
 
   useEffect(() => {
+    console.log("useEffect called")
     fetchdata().catch(console.error);
   }, [fetchdata]);
 

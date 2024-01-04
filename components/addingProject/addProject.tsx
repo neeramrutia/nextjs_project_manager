@@ -20,7 +20,8 @@ export default function AddProject() {
     ProjectLink: "",
     Mentor: "none",
     content: "",
-    userId:session?.user.id
+    userId:session?.user.id,
+    members : [{}],
   });
   const resetProject = ()=>{
     Project.Mentor='';
@@ -29,6 +30,7 @@ export default function AddProject() {
     Project.ProjectType='';
     Project.content='';
     Project.status='';
+    Project.members=[];
   }
   const RegisterProject = async()=>{
     const res = await fetch('api/projects',{
@@ -57,6 +59,7 @@ export default function AddProject() {
     Project.content = step2Object.content;
     Project.Mentor = step3Object.Mentor;
     Project.ProjectLink = step3Object.ProjectLink;
+    Project.members = step3Object.members
   };
   const [active, setActive] = useState(0);
   const nextStep = () =>
