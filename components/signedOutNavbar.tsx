@@ -24,6 +24,7 @@ import { useState } from "react";
 import Home from "./homeComponent";
 import RecentlyUploaded from "./recentlyUploaded";
 import MostLiked from "./mostLiked";
+import Image from "next/image";
 export default function SignedOutNavbar() {
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
@@ -49,6 +50,8 @@ export default function SignedOutNavbar() {
         <Group h="100%" px="md" w="100%" justify="space-between">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           {/* <MantineLogo size={30} /> */}
+          <Group>
+          <Image src="/logo.png" alt="logo" width={50} height={50}></Image>
           <Text
             size="xl"
             fw={"bolder"}
@@ -57,7 +60,7 @@ export default function SignedOutNavbar() {
           >
             NextGen Project Management
           </Text>
-          
+          </Group>
             
           <ActionIcon
             onClick={() =>
