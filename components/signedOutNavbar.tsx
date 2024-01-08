@@ -83,7 +83,7 @@ export default function SignedOutNavbar() {
           leftSection={<IconHome size="1rem" stroke={1.5} />}
           label="Home"
           active={8 === active}
-          onClick={() => setActive(8)}
+          onClick={() => {setActive(8);toggle()}}
           color="cyan"
         />
         <NavLink
@@ -91,7 +91,7 @@ export default function SignedOutNavbar() {
           active={0 === active}
           leftSection={<IconFingerprint size="1rem" stroke={1.5} />}
           childrenOffset={28}
-          onClick={() => setActive(0)}
+          onClick={() => {setActive(0);}}
           color="cyan"
         >
           <NavLink
@@ -101,6 +101,7 @@ export default function SignedOutNavbar() {
             onClick={() => {
               setActive(1);
               signIn("google");
+              toggle();
             }}
             color="teal"
           />
@@ -111,6 +112,7 @@ export default function SignedOutNavbar() {
             onClick={() => {
               setActive(2);
               signIn("github");
+              toggle();
             }}
             color="teal"
           />
@@ -120,6 +122,7 @@ export default function SignedOutNavbar() {
             active={3 === active}
             onClick={() => {
               setActive(3);
+              toggle();
             }}
             color="teal"
           />
@@ -136,7 +139,7 @@ export default function SignedOutNavbar() {
           <NavLink
             leftSection={<IconBrandGoogle size="1rem" stroke={1.5} />}
             label="Sign In with google"
-            onClick={() =>{ setActive(5) ; signIn("google");}}
+            onClick={() =>{ setActive(5) ; signIn("google");toggle()}}
             color="teal"
             
             active={5 === active}
@@ -144,7 +147,7 @@ export default function SignedOutNavbar() {
           <NavLink
             leftSection={<IconBrandGithub size="1rem" stroke={1.5} />}
             label="Sign In with github"
-            onClick={() => {setActive(6) ; signIn("github");}}
+            onClick={() => {setActive(6) ; signIn("github");toggle()}}
             color="teal"
             active={6 === active}
           />
@@ -163,14 +166,14 @@ export default function SignedOutNavbar() {
           leftSection={<IconHistory size="1rem" stroke={1.5} />}
           label="Recently uploaded projects"
           active={9 === active}
-          onClick={() => setActive(9)}
+          onClick={() => {setActive(9);toggle()}}
           color="cyan"
         />
         <NavLink
           leftSection={<IconFileLike size="1rem" stroke={1.5} />}
           label="Most Liked Projects"
           active={10 === active}
-          onClick={() => setActive(10)}
+          onClick={() => {setActive(10);toggle()}}
           color="cyan"
         />
       </AppShell.Navbar>

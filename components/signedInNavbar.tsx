@@ -71,27 +71,27 @@ export default function SignedInNavbar() {
           leftSection={<IconHome size="1rem" stroke={1.5} />}
           label="Home"
           active={8 === active}
-          onClick={() => setActive(8)}
+          onClick={() => {setActive(8);toggle()}}
           color="cyan"
         />
         <NavLink
           leftSection={<IconHistory size="1rem" stroke={1.5} />}
           label="Recently uploaded projects"
           active={9 === active}
-          onClick={() => setActive(9)}
+          onClick={() => {setActive(9);toggle()}}
           color="cyan"
         />
         <NavLink
           leftSection={<IconFileLike size="1rem" stroke={1.5} />}
           label="Most Liked Projects"
           active={10 === active}
-          onClick={() => setActive(10)}
+          onClick={() => {setActive(10);toggle()}}
           color="cyan"
         />
         <NavLink
           label="Show All Projects"
           active={13 === active}
-          onClick={() => setActive(13)}
+          onClick={() => {setActive(13);toggle()}}
           color="cyan"
         />
         {
@@ -103,6 +103,7 @@ export default function SignedInNavbar() {
             onClick={(e) => {
               e.preventDefault();
               setActive(12);
+              toggle();
             }}
             color="cyan"
           />
@@ -118,6 +119,7 @@ export default function SignedInNavbar() {
               e.preventDefault();
               setActive(14);
               window.open('/users' , '_blank' , 'noopener')
+              toggle();
             }}
             color="cyan"
           />
@@ -132,7 +134,8 @@ export default function SignedInNavbar() {
             onClick={(e) => {
               e.preventDefault();
               setActive(16);
-              window.open('/coordinators' , '_blank' , 'noopener')
+              window.open('/coordinators' , '_blank' , 'noopener');
+              toggle();
             }}
             color="cyan"
           />
@@ -147,7 +150,8 @@ export default function SignedInNavbar() {
             onClick={(e) => {
               e.preventDefault();
               setActive(15);
-              window.open('/admins' , '_blank' , 'noopener')
+              window.open('/admins' , '_blank' , 'noopener');
+              toggle();
             }}
             color="cyan"
           />
@@ -161,6 +165,7 @@ export default function SignedInNavbar() {
               e.preventDefault();
               setActive(11);
               signOut();
+              toggle();
             }}
             color="cyan"
           />

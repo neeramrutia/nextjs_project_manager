@@ -1,9 +1,11 @@
-import { Badge, Button, Card, Grid, Group, Image, Pill, Text } from "@mantine/core";
-import { error } from "console";
+import { Badge, Button, Card, Grid, Group, Image, Pill, Text, em } from "@mantine/core";
 import { useState, useEffect, useCallback } from "react";
 
 import DotLoader from "./Loader/loader";
+import { useMediaQuery } from "@mantine/hooks";
 export default function RecentlyUploaded() {
+  const isMobile = useMediaQuery(`(max-width: ${em(500)})`);
+  const isTablet = useMediaQuery(`(max-width: ${em(750)})`);
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([{
     title : "",
@@ -23,7 +25,7 @@ export default function RecentlyUploaded() {
   }, [fetchData]);
 
   var items = projects.map((item) => (
-    <Grid.Col span={4} key={item.title}>
+    <Grid.Col span={isTablet ? isMobile ? 12: 6: 4} key={item.title}>
     <Card key={item.title} shadow="sm" padding="lg" radius="md" withBorder className="">
       <Card.Section>
       </Card.Section>
