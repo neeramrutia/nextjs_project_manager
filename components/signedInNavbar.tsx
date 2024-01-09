@@ -1,5 +1,5 @@
-import { AppShell, Burger, Button, Group, NavLink, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { AppShell, Burger, Button, Group, NavLink, Text, em } from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import {
   ActionIcon,
   useMantineColorScheme,
@@ -20,6 +20,7 @@ import AddProject from "./addingProject/addProject";
 import Image from "next/image";
 export default function SignedInNavbar() {
   const { setColorScheme } = useMantineColorScheme();
+  const isMobile = useMediaQuery(`(max-width: ${em(500)})`);
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
@@ -45,15 +46,17 @@ export default function SignedInNavbar() {
           <Group>
           <Image src="/logo.png" alt="logo" width={50} height={50}></Image>
           <Text
-            size="xl"
+            size={isMobile ? "md": "xl"}
             fw={"bolder"}
             variant="gradient"
             gradient={{ from: "blue", to: "cyan", deg: 90 }}
           >
-            NextGen Project Management
+            Project Catalog
           </Text>
           </Group>
-          <ActionIcon
+          {
+            !isMobile && (
+              <ActionIcon
             onClick={() =>
               setColorScheme(computedColorScheme === "light" ? "dark" : "light")
             }
@@ -64,6 +67,14 @@ export default function SignedInNavbar() {
             <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
             <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
           </ActionIcon>
+            )
+          }
+          {
+            isMobile && (
+              <Text>  </Text>
+            )
+          }
+          
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">

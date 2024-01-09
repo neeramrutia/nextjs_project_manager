@@ -1,5 +1,5 @@
-import { AppShell, Burger, Grid, Group, NavLink, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { AppShell, Burger, Grid, Group, NavLink, Text, em } from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import SignUpWithCred from "./signUpWithCred";
 import {
   ActionIcon,
@@ -30,6 +30,7 @@ export default function SignedOutNavbar() {
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
+  const isMobile = useMediaQuery(`(max-width: ${em(500)})`);
   const [opened, { toggle }] = useDisclosure();
   const [active, setActive] = useState(8);
   const router = useRouter();
@@ -53,16 +54,17 @@ export default function SignedOutNavbar() {
           <Group>
           <Image src="/logo.png" alt="logo" width={50} height={50}></Image>
           <Text
-            size="xl"
+            size={isMobile ? "md": "xl"}
             fw={"bolder"}
             variant="gradient"
             gradient={{ from: "blue", to: "cyan", deg: 90 }}
           >
-            NextGen Project Management
+            Project Catalog
           </Text>
           </Group>
-            
-          <ActionIcon
+            {
+              !isMobile && (
+                <ActionIcon
             onClick={() =>
               setColorScheme(computedColorScheme === "light" ? "dark" : "light")
             }
@@ -73,6 +75,14 @@ export default function SignedOutNavbar() {
             <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
             <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
           </ActionIcon>
+              )
+            }
+            {
+              isMobile && (
+                <Text></Text>
+              )
+            }
+          
           
           
         </Group>
