@@ -12,8 +12,10 @@ import {
   Group,
   Text,
   Loader,
-  rem
+  rem,
+  em
 } from "@mantine/core";
+import { useMediaQuery } from '@mantine/hooks';
 import { IconTrash } from "@tabler/icons-react";
 
 import { IconExternalLink } from "@tabler/icons-react";
@@ -39,6 +41,7 @@ export default function specificProject() {
     ProjectLink: "",
     members : [{}]
   });
+  const isMobile = useMediaQuery(`(max-width: ${em(900)})`);
   const mem = mydata?.members.map((m)=>{
     if(m.name)
     return(
@@ -90,8 +93,8 @@ export default function specificProject() {
   } else {
     return (
       <>
-        <Grid h={"90%"}>
-          <Grid.Col span={6}>
+        <Grid >
+          <Grid.Col span={isMobile? 12:6 }>
             <Card
               m={"xl"}
               h={"100%"}
@@ -142,7 +145,7 @@ export default function specificProject() {
               </Group>
             </Card>
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={isMobile ? 12 : 6}>
             <Card
               h={"100%"}
               m={"xl"}
@@ -184,6 +187,7 @@ export default function specificProject() {
           <Grid.Col span={4} offset={4} >
             <Group justify="space-around">
           <Button
+          m={"xl"}
            leftSection={<IconTrash style={{ width: rem(15), height: rem(15) }} />} 
            color="red"
            onClick={() => {deleteProject(); location.reload();}}

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import DotLoader from "../Loader/loader";
 import { Spotlight, spotlight } from "@mantine/spotlight";
 import {
+  ActionIcon,
   Badge,
   Button,
   Card,
@@ -13,9 +14,11 @@ import {
   Select,
   Text,
   TextInput,
+  rem,
 } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import { IconArrowRight, IconSearch } from "@tabler/icons-react";
 import Link from "next/link";
+import { theme } from "../../theme";
 interface project {
   title: String;
   content: String;
@@ -125,14 +128,22 @@ export default function ShowAllProjects() {
 
     return (
       <>
-        <TextInput
-          leftSection = {<IconSearch stroke={1.5} />}
-          m={"lg"}
-          onClick={spotlight.open}
-          w={"30%"}
-          placeholder="search by project name"
-          
-        ></TextInput>
+      <TextInput
+      radius="xl"
+      size="md"
+      onClick={spotlight.open}
+      onChange={spotlight.open}
+      pointer = {false}
+      placeholder="Search questions"
+      rightSectionWidth={42}
+      leftSection={<IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />}
+      rightSection={
+        <ActionIcon size={32} radius="xl" color={theme.primaryColor} variant="filled">
+          <IconArrowRight style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+        </ActionIcon>
+      }
+      
+    />
 
         <Spotlight.Root
           m={"lg"}
@@ -153,17 +164,17 @@ export default function ShowAllProjects() {
           </Spotlight.ActionsList>
         </Spotlight.Root>
         <Grid>
-          <Grid.Col span={4}>
+          <Grid.Col offset={4} span={4}>
           <Select
             m={"lg"}
             label="Status"
+            searchable
             placeholder="Pick value"
             data={['Completed', 'pending']}
             value={status}
             onChange={(event)=>{setStatus(event || "0")}}
           />
           </Grid.Col>
-          <Grid.Col span={4}></Grid.Col>
         </Grid>
         <Grid m={"lg"}>
           {cards.length > 0 ? cards.reverse() : "Nothing found..."}
