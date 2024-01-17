@@ -1,4 +1,4 @@
-import { AppShell, Burger, Button, Group, NavLink, Text, em } from "@mantine/core";
+import { AppShell, Burger, Button, Group, LoadingOverlay, NavLink, Text, em } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import {
   ActionIcon,
@@ -29,6 +29,7 @@ export default function SignedInNavbar() {
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
+  
   return (
     <AppShell
       header={{ height: { base: 60, md: 70, lg: 80 } }}
@@ -78,6 +79,7 @@ export default function SignedInNavbar() {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">
+        
         <NavLink
           leftSection={<IconHome size="1rem" stroke={1.5} />}
           label="Home"

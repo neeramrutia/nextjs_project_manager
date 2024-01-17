@@ -1,4 +1,4 @@
-import { AppShell, Burger, Grid, Group, NavLink, Text, em } from "@mantine/core";
+import { AppShell, Burger, Grid, Group, LoadingOverlay, NavLink, Text, em } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import SignUpWithCred from "./signUpWithCred";
 import {
@@ -35,6 +35,13 @@ export default function SignedOutNavbar() {
   const [active, setActive] = useState(8);
   const router = useRouter();
   const { data: session } = useSession();
+  const [time , setTime] = useState(true);
+  
+  const Time = ()=>{
+    setTimeout(()=>{setTime(false)} , 3000);
+    console.log(time)
+  }
+  Time()
   console.log(session);
   return (
     <AppShell
@@ -88,7 +95,12 @@ export default function SignedOutNavbar() {
         </Group>
         
       </AppShell.Header>
+     
+         
+        
+      
       <AppShell.Navbar p="md">
+      <LoadingOverlay visible={time} loaderProps={{color:"teal" , type:"dots"}}/>
         <NavLink
           leftSection={<IconHome size="1rem" stroke={1.5} />}
           label="Home"

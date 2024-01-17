@@ -9,30 +9,22 @@ import {
 import cx from "clsx";
 import classes from "../../public/TableScrollArea.module.css";
 import { useEffect, useState } from "react";
-type arr = [{
-  name : "";
-  id : ""
-}]
+import { mainObject } from "./addProject";
 const step3Object = {
   ProjectLink: "",
   Mentor: "",
   members: [{name : "" , id : ""}],
 };
 export function AddProjectStep3() {
-  const [data, setData] = useState([
-    {
-      name: "",
-      id: "",
-    },
-  ]);
+  const [data, setData] = useState(mainObject.members);
   const [scrolled, setScrolled] = useState(false);
   const [student, setStudent] = useState({
     name: "",
     id: "",
   });
   const [Project, setProject] = useState({
-    ProjectLink: "",
-    Mentor: "",
+    ProjectLink: mainObject.ProjectLink,
+    Mentor: mainObject.Mentor,
   });
   let rows = data.map((row) => (
     <Table.Tr key={row.name}>
@@ -52,8 +44,11 @@ export function AddProjectStep3() {
   };
   const onSave = () => {
     step3Object.Mentor = Project.Mentor;
+    mainObject.Mentor = Project.Mentor;
     step3Object.ProjectLink = Project.ProjectLink;
-    step3Object.members = data
+    mainObject.ProjectLink = Project.ProjectLink;
+    step3Object.members = data;
+    mainObject.members = data;
   };
 
   return (

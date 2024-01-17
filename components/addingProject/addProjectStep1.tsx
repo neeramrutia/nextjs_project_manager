@@ -1,5 +1,6 @@
 import { Button, Card, Select, TextInput } from "@mantine/core";
 import { useState  , useContext, ChangeEvent} from "react";
+import { mainObject } from "./addProject";
 const step1Object = {
   title: "",
   status: "",
@@ -11,17 +12,20 @@ const step1Object = {
  export function AddProjectStep1(){
   const [value , setValue] = useState("pending");
     const [Project , setProject] = useState({
-        title: "",
-        status: "pending",
-        ProjectType: "",
-        ProjectLink: "",
-        Mentor: "none",
-        content: "",
+        title: mainObject.title,
+        status: mainObject.status,
+        ProjectType: mainObject.ProjectType,
+        ProjectLink: mainObject.ProjectLink,
+        Mentor: mainObject.Mentor,
+        content: mainObject.content,
     })
     const onSave = ()=>{
       step1Object.title = Project.title;
+      mainObject.title = Project.title;
       step1Object.status = Project.status;
+      mainObject.status = Project.status;
       step1Object.ProjectType = Project.ProjectType;
+      mainObject.ProjectType = Project.ProjectType;
     }
     return(
         <>

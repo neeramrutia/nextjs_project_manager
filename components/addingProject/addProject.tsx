@@ -7,6 +7,18 @@ import { useSession } from "next-auth/react";
 import LoadingState from "../States/LoadingState"; 
 import SuccessState from "../States/SuccessState";
 import ErrorState from "../States/ErrorState"; 
+const mainObject = {
+    title: "",
+    status: "",
+    ProjectType: "",
+    ProjectLink: "",
+    Mentor: "none",
+    content: "",
+    members : [{
+      name: "",
+      id: "",
+    }],
+}
 export default function AddProject() {
   console.log(step1Object);
   console.log(step2Object);
@@ -143,5 +155,6 @@ export default function AddProject() {
     </>
   );
 }
+export {mainObject}
 
 

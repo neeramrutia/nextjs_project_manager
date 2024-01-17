@@ -2,6 +2,7 @@ import { Box, Button, Flex, Grid } from "@mantine/core";
 import "../../public/styleForAddProjectStep2.css";
 import Markdown from "react-markdown";
 import { useState } from "react";
+import {mainObject} from './addProject'
 // import SyntaxHighlighter from 'react-syntax-highlighter';
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -9,9 +10,10 @@ const step2Object = {
   content:""
 }
 export function AddProjectStep2() {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(mainObject.content);
   const onSave = ()=>{
     step2Object.content = input;
+    mainObject.content = input;
   }
   return (
     <div>
