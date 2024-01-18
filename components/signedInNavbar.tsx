@@ -56,7 +56,7 @@ export default function SignedInNavbar() {
     email?: string;
     icon?: React.ReactNode;
   }
-
+  // eslint-disable-next-line react/display-name
   const UserButton = forwardRef<HTMLButtonElement, UserButtonProps>(
     ({ image, name, email, icon, ...others }: UserButtonProps, ref) => (
       <UnstyledButton
