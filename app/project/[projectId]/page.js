@@ -17,7 +17,7 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from '@mantine/hooks';
 import { IconTrash } from "@tabler/icons-react";
-
+import { useSession } from "next-auth/react";
 import { IconExternalLink } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -28,6 +28,7 @@ import "../../../public/styleForAddProjectStep2.css";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 export default function specificProject() {
+  const { data : session } = useSession();
   const [loading, setLoading] = useState(true);
   const [projectExist, setProjectExist] = useState(true);
   const pathname = usePathname();
@@ -183,6 +184,8 @@ export default function specificProject() {
           </Grid.Col>
           
         </Grid>
+        {
+          (session.user.isAdmin || session.user.isCoordinator) && (
         <Grid>
           <Grid.Col span={4} offset={4} >
             <Group justify="space-around">
@@ -195,7 +198,8 @@ export default function specificProject() {
           </Group>
           </Grid.Col>
         </Grid>
-       
+          )
+        }
       </>
     );
   }

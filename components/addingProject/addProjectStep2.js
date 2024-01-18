@@ -56,7 +56,7 @@ export function AddProjectStep2() {
       
     </div>
     <div className="button">
-    <Button color="teal" onClick={()=>{onSave(); console.log(step2Object.content)}} type="submit">Save</Button>
+    <Button color="teal" onClick={()=>{onSave();}} type="submit">Save</Button>
     </div>
     </div>
     

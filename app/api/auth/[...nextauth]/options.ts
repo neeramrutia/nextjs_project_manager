@@ -52,16 +52,12 @@ export const options: NextAuthOptions = {
                 },
             },
             async authorize(credentials){
-                console.log('authorize called');
                 const user = await User.findOne({email : credentials?.username});
-                console.log('this is user printed from authorize fun : '+ user);
                 if(!user){return null}
                 else{
                     try {
                         const hashPass = await bcrypt.compare(credentials?.password || "",user.password);
-                        console.log('hashPass : ' + hashPass);
                         if(hashPass){
-                            console.log('user is verified');
                             const returnUser = {id:user._id,name : user.name , email:user.email , role : user?.role == null ? "user" : user.role}
                             return returnUser;
                         }
@@ -86,8 +82,6 @@ export const options: NextAuthOptions = {
                 token.role = tokenUser?.role
                }
             }
-            console.log("token " + token)
-            console.log("token " + token.role)
             return token
         },
 
@@ -114,7 +108,6 @@ export const options: NextAuthOptions = {
                 // if(profile == undefined){return true} // returning true for objects whose origin was authorize fun
                 if(profile != undefined)
                 {
-                console.log("profile : " + profile);
                 var userExist = await User.findOne({email : profile?.email});
                 if(!userExist){
                     const usertobecreated = await User.create({
@@ -123,14 +116,10 @@ export const options: NextAuthOptions = {
                         password : "1234"
                     })
                 }
-
-                console.log(profile);
                 return true;
             }
             else{
-                    console.log("user : "+ user.email + user); 
                     return true ;
-                
             }
             } catch (error) {
                 console.log(error);

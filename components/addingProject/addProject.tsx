@@ -20,9 +20,6 @@ const mainObject = {
     }],
 }
 export default function AddProject() {
-  console.log(step1Object);
-  console.log(step2Object);
-  console.log(step3Object);
   const [success , setSuccess] = useState(0);
   const { data: session } = useSession();
   const [Project, setProject] = useState({
@@ -52,7 +49,6 @@ export default function AddProject() {
       },
       body: JSON.stringify(Project),
     })
-    console.log(res);
     if(res.status == 201)
     {
       setSuccess(1);
@@ -63,7 +59,6 @@ export default function AddProject() {
     resetProject();
     
   }
-  console.log(Project);
   const saveProject = () => {
     Project.title = step1Object.title;
     Project.status = step1Object.status;

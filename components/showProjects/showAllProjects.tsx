@@ -47,8 +47,6 @@ export default function ShowAllProjects() {
     const data = await fetch("api/projects");
     const res = await data.json();
     setmyData(res);
-    console.log(res);
-    console.log(mydata);
   }, []);
   useEffect(() => {
     fetchData().catch(console.error);

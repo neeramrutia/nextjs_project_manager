@@ -40,7 +40,7 @@ const step1Object = {
           ml="35%"
         >
           <form
-            onSubmit={(e)=>{console.log(Project);e.preventDefault()}
+            onSubmit={(e)=>{e.preventDefault()}
             }
           >
             <TextInput
