@@ -65,7 +65,6 @@ export default function ShowAllProjects() {
         <Link
         key={counter++}
           href={`/project/${item._id}`}
-          target="_blank"
           style={{ textDecoration: "none" }}
         >
           <Spotlight.Action

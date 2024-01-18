@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   Grid,
+  Group,
   ScrollArea,
   Table,
   TextInput,
@@ -53,14 +54,13 @@ export function AddProjectStep3() {
 
   return (
     <>
+    <Group justify="space-around">
       <Card
         shadow="sm"
         padding="lg"
         radius="md"
         withBorder
-        w="33%"
-        mt="10%"
-        ml="32%"
+        mt="7%"
       >
         <form
           onSubmit={(e) => {
@@ -161,6 +161,7 @@ export function AddProjectStep3() {
           </Button>
         </form>
       </Card>
+      </Group>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { Button, Card, Select, TextInput } from "@mantine/core";
+import { Button, Card, Group, Select, TextInput } from "@mantine/core";
 import { useState  , useContext, ChangeEvent} from "react";
 import { mainObject } from "./addProject";
 const step1Object = {
@@ -29,15 +29,15 @@ const step1Object = {
     }
     return(
         <>
+        <Group justify="space-around" m={"xl"}>
         <Card
           
           shadow="sm"
           padding="lg"
           radius="md"
           withBorder
-          w="28%"
-          mt="10%"
-          ml="35%"
+          mt={"15%"}
+          
         >
           <form
             onSubmit={(e)=>{e.preventDefault()}
@@ -82,6 +82,7 @@ const step1Object = {
             <Button color="teal" fullWidth mt={"lg"} type="submit" onClick={onSave}>Save</Button>
           </form>
         </Card>
+        </Group>
       </>
     )
 }

@@ -1,5 +1,6 @@
-import { Box, Button, Flex, Grid } from "@mantine/core";
+import { Box, Button, Flex, Grid, em } from "@mantine/core";
 import "../../public/styleForAddProjectStep2.css";
+import { useMediaQuery } from '@mantine/hooks';
 import Markdown from "react-markdown";
 import { useState } from "react";
 import {mainObject} from './addProject'
@@ -11,13 +12,15 @@ const step2Object = {
 }
 export function AddProjectStep2() {
   const [input, setInput] = useState(mainObject.content);
+  const isMobile = useMediaQuery(`(max-width: ${em(900)})`);
   const onSave = ()=>{
     step2Object.content = input;
     mainObject.content = input;
   }
   return (
-    <div>
-    <div className="App">
+    <>
+    <Grid>
+      <Grid.Col span={isMobile ? 12:6}>
       <textarea
         autoFocus
         className="textarea"
@@ -26,11 +29,13 @@ export function AddProjectStep2() {
           setInput(e.target.value);
         }}
       />
+      </Grid.Col>
+      <Grid.Col span={isMobile ? 12:6}>
 
       {/* <Markdown className="markdown" components={{code:Component}}>{input}</Markdown> */}
 
       <Markdown
-        className="markdown"
+        className="markdown1"
         children={input}
         components={{
           code(props) {
@@ -53,12 +58,15 @@ export function AddProjectStep2() {
           },
         }}
       />
-      
-    </div>
-    <div className="button">
-    <Button color="teal" onClick={()=>{onSave();}} type="submit">Save</Button>
-    </div>
-    </div>
+      </Grid.Col>
+    
+   
+    
+    </Grid>
+     <div className="button">
+     <Button color="teal" onClick={()=>{onSave();}} type="submit">Save</Button>
+     </div>
+</>
     
   );
 }

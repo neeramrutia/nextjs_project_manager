@@ -209,7 +209,7 @@ export default function SignedInNavbar() {
             onClick={(e) => {
               e.preventDefault();
               setActive(14);
-              window.open("/users", "_blank", "noopener");
+              window.open("/users");
               toggle();
             }}
             color="cyan"
@@ -223,7 +223,7 @@ export default function SignedInNavbar() {
             onClick={(e) => {
               e.preventDefault();
               setActive(16);
-              window.open("/coordinators", "_blank", "noopener");
+              window.open("/coordinators");
               toggle();
             }}
             color="cyan"
@@ -237,7 +237,7 @@ export default function SignedInNavbar() {
             onClick={(e) => {
               e.preventDefault();
               setActive(15);
-              window.open("/admins", "_blank", "noopener");
+              window.open("/admins");
               toggle();
             }}
             color="cyan"
