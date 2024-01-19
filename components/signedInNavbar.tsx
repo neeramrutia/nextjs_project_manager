@@ -4,12 +4,14 @@ import {
   Burger,
   Button,
   Group,
-  LoadingOverlay,
   Menu,
+  Modal,
   NavLink,
   Text,
   UnstyledButton,
   em,
+  rem,
+  TextInput,
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import {
@@ -18,7 +20,13 @@ import {
   useComputedColorScheme,
 } from "@mantine/core";
 import ShowAllProjects from "./showProjects/showAllProjects";
-import { IconSun, IconMoon, IconChevronRight } from "@tabler/icons-react";
+import {
+  IconSun,
+  IconMoon,
+  IconChevronRight,
+  IconTrash,
+  IconBell,
+} from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "../public/Demo.module.css";
 import {
@@ -27,11 +35,9 @@ import {
   IconHome,
   IconPlaylistAdd,
   IconUser,
-  IconUserCheck,
   IconUserShield,
 } from "@tabler/icons-react";
 import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { forwardRef, useState } from "react";
 import Home from "./homeComponent";
 import RecentlyUploaded from "./recentlyUploaded";
@@ -39,15 +45,22 @@ import MostLiked from "./mostLiked";
 import AddProject from "./addingProject/addProject";
 import Image from "next/image";
 export default function SignedInNavbar() {
+  const [deleteButton, setDeleteButton] = useState(true);
+  const deleteAccount = async () => {
+    const res = await fetch(`/api/users/${session?.user.id}`, {
+      method: "DELETE",
+    });
+    res.status === 201 ? signOut() : console.log("error in sign out");
+  };
   const { setColorScheme } = useMantineColorScheme();
   const isMobile = useMediaQuery(`(max-width: ${em(500)})`);
   const isTab = useMediaQuery(`(max-width: ${em(770)})`);
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
+  const [opens, { open, close }] = useDisclosure(false);
   const [opened, { toggle }] = useDisclosure();
   const [active, setActive] = useState(8);
-  const router = useRouter();
   const { data: session } = useSession();
   console.log(session);
   interface UserButtonProps extends React.ComponentPropsWithoutRef<"button"> {
@@ -122,6 +135,36 @@ export default function SignedInNavbar() {
                     />
                   </Menu.Target>
                   {/* ... menu items */}
+                  <Menu.Dropdown>
+                    {(session?.user.isAdmin || session?.user.isCoordinator) && (
+                      <>
+                        <Menu.Label>Application</Menu.Label>
+                        <Menu.Item
+                          leftSection={
+                            <IconBell
+                              style={{ width: rem(14), height: rem(14) }}
+                            />
+                          }
+                        >
+                          Notifications
+                        </Menu.Item>
+                        <Menu.Divider />
+                      </>
+                    )}
+
+                    <Menu.Label>Danger zone</Menu.Label>
+                    <Menu.Item
+                      onClick={open}
+                      color="red"
+                      leftSection={
+                        <IconTrash
+                          style={{ width: rem(14), height: rem(14) }}
+                        />
+                      }
+                    >
+                      Delete my account
+                    </Menu.Item>
+                  </Menu.Dropdown>
                 </Menu>
                 <ActionIcon
                   onClick={() =>
@@ -263,6 +306,45 @@ export default function SignedInNavbar() {
         {active == 10 && <MostLiked />}
         {active == 12 && <AddProject />}
         {active == 13 && <ShowAllProjects />}
+        <Modal
+          opened={opens}
+          onClose={close}
+          title="Delete Acoount!!"
+          transitionProps={{
+            transition: "fade",
+            duration: 300,
+            timingFunction: "linear",
+          }}
+          centered
+        >
+          
+          <Text  m={"lg"} >
+          <div style={{userSelect:"none"}}>
+            To confirm, type {session?.user.name}-{session?.user.email} in the
+            box below
+            </div>
+          </Text>
+          
+          <TextInput
+            m={"lg"}
+            placeholder="Input placeholder"
+            onChange={(e) => {
+              if (
+                e.target.value ===
+                session?.user.name + "-" + session?.user.email
+              ) {
+                setDeleteButton(false);
+              }else{
+                setDeleteButton(true)
+              }
+            }}
+          />
+          <Group justify="center">
+            <Button variant="outline" color="red" disabled={deleteButton} onClick={deleteAccount}>
+              I want to delete this account
+            </Button>
+          </Group>
+        </Modal>
       </AppShell.Main>
     </AppShell>
   );
