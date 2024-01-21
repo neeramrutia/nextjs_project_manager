@@ -12,6 +12,7 @@
     "@mantine/core": "7.2.1",
     "@mantine/form": "^7.2.2",
     "@mantine/hooks": "7.2.1",
+    "@mantine/notifications": "^7.4.2",
     "@mantine/spotlight": "^7.2.2",
     "@tabler/icons-react": "^2.40.0",
     "aws4": "^1.12.0",

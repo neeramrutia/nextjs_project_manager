@@ -84,7 +84,7 @@ export default function specificProject() {
 
   if(!projectExist){
     return (
-       <ErrorPage title="Project not Found" des="This project is either deleted or doesn't exist" statuscode={400} />
+       <ErrorPage title="Project not Found" des="This project is either deleted or doesn't exist" statuscode={404} />
     )
   }
   if (loading) {
@@ -185,7 +185,7 @@ export default function specificProject() {
           
         </Grid>
         {
-          (session.user.isAdmin || session.user.isCoordinator) && (
+          (session?.user?.isAdmin || session?.user?.isCoordinator) && (
         <Grid>
           <Grid.Col span={4} offset={4} >
             <Group justify="space-around">

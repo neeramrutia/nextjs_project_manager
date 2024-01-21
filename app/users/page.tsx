@@ -1,11 +1,12 @@
 "use client";
-import { Accordion, Button, Grid, Text, rem } from "@mantine/core";
+import { Accordion, Button, Grid, Text, rem, Notification } from "@mantine/core";
 import { error } from "console";
 import { useCallback, useEffect, useState } from "react";
 import useSWR from "swr";
 import DotLoader from "../../components/Loader/loader";
-
+import { useNetwork } from "@mantine/hooks";
 export default function Users() {
+  const networkStatus = useNetwork();
   const [loading, setLoading] = useState(true);
   const removeUser = async (_id: String) => {
     const res = await fetch(`/api/users/${_id}`, {
@@ -139,6 +140,13 @@ export default function Users() {
             {items}
           </Accordion>
         </div>
+        {
+          !networkStatus.online && (
+            <Notification   color="red" title="Connection Lost!">
+          Something went wrong
+        </Notification>
+        )
+        }
       </>
     );
   }

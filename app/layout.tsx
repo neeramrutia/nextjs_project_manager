@@ -4,6 +4,8 @@ import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
 import Provider from "../components/Provider";
 import '@mantine/spotlight/styles.css';
+import '@mantine/notifications/styles.css';
+import { Notifications } from '@mantine/notifications';
 export const metadata = {
   title: "NextGen Project Management",
   description: "Manage Projects",
@@ -24,6 +26,7 @@ export default function RootLayout({ children }: { children: any }) {
         
         <Provider>
           <MantineProvider defaultColorScheme="dark">
+            <Notifications/>
             {children}
           </MantineProvider>
         </Provider>
