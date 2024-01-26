@@ -4,9 +4,28 @@ import { error } from "console";
 import { useCallback, useEffect, useState } from "react";
 import useSWR from "swr";
 import DotLoader from "../../components/Loader/loader";
-import { useNetwork } from "@mantine/hooks";
+import { useNetwork, useSetState } from "@mantine/hooks";
+import { Notifications, notifications } from "@mantine/notifications";
 export default function Users() {
   const networkStatus = useNetwork();
+  const [toggled , setToggled] = useState(false)
+    if(!toggled && !networkStatus.online ){
+      notifications.show({
+        title : "Network disconnected",
+        message : "Trying to connect",
+        color:"red",
+        loading:true
+      })
+      setToggled(true)
+    }
+    if(toggled && networkStatus.online){
+      notifications.show({
+        title : "Network connected",
+        message : "",
+        color:"green",
+      })
+      setToggled(false)
+    }
   const [loading, setLoading] = useState(true);
   const removeUser = async (_id: String) => {
     const res = await fetch(`/api/users/${_id}`, {
@@ -140,13 +159,7 @@ export default function Users() {
             {items}
           </Accordion>
         </div>
-        {
-          !networkStatus.online && (
-            <Notification   color="red" title="Connection Lost!">
-          Something went wrong
-        </Notification>
-        )
-        }
+        
       </>
     );
   }
