@@ -293,7 +293,7 @@ export default function SignedInNavbar() {
             onClick={(e) => {
               e.preventDefault();
               setActive(11);
-              signOut();
+              signOut({callbackUrl : "/"});
               toggle();
             }}
             color="cyan"

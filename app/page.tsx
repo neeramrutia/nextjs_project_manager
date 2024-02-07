@@ -32,16 +32,8 @@ export default function MyHome() {
   return (
     <div>
       {
-        !session && (
           <SignedOutNavbar/>
-        )
       }
-      {
-        session && (
-          <SignedInNavbar/>
-        )
-      }
-      
       </div>
   );}
 }

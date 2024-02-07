@@ -37,11 +37,11 @@ export default function SignedOutNavbar() {
   const { data: session } = useSession();
   const [time , setTime] = useState(true);
   
-  const Time = ()=>{
-    setTimeout(()=>{setTime(false)} , 3000);
-    console.log(time)
-  }
-  Time()
+  // const Time = ()=>{
+  //   setTimeout(()=>{setTime(false)} , 3000);
+  //   console.log(time)
+  // }
+  // Time()
   console.log(session);
   return (
     <AppShell
@@ -100,7 +100,7 @@ export default function SignedOutNavbar() {
         
       
       <AppShell.Navbar p="md">
-      <LoadingOverlay visible={time} loaderProps={{color:"teal" , type:"dots"}}/>
+      {/* <LoadingOverlay visible={time} loaderProps={{color:"teal" , type:"dots"}}/> */}
         <NavLink
           leftSection={<IconHome size="1rem" stroke={1.5} />}
           label="Home"
@@ -161,7 +161,7 @@ export default function SignedOutNavbar() {
           <NavLink
             leftSection={<IconBrandGoogle size="1rem" stroke={1.5} />}
             label="Sign In with google"
-            onClick={() =>{ setActive(5) ; signIn("google");toggle()}}
+            onClick={() =>{ setActive(5) ; signIn("google" , {callbackUrl:"/home"});toggle()}}
             color="teal"
             
             active={5 === active}
@@ -169,7 +169,7 @@ export default function SignedOutNavbar() {
           <NavLink
             leftSection={<IconBrandGithub size="1rem" stroke={1.5} />}
             label="Sign In with github"
-            onClick={() => {setActive(6) ; signIn("github");toggle()}}
+            onClick={() => {setActive(6) ; signIn("github" , {callbackUrl : "/home"});toggle()}}
             color="teal"
             active={6 === active}
           />

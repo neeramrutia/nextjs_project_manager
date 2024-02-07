@@ -11,10 +11,17 @@ export async function middleware(request : NextRequest){
 
     const token = await getToken({req:request})
     const adminRoutes = ["/admins" , "/users" , "/coordinators"]
+    const userRoutes = ["/home"]
+    if(token == null && userRoutes.includes(pathname)){
+        return NextResponse.redirect(new URL("/api/auth/signin" , request.url))
+    }
+
     if(token == null && adminRoutes.includes(pathname)){
         return NextResponse.redirect(new URL("/api/auth/signin" ,request.url))
     }
-
+    if(token != null && "/".includes(pathname)){
+        return NextResponse.redirect(new URL("/home" ,request.url))
+    }
     const user : CustomUser|null = token?.user as CustomUser
     if(adminRoutes.includes(pathname)  &&  (token?.role == "user" || token?.role == "coordinator")){
         return NextResponse.redirect(new URL("/api/auth/signin?error=please login as admin" , request.url))

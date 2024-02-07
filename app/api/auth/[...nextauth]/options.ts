@@ -29,7 +29,6 @@ export const options: NextAuthOptions = {
         GoogleProvider({
             clientId:process.env.GOOGLE_ID as string,
             clientSecret:process.env.GOOGLE_SECRET as string,
-            
         }),
         GitHubProvider({
             clientId : process.env.GITHUB_ID as string,
@@ -72,6 +71,12 @@ export const options: NextAuthOptions = {
         })
     ],
     callbacks:{
+        async redirect({url , baseUrl}){
+            if (url == "/")
+            return baseUrl
+            return "/home"
+        }
+        ,
         async jwt({ token , user} : {token : JWT , user : CustomUser}){
             
             if(user)
