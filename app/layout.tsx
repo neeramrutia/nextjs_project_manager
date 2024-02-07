@@ -7,7 +7,7 @@ import '@mantine/spotlight/styles.css';
 import '@mantine/notifications/styles.css';
 import { Notifications } from '@mantine/notifications';
 export const metadata = {
-  title: "NextGen Project Management",
+  title: "Project Catalog",
   description: "Manage Projects",
 };
 

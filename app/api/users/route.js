@@ -7,7 +7,7 @@ export async function GET(req,res){
     let users = [];
     try {
         // users = await User.find().select("-password");
-        users = await User.find();
+        users = await User.find().select("-password");
         return NextResponse.json(users);
     } catch (error) {
         return NextResponse.json({
