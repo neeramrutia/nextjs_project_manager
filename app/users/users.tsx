@@ -1,8 +1,7 @@
 "use client";
 import { Accordion, Button, Grid, Text, rem, Notification } from "@mantine/core";
-import { error } from "console";
 import { useCallback, useEffect, useState } from "react";
-import useSWR from "swr";
+import { promoteToAdmin , promoteToCoordinator , removeUser } from "./helper";
 import DotLoader from "../../components/Loader/loader";
 import { useNetwork, useSetState } from "@mantine/hooks";
 import { Notifications, notifications } from "@mantine/notifications";
@@ -27,40 +26,7 @@ export default function Users() {
       setToggled(false)
     }
   const [loading, setLoading] = useState(true);
-  const removeUser = async (_id: String) => {
-    const res = await fetch(`/api/users/${_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = res.json();
-    if (res.status == 201) console.log("user is deleted");
-    else console.log("user not deleted");
-  };
-  const promoteToAdmin = async (userId: String) => {
-    const res = await fetch(`/api/users/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ isAdmin: true, role: "admin" }),
-    });
-  };
-  const promoteToCoordinator = async (userId: String) => {
-    const res = await fetch(`/api/users/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ isCoordinator: true, role: "coordinator" }),
-    });
-
-    if (res.status == 200) console.log("user is promoted to co-ordinator");
-    else console.log("user not promoted to co-ordinator");
-  };
-
+ 
   const fetcher = async (url: String) => {};
 
   const [usersData, setusersData] = useState([

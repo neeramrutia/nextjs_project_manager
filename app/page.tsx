@@ -1,17 +1,11 @@
 "use client";
 import { useState , useEffect } from "react";
 import DotLoader from "../components/Loader/loader";
-import { useSession } from 'next-auth/react'
-import { useDisclosure } from '@mantine/hooks';
 import SignedOutNavbar from "../components/signedOutNavbar";
-import SignedInNavbar from "../components/signedInNavbar";
 import  dbconnect  from "../utils/database";
-import { LoadingOverlay } from "@mantine/core";
 
 export default function MyHome() {
-  const { data : session } = useSession();
   const [loading , setLoading] = useState(true);
-  const [opened, { toggle }] = useDisclosure();
   
   useEffect(() => {
     async function connectToDB(){
