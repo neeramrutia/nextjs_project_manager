@@ -176,9 +176,13 @@ export default function Users() {
               <DotLoader/>
             )
           }
-
           {
-            (skip>=count) && (
+            (skip == count) && (
+              <DotLoader/>
+            )
+          }
+          {
+            (skip>count) && (
               "No more data"
             )
           }
