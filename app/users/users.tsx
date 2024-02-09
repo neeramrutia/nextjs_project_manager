@@ -37,6 +37,7 @@ const fetcher = async(skip:Number , limit:Number)=>{
 
 fetcher(skip,limit)
 export default function Users() {
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const { ref, entry } = useIntersection({
     root: containerRef.current,
@@ -68,7 +69,7 @@ export default function Users() {
       })
       setToggled(false)
     }
-  const [loading, setLoading] = useState(true);
+  
  
 
   const [usersData, setusersData] = useState([
