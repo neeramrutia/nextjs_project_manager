@@ -20,8 +20,9 @@ const fetcher = async(skip:Number , limit:Number)=>{
   
   const res = await fetch(`/api/users?skip=${skip}&limit=${limit}&role=user`);
     const data = await res.json();
-     console.log(data)
+    console.log(data)
     count = parseInt(res.statusText)
+    console.log("count in fetcher: " , count)
     if(USERS.length == 1)
     {
       USERS = [...data]
@@ -40,6 +41,8 @@ export default function Users() {
     threshold: 1,
   });
   useEffect(()=>{
+    console.log("skip : " ,skip);
+    console.log("count : " ,count);
     if(entry?.isIntersecting && skip<count)
     fetcher(skip+limit , limit).then(()=>{skip=skip+limit}).then(()=>{setusersData(USERS)})
   },[entry])

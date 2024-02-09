@@ -10,8 +10,11 @@ export async function GET(req,res){
         const LIMIT = req.nextUrl.searchParams.get("limit")
         const ROLE = req.nextUrl.searchParams.get("role")
         const SKIP = req.nextUrl.searchParams.get("skip")
+        console.log("LIMIT : " , LIMIT)
+        console.log("SKIP : " , SKIP)
         if(LIMIT != null && SKIP != null){
             const count =await User.countDocuments({role : "user"})
+            console.log("count" , count);
             users = await User.find({role : ROLE}).select("-password").limit(LIMIT).skip(SKIP);
             return NextResponse.json(users , {statusText:count});
         }
