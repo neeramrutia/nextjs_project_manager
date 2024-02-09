@@ -8,7 +8,7 @@ import { notifications } from "@mantine/notifications";
 import { FooterLinks } from "../../components/footer/footer";
 let skip = 0;
 let limit = 15;
-let count = 0
+let count = 0;
 let USERS = [{
   isAdmin:false,
   isCoordinator:false,
@@ -16,6 +16,7 @@ let USERS = [{
   name:"",
   email:""
 }]
+let loading = true
 const fetcher = async(skip:Number , limit:Number)=>{
     const Count = await fetch(`/api/count?role=user`);
     const countData =await Count.json();
@@ -31,7 +32,7 @@ const fetcher = async(skip:Number , limit:Number)=>{
     else{
       USERS = [...USERS , ...data]
     }
-    
+    loading=false
 }
 
 fetcher(skip,limit)
@@ -44,7 +45,7 @@ export default function Users() {
   useEffect(()=>{
     console.log("skip : " ,skip);
     console.log("count : " ,count);
-    if(entry?.isIntersecting && count>skip )
+    if((entry?.isIntersecting && count>skip)||(entry?.isIntersecting && count==0) )
     fetcher(skip+limit , limit).then(()=>{skip=skip+limit}).then(()=>{setusersData(USERS)})
   },[entry])
   const networkStatus = useNetwork();
