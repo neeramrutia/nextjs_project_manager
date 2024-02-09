@@ -1,11 +1,49 @@
 "use client";
-import { Accordion, Button, Grid, Text, rem, Notification } from "@mantine/core";
-import { useCallback, useEffect, useState } from "react";
+import { Accordion, Button, Grid, Text, rem } from "@mantine/core";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { promoteToAdmin , promoteToCoordinator , removeUser } from "./helper";
 import DotLoader from "../../components/Loader/loader";
-import { useNetwork, useSetState } from "@mantine/hooks";
-import { Notifications, notifications } from "@mantine/notifications";
+import { useIntersection, useNetwork } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
+import { FooterLinks } from "../../components/footer/footer";
+let skip = 0;
+let limit = 15;
+let count = 0
+let USERS = [{
+  isAdmin:false,
+  isCoordinator:false,
+  _id:"",
+  name:"",
+  email:""
+}]
+const fetcher = async(skip:Number , limit:Number)=>{
+  
+  const res = await fetch(`/api/users?skip=${skip}&limit=${limit}&role=user`);
+    const data = await res.json();
+    console.log(data);
+    console.log("COUNT =========================",res.statusText)
+    count = parseInt(res.statusText)
+    if(USERS.length == 1)
+    {
+      USERS = [...data]
+    }
+    else{
+      USERS = [...USERS , ...data]
+    }
+    
+}
+
+fetcher(skip,limit)
 export default function Users() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { ref, entry } = useIntersection({
+    root: containerRef.current,
+    threshold: 1,
+  });
+  useEffect(()=>{
+    if(entry?.isIntersecting && skip<count)
+    fetcher(skip+limit , limit).then(()=>{skip=skip+limit}).then(()=>{setusersData(USERS)})
+  },[entry])
   const networkStatus = useNetwork();
   const [toggled , setToggled] = useState(false)
     if(!toggled && !networkStatus.online ){
@@ -27,7 +65,6 @@ export default function Users() {
     }
   const [loading, setLoading] = useState(true);
  
-  const fetcher = async (url: String) => {};
 
   const [usersData, setusersData] = useState([
     {
@@ -38,23 +75,26 @@ export default function Users() {
       _id: "",
     },
   ]);
+  
+  const updateUser = (_id:string)=>{
+    USERS = USERS.filter((u)=>{
+        return u._id!=_id
+    })
+    fetchdata()
+  }
   const fetchdata = useCallback(async () => {
-    const res = await fetch("/api/users");
-    const data = await res.json();
-    console.log("fetch data called");
-     console.log("useCallback called")
-    setusersData(data);
+    setusersData(USERS)
     setLoading(false);
   }, []);
 
   useEffect(() => {
     console.log("useEffect called")
     fetchdata().catch(console.error);
-  }, [fetchdata]);
+  }, []);
 
-  const items = usersData.map((item) =>
+  const items = usersData.map((item , i) =>
     !item.isAdmin && !item.isCoordinator ? (
-      <Accordion.Item key={item._id || "neer"} value={item?._id || "neer"}>
+      <Accordion.Item ref={i===usersData.length-1 ? ref:null} key={item._id || "neer"} value={item?._id || "neer"}>
         <Accordion.Control>{item.name}</Accordion.Control>
         <Accordion.Panel>
           <Grid>
@@ -71,7 +111,7 @@ export default function Users() {
               m={"lg"}
               onClick={() => {
                 removeUser(item._id).then(() => {
-                  fetchdata();
+                  updateUser(item._id)
                 });
               }}
             >
@@ -83,7 +123,7 @@ export default function Users() {
               m={"lg"}
               onClick={() => {
                 promoteToCoordinator(item._id).then(() => {
-                  fetchdata();
+                  updateUser(item._id)
                 });
               }}
             >
@@ -95,7 +135,7 @@ export default function Users() {
               m={"lg"}
               onClick={() => {
                 promoteToAdmin(item._id).then(() => {
-                  fetchdata();
+                  updateUser(item._id)
                 });
               }}
             >
@@ -108,7 +148,7 @@ export default function Users() {
     ) : (
       <></>
     )
-  );
+    );
   if (loading) {
     return <DotLoader />;
   } else {
@@ -124,8 +164,20 @@ export default function Users() {
           >
             {items}
           </Accordion>
+          {/* <Button onClick={()=>{fetcher(skip+limit , limit).then(()=>{skip=skip+limit}).then(()=>{setusersData(USERS)})}}></Button> */}
+          {
+            (entry?.isIntersecting && skip<count) && (
+              <DotLoader/>
+            )
+          }
+
+          {
+            (skip>=count) && (
+              "No more data"
+            )
+          }
         </div>
-        
+        <FooterLinks/>
       </>
     );
   }

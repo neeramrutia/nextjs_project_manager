@@ -38,3 +38,12 @@ export async function removeUser(_id: String){
     if (res.status == 200) console.log("user is promoted to co-ordinator");
     else console.log("user not promoted to co-ordinator");
   };
+export async function getMoreData(skip : Number , limit : Number){
+  try{
+    const res = await fetch(`${base_url}/api/users?skip=${skip}&limit=${limit}`)
+    const data = await res.json();
+    return data
+  }catch(error){
+    return null
+  }
+}

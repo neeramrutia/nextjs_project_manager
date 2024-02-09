@@ -4,12 +4,25 @@ import bcrypt from "bcryptjs"
 import dbconnect from '../../../utils/database';
 dbconnect();
 export async function GET(req,res){
+    // console.log(" ========================== " ,req.nextUrl.searchParams.get("q"))
     let users = [];
     try {
-        // users = await User.find().select("-password");
+        const LIMIT = req.nextUrl.searchParams.get("limit")
+        const ROLE = req.nextUrl.searchParams.get("role")
+        const SKIP = req.nextUrl.searchParams.get("skip")
+        console.log("limit" , LIMIT);
+        console.log("skip" , SKIP);
+        if(LIMIT != null && SKIP != null){
+            const count =await User.countDocuments({role : "user"})
+            console.log(count)
+            users = await User.find({role : ROLE}).select("-password").limit(LIMIT).skip(SKIP);
+            return NextResponse.json(users , {statusText:count});
+        }
+        
         users = await User.find().select("-password");
         return NextResponse.json(users);
     } catch (error) {
+        console.log(error)
         return NextResponse.json({
             message : "error occured while fetching data" , 
             status:false
