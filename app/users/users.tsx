@@ -44,7 +44,7 @@ export default function Users() {
   useEffect(()=>{
     console.log("skip : " ,skip);
     console.log("count : " ,count);
-    if(entry?.isIntersecting && skip<=count)
+    if(entry?.isIntersecting && skip<count)
     fetcher(skip+limit , limit).then(()=>{skip=skip+limit}).then(()=>{setusersData(USERS)})
   },[entry])
   const networkStatus = useNetwork();

@@ -16,7 +16,7 @@ export async function GET(req,res){
             const count =await User.countDocuments({role : "user"})
             console.log("count" , count);
             users = await User.find({role : ROLE}).select("-password").limit(LIMIT).skip(SKIP);
-            return NextResponse.json(users , {statusText:count});
+            return NextResponse.json(users , {statusText:count.toString()});
         }
         
         users = await User.find().select("-password");
