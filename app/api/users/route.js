@@ -13,11 +13,8 @@ export async function GET(req,res){
         console.log("LIMIT : " , LIMIT)
         console.log("SKIP : " , SKIP)
         if(LIMIT != null && SKIP != null){
-            const count =await User.countDocuments({role : "user"})
-            const obj = {count}
-            console.log("count" , count);
             users = await User.find({role : ROLE}).select("-password").limit(LIMIT).skip(SKIP);
-            return NextResponse.json([users , obj]);
+            return NextResponse.json(users);
         }
         
         users = await User.find().select("-password");

@@ -17,19 +17,19 @@ let USERS = [{
   email:""
 }]
 const fetcher = async(skip:Number , limit:Number)=>{
-  
+    const Count = await fetch(`/api/count?role=user`);
+    const countData =await Count.json();
+    count=countData.count
+    console.log(count)
     const res = await fetch(`/api/users?skip=${skip}&limit=${limit}&role=user`);
     const data = await res.json();
     console.log(data)
-    console.log("res" ,res)
-    count = data[1]["count"]
-    console.log("count in fetcher: " , count)
     if(USERS.length == 1)
     {
-      USERS = [...data[0]]
+      USERS = [...data]
     }
     else{
-      USERS = [...USERS , ...data[0]]
+      USERS = [...USERS , ...data]
     }
     
 }
@@ -44,7 +44,7 @@ export default function Users() {
   useEffect(()=>{
     console.log("skip : " ,skip);
     console.log("count : " ,count);
-    if(entry?.isIntersecting && skip<count)
+    if(entry?.isIntersecting && count>skip )
     fetcher(skip+limit , limit).then(()=>{skip=skip+limit}).then(()=>{setusersData(USERS)})
   },[entry])
   const networkStatus = useNetwork();
@@ -169,7 +169,7 @@ export default function Users() {
           </Accordion>
           {/* <Button onClick={()=>{fetcher(skip+limit , limit).then(()=>{skip=skip+limit}).then(()=>{setusersData(USERS)})}}></Button> */}
           {
-            (entry?.isIntersecting && skip<count) && (
+            (entry?.isIntersecting && count>skip) && (
               <DotLoader/>
             )
           }
