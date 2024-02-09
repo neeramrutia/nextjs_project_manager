@@ -16,7 +16,7 @@ let USERS = [{
   name:"",
   email:""
 }]
-let loading = true
+let initialDataLoad = true;
 const fetcher = async(skip:Number , limit:Number)=>{
     const Count = await fetch(`/api/count?role=user`);
     const countData =await Count.json();
@@ -32,7 +32,7 @@ const fetcher = async(skip:Number , limit:Number)=>{
     else{
       USERS = [...USERS , ...data]
     }
-    loading=false
+    initialDataLoad = false;
 }
 
 fetcher(skip,limit)
@@ -47,7 +47,8 @@ export default function Users() {
     console.log("count : " ,count);
     if((entry?.isIntersecting && count>skip)||(entry?.isIntersecting && count==0) )
     fetcher(skip+limit , limit).then(()=>{skip=skip+limit}).then(()=>{setusersData(USERS)})
-  },[entry])
+    setLoading(false);
+  },[entry , initialDataLoad])
   const networkStatus = useNetwork();
   const [toggled , setToggled] = useState(false)
     if(!toggled && !networkStatus.online ){
@@ -88,7 +89,7 @@ export default function Users() {
   }
   const fetchdata = useCallback(async () => {
     setusersData(USERS)
-    setLoading(false);
+    
   }, []);
 
   useEffect(() => {
