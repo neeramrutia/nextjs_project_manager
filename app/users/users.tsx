@@ -18,9 +18,10 @@ let USERS = [{
 }]
 const fetcher = async(skip:Number , limit:Number)=>{
   
-  const res = await fetch(`/api/users?skip=${skip}&limit=${limit}&role=user`);
+    const res = await fetch(`/api/users?skip=${skip}&limit=${limit}&role=user`);
     const data = await res.json();
     console.log(data)
+    console.log("this is res.status text:",res.statusText)
     count = parseInt(res.statusText)
     console.log("count in fetcher: " , count)
     if(USERS.length == 1)
