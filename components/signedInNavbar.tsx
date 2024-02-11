@@ -13,7 +13,7 @@ import {
   rem,
   TextInput,
 } from "@mantine/core";
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery, useNetwork } from "@mantine/hooks";
 import {
   ActionIcon,
   useMantineColorScheme,
@@ -26,6 +26,9 @@ import {
   IconChevronRight,
   IconTrash,
   IconBell,
+  IconFileAnalytics,
+  IconReportAnalytics,
+  IconAnalyze
 } from "@tabler/icons-react";
 import cx from "clsx";
 import classes from "../public/Demo.module.css";
@@ -44,6 +47,7 @@ import RecentlyUploaded from "./recentlyUploaded";
 import MostLiked from "./mostLiked";
 import AddProject from "./addingProject/addProject";
 import Image from "next/image";
+import { notifications } from "@mantine/notifications";
 export default function SignedInNavbar() {
   const [deleteButton, setDeleteButton] = useState(true);
   const deleteAccount = async () => {
@@ -63,6 +67,25 @@ export default function SignedInNavbar() {
   const [active, setActive] = useState(8);
   const { data: session } = useSession();
   console.log(session);
+  const networkStatus = useNetwork();
+  const [toggled , setToggled] = useState(false)
+    if(!toggled && !networkStatus.online ){
+      notifications.show({
+        title : "Network disconnected",
+        message : "Trying to connect",
+        color:"red",
+        loading:true
+      })
+      setToggled(true)
+    }
+    if(toggled && networkStatus.online){
+      notifications.show({
+        title : "Network connected",
+        message : "",
+        color:"green",
+      })
+      setToggled(false)
+    }
   interface UserButtonProps extends React.ComponentPropsWithoutRef<"button"> {
     image?: string | null;
     name?: string;
@@ -147,6 +170,16 @@ export default function SignedInNavbar() {
                           }
                         >
                           Notifications
+                        </Menu.Item>
+                        <Menu.Item
+                          onClick={()=>{window.open("/analysis")}}
+                          leftSection={
+                            <IconReportAnalytics
+                              style={{ width: rem(14), height: rem(14) }}
+                            />
+                          }
+                        >
+                          Analysis
                         </Menu.Item>
                         <Menu.Divider />
                       </>

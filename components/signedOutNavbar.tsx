@@ -1,5 +1,5 @@
 import { AppShell, Burger, Grid, Group, LoadingOverlay, NavLink, Text, em } from "@mantine/core";
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery, useNetwork } from "@mantine/hooks";
 import SignUpWithCred from "./signUpWithCred";
 import {
   ActionIcon,
@@ -25,6 +25,7 @@ import Home from "./homeComponent";
 import RecentlyUploaded from "./recentlyUploaded";
 import MostLiked from "./mostLiked";
 import Image from "next/image";
+import { notifications } from "@mantine/notifications";
 export default function SignedOutNavbar() {
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
@@ -36,7 +37,25 @@ export default function SignedOutNavbar() {
   const router = useRouter();
   const { data: session } = useSession();
   const [time , setTime] = useState(true);
-  
+  const networkStatus = useNetwork();
+  const [toggled , setToggled] = useState(false)
+    if(!toggled && !networkStatus.online ){
+      notifications.show({
+        title : "Network disconnected",
+        message : "Trying to connect",
+        color:"red",
+        loading:true
+      })
+      setToggled(true)
+    }
+    if(toggled && networkStatus.online){
+      notifications.show({
+        title : "Network connected",
+        message : "",
+        color:"green",
+      })
+      setToggled(false)
+    }
   // const Time = ()=>{
   //   setTimeout(()=>{setTime(false)} , 3000);
   //   console.log(time)

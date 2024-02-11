@@ -1,5 +1,5 @@
 "use client";
-import { Accordion, Button, Grid, Text, rem } from "@mantine/core";
+import { Accordion, Button, Grid, Group, Text, rem } from "@mantine/core";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { promoteToAdmin , promoteToCoordinator , removeUser } from "./helper";
 import DotLoader from "../../components/Loader/loader";
@@ -161,6 +161,7 @@ export default function Users() {
     return (
       <>
         {/* {JSON.stringify(usersData)} */}
+        
         <div>
           <Accordion
             style={{ verticalAlign: "middle" }}
@@ -181,12 +182,18 @@ export default function Users() {
               <DotLoader/>
             )
           }
+          <Group justify="center">
           {
+            
             (skip>count) && (
-              "No more data"
+              <Text>No more data to load</Text>
             )
+            
+
           }
+          </Group>
         </div>
+        
         <FooterLinks/>
       </>
     );
