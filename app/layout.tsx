@@ -10,7 +10,7 @@ export const metadata = {
   title: "Project Catalog",
   description: "Manage Projects",
 };
-
+import { GoogleAnalytics } from '@next/third-parties/google'
 export default function RootLayout({ children }: { children: any }) {
   return (
     <html lang="en">
@@ -31,6 +31,7 @@ export default function RootLayout({ children }: { children: any }) {
           </MantineProvider>
         </Provider>
       </body>
+      <GoogleAnalytics gaId="G-S97QRV63R4"/>
     </html>
   );
 }

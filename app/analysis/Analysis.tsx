@@ -51,4 +51,7 @@ export default function Analysis(){
        </>
       )
     }
+    if(loading){
+      return <DotLoader/>
+    }
 }
