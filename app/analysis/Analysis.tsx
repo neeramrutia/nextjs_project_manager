@@ -1,7 +1,8 @@
 "use client"
 import { Text } from '@mantine/core';
+
 import classes from "./StatsGroup.module.css"
-import { getStatData } from './serverActions';
+import { getPagePathData, getStatData } from './serverActions';
 import { useEffect, useState } from 'react';
 import DotLoader from '../../components/Loader/loader';
 interface d{
@@ -25,15 +26,22 @@ export default function Analysis(){
     data = fetchedData
     console.log("data : " , data)
     setnewData(data)
+    setLoading(false);
+  }
+  const fetchPagePathData = async()=>{
+    const res =await getPagePathData().then().catch(console.error);
+    res?.forEach(row => {
+      console.log(row.dimensionValues, row.metricValues);
+  });
   }
   
   useEffect(()=>{
     fetchData();
-    setLoading(false);
+    fetchPagePathData();
   } , [])
 
     if(!loading){
-    const stats = data.map((stat) => (
+    const stats = newData.map((stat) => (
         <div key={stat.title} className={classes.stat}>
           <Text className={classes.count}>{stat.stats}</Text>
           <Text className={classes.title}>{stat.title}</Text>

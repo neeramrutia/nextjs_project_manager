@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@bradgarropy/next-google-analytics": "^1.0.2",
+    "@google-analytics/data": "^4.3.0",
     "@mantine/core": "7.2.1",
     "@mantine/form": "^7.2.2",
     "@mantine/hooks": "7.2.1",
@@ -20,6 +21,7 @@
     "aws4": "^1.12.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "googleapis": "^133.0.0",
     "mongoose": "^8.0.1",
     "next": "^14.0.1",
     "next-auth": "^4.24.5",
