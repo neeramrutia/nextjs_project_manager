@@ -1,8 +1,8 @@
 "use client"
-import { Text } from '@mantine/core';
-
+import { Card, Paper, Text } from '@mantine/core';
+import { AreaChart, BarChart, ChartTooltipProps } from '@mantine/charts';
 import classes from "./StatsGroup.module.css"
-import { getPagePathData, getStatData } from './serverActions';
+import { getOsData, getStatData } from './serverActions';
 import { useEffect, useState } from 'react';
 import DotLoader from '../../components/Loader/loader';
 interface d{
@@ -21,6 +21,12 @@ export default function Analysis(){
     stats:"",
     description:""
   }])
+  const [osMonth , setOsMonth] = useState([{
+      date: '',
+      mobile: 0,
+      tablet: 0,
+      desktop: 0,
+  }])
   const fetchData = async()=>{
     const fetchedData = await getStatData()
     data = fetchedData
@@ -29,10 +35,8 @@ export default function Analysis(){
     setLoading(false);
   }
   const fetchPagePathData = async()=>{
-    const res =await getPagePathData().then().catch(console.error);
-    res?.forEach(row => {
-      console.log(row.dimensionValues, row.metricValues);
-  });
+    const res =await getOsData().then().catch(console.error);
+    setOsMonth(res || [])
   }
   
   useEffect(()=>{
@@ -53,9 +57,28 @@ export default function Analysis(){
         <>
       {
         !loading && (
+          <Card m={'xl'}>
           <div className={classes.root}>{stats}</div>
+          </Card>
         )
       }
+      <Card m={'xl'}>
+      <AreaChart
+      tooltipAnimationDuration={200}
+      unit=" users"
+      h={300}
+      data={osMonth}
+      dataKey="date"
+      withLegend
+      gridAxis='xy'
+      series={[
+        { name: 'tablet', color: 'indigo.6' },
+        { name: 'mobile', color: 'blue.6' },
+        { name: 'desktop', color: 'teal.6' },
+      ]}
+      curveType="linear"
+    />
+    </Card>
        </>
       )
     }

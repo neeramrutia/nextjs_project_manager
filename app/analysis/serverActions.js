@@ -2,11 +2,11 @@
 import { GoogleAuth } from 'google-auth-library' 
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 import fs from "fs"
+import { osMonthData } from './osMonth';
 const base_url =
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000"
         : "https://nextjs-project-manager-phi.vercel.app"; 
-  
 export async function getStatData(){
     const res = await fetch(`${base_url}/api/stats`);
     const data = await res.json();
@@ -60,44 +60,66 @@ const CREDENTIALS_PATH = "google-analytics-key.json"
   }
       
   );
-export async function getPagePathData() {
+  const d = new Date();
+  const date = d.getFullYear()-1 + "-" + d.getMonth()+1 + "-" + d.getDate()
+export async function getOsData() {
 
   async function runReport() {
           const [response] = await analyticsDataClient.runReport({
               property: `properties/${process.env.GA_PROPERTY_ID}`,
               dateRanges: [
                   {
-                      startDate: '2020-03-31',
+                      startDate: date,
                       endDate: 'today',
                   },
               ],
               dimensions: [
+                // {
+                //   name:"pagePath"
+                // },
                 {
-                  name:"pagePath"
-                },{
-                  name:"operatingSystemWithVersion"
-                },{
-                  name:"region"
+                  name:"month"
+                },
+                // {
+                //   name:"operatingSystemWithVersion"
+                // },
+                {
+                  name:"deviceCategory"
                 }
+                // {
+                //   name:"region"
+                // }
               ],
               metrics: [
                 {
                   name: "totalUsers"
-                },{
-                  name:"screenPageViews"
-                },{
-                  name:"userEngagementDuration"
                 }
+                // ,
+                // {
+                //   name:"screenPageViews"
+                // }
+                // ,
+                // {
+                //   name:"userEngagementDuration"
+                // }
               ],
           });
 
           console.log('Report result:');
           response.rows.forEach(row => {
-              console.log(row.dimensionValues, row.metricValues);
+            if(row.dimensionValues[1].value == "desktop"){
+              osMonthData[parseInt(row.dimensionValues[0].value)-1].desktop = row.metricValues[0].value
+            }
+            else if(row.dimensionValues[1].value == "mobile"){
+              osMonthData[parseInt(row.dimensionValues[0].value)-1].mobile = row.metricValues[0].value
+            }else{
+              osMonthData[parseInt(row.dimensionValues[0].value)-1].tablet = row.metricValues[0].value
+            } 
           });
-          return response.rows
+          console.log(osMonthData)
+          return osMonthData
       }
-
-  const res = await runReport();
+     
+   const res = await runReport();
   return res;
 }

@@ -11,6 +11,7 @@
   "dependencies": {
     "@bradgarropy/next-google-analytics": "^1.0.2",
     "@google-analytics/data": "^4.3.0",
+    "@mantine/charts": "^7.5.2",
     "@mantine/core": "7.2.1",
     "@mantine/form": "^7.2.2",
     "@mantine/hooks": "7.2.1",
@@ -30,6 +31,7 @@
     "react-dom": "18.2.0",
     "react-markdown": "^9.0.1",
     "react-syntax-highlighter": "^15.5.0",
+    "recharts": "^2.12.0",
     "swr": "^2.2.4",
     "tabler-icons-react": "^1.56.0"
   },

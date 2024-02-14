@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Provider from "../components/Provider";
 import '@mantine/spotlight/styles.css';
 import '@mantine/notifications/styles.css';
+import '@mantine/charts/styles.css';
 import { Notifications } from '@mantine/notifications';
 export const metadata = {
   title: "Project Catalog",

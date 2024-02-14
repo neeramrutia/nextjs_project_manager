@@ -2,8 +2,7 @@
     display: flex;
     background-image: linear-gradient(
       -60deg,
-      var(--mantine-color-blue-4) 0%,
-      var(--mantine-color-blue-7) 100%
+      var(--mantine-color-black-3) 0%,
     );
     padding: calc(var(--mantine-spacing-xl) * 1.5);
     border-radius: var(--mantine-radius-md);
