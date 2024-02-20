@@ -19,7 +19,6 @@ import {
   useMantineColorScheme,
   useComputedColorScheme,
 } from "@mantine/core";
-import ShowAllProjects from "./showProjects/showAllProjects";
 import {
   IconSun,
   IconMoon,
@@ -260,6 +259,7 @@ export default function SignedInNavbar() {
           active={13 === active}
           onClick={() => {
             setActive(13);
+            window.open("/showProjects")
             toggle();
           }}
           color="cyan"
@@ -338,7 +338,6 @@ export default function SignedInNavbar() {
         {active == 9 && <RecentlyUploaded />}
         {active == 10 && <MostLiked />}
         {active == 12 && <AddProject />}
-        {active == 13 && <ShowAllProjects />}
         <Modal
           opened={opens}
           onClose={close}

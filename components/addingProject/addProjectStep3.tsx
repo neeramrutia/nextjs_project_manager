@@ -42,6 +42,7 @@ export function AddProjectStep3() {
       },
     ];
     setData(studs);
+    
   };
   const onSave = () => {
     step3Object.Mentor = Project.Mentor;
@@ -116,7 +117,6 @@ export function AddProjectStep3() {
                 withAsterisk
                 label="Name"
                 placeholder="Student name"
-                required
                 value={student.name}
                 onChange={(e) => {
                   setStudent({ ...student, name: e.target.value });
@@ -129,7 +129,6 @@ export function AddProjectStep3() {
                 withAsterisk
                 label="ID"
                 placeholder="Student ID"
-                required
                 value={student.id}
                 onChange={(e) => {
                   setStudent({ ...student, id: e.target.value });
@@ -144,7 +143,7 @@ export function AddProjectStep3() {
                 fullWidth
                 mt={"lg"}
                 type="submit"
-                onClick={addStudent}
+                onClick={()=>{addStudent();setStudent({name : "" , id : ""})}}
               >
                 Add Student
               </Button>

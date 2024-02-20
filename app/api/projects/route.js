@@ -4,13 +4,25 @@ import { NextResponse } from "next/server";
 // import jwt from "jsonwebtoken"
 
 export async function GET(request){
+    const query = request.nextUrl.searchParams.get("query")
+    console.log(query);
     try {
-        const allProject = await Project.find();
-        return NextResponse.json(allProject , {
-        success:true,
-        statusText:"fetched all tasks successfully",
-        status:200
-    });
+        if(query == null){
+            const allProject = await Project.find().limit(10)
+            return NextResponse.json(allProject , {
+            success:true,
+            statusText:"fetched all tasks successfully",
+            status:200
+            });
+        }
+        else{
+            const queryRelatedProjects = await Project.find({"$or":[{title : new RegExp(query) },{ Mentor : new RegExp(query)} , {"members.id":new RegExp(query)}]})
+            return NextResponse.json(queryRelatedProjects , {
+                success:true,
+                statusText : "fetched query related projects successfully",
+                status:200
+            })
+        }
     } catch (error) {
         console.log(error);
         return NextResponse.json({
