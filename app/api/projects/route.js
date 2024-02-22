@@ -31,7 +31,7 @@ export async function GET(request){
     }
 }
 export async function POST(request){
-    const { title , content , userId , status , ProjectType , Mentor , ProjectLink , members} = await request.json();
+    const { title , content , userId , status , ProjectType , Mentor , ProjectLink , members , technologyUsed} = await request.json();
 
     // const loginToken = request.cookies.get("loginToken")?.value;
     // const data = jwt.verify(loginToken , process.env.JWT_KEY);
@@ -44,7 +44,9 @@ export async function POST(request){
             ProjectType,
             Mentor,
             ProjectLink,
-            members
+            members,
+            technologiesUsed : technologyUsed
+            
         });
         const createdProject = await project.save();
         return NextResponse.json(createdProject , {

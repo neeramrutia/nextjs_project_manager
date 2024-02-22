@@ -2,11 +2,13 @@ import { Button, Group, Stepper } from "@mantine/core";
 import { AddProjectStep1, step1Object } from "./addProjectStep1";
 import { AddProjectStep2, step2Object } from "./addProjectStep2";
 import { AddProjectStep3, step3Object } from "./addProjectStep3";
+import { step4Object } from "./addProjectStep4";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import LoadingState from "../States/LoadingState"; 
 import SuccessState from "../States/SuccessState";
 import ErrorState from "../States/ErrorState"; 
+import AddProjectStep4 from "./addProjectStep4";
 const mainObject = {
     title: "",
     status: "",
@@ -18,6 +20,7 @@ const mainObject = {
       name: "",
       id: "",
     }],
+    technologyUsed : [""]
 }
 export default function AddProject() {
   const [success , setSuccess] = useState(0);
@@ -31,6 +34,7 @@ export default function AddProject() {
     content: "",
     userId:session?.user.id,
     members : [{}],
+    technologyUsed : [""]
   });
   const resetProject = ()=>{
     Project.Mentor='';
@@ -40,6 +44,7 @@ export default function AddProject() {
     Project.content='';
     Project.status='';
     Project.members=[];
+    Project.technologyUsed = [""];
   }
   const RegisterProject = async()=>{
     const res = await fetch('api/projects',{
@@ -66,11 +71,12 @@ export default function AddProject() {
     Project.content = step2Object.content;
     Project.Mentor = step3Object.Mentor;
     Project.ProjectLink = step3Object.ProjectLink;
-    Project.members = step3Object.members
+    Project.members = step3Object.members;
+    Project.technologyUsed = step4Object.technologyUsed;
   };
   const [active, setActive] = useState(0);
   const nextStep = () =>
-    setActive((current) => (current < 3 ? current + 1 : current));
+    setActive((current) => (current < 4 ? current + 1 : current));
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
 
@@ -86,11 +92,15 @@ export default function AddProject() {
           description="Add Markdown file"
         ></Stepper.Step>
         <Stepper.Step
-          label="Final step"
+          label="Third step"
           description="Add mentor details"
         ></Stepper.Step>
+        <Stepper.Step
+          label="Final step"
+          description="Add pics"
+        ></Stepper.Step>
         <Stepper.Completed>
-          {active == 3 && success == 0 && 'Creating Project...'}
+          {active == 4 && success == 0 && 'Creating Project...'}
           Creating Project...
           
           </Stepper.Completed>
@@ -99,11 +109,12 @@ export default function AddProject() {
       {active == 0 && <AddProjectStep1 />}
       {active == 1 && <AddProjectStep2 />}
       {active == 2 && <AddProjectStep3 />}
-      {active == 3 && success == 0 && <LoadingState />}
-      {active == 3 && success == 1 && <SuccessState />}
-      {active == 3 && success == -1 && <ErrorState />} 
+      {active == 3 && <AddProjectStep4 />}
+      {active == 4 && success == 0 && <LoadingState />}
+      {active == 4 && success == 1 && <SuccessState />}
+      {active == 4 && success == -1 && <ErrorState />} 
       {
-        (active == 1 || active == 0 || active == 2) && (
+        (active == 1 || active == 0 || active == 2 || active == 3) && (
       
       <Group justify="center" mt="xl">
         <Button
@@ -116,7 +127,7 @@ export default function AddProject() {
           Back
         </Button>
         {
-          active!=2 && (<Button
+          active!=3 && (<Button
             onClick={() => {
               nextStep();
               saveProject();
@@ -132,7 +143,7 @@ export default function AddProject() {
         )}
 
         {
-          active == 2 && (
+          active == 3 && (
             <Group justify="center" mt="xl">
             <Button
               variant="default"
