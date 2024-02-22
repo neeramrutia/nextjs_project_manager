@@ -56,8 +56,7 @@ export default function ShowAllProjects() {
       const res = await data.json();
       setLoadingProject(false)
       setmyData(res);
-    }
-    
+    }  
   }, []);
   useEffect(() => {
     fetchData("").catch(console.error);
@@ -184,7 +183,7 @@ export default function ShowAllProjects() {
       </AppShell.Navbar>
       <AppShell.Main>
         <Group justify="space-around">
-        <Title m={"lg"} size="lg" className={classes.title1} order={2}> Explore Projects </Title>
+        <Title m={"lg"} className={classes.title1} order={2} style={{fontSize : isMobile ? rem(30) : rem(45)}}> Explore Projects </Title>
         </Group>
       
           <Group justify="space-evenly" m={"xl"}>
