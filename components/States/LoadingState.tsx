@@ -1,8 +1,11 @@
-import { Notification } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 export default function LoadingState(){
     return(
-        <Notification loading title="Please Wait">
-            Creating Project
-        </Notification>
+        notifications.show({
+            title : "Loading ",
+            message : "Creating project",
+            color:"gray",
+            loading : true
+          })
     )
 }

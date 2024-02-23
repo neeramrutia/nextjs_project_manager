@@ -110,9 +110,9 @@ export default function AddProject() {
       {active == 1 && <AddProjectStep2 />}
       {active == 2 && <AddProjectStep3 />}
       {active == 3 && <AddProjectStep4 />}
-      {active == 4 && success == 0 && <LoadingState />}
-      {active == 4 && success == 1 && <SuccessState />}
-      {active == 4 && success == -1 && <ErrorState />} 
+      {active == 4 && success == 0 && (<><LoadingState /> </>)}
+      {active == 4 && success == 1 && (<><SuccessState /> </>)}
+      {active == 4 && success == -1 && (<><ErrorState /> </>)} 
       {
         (active == 1 || active == 0 || active == 2 || active == 3) && (
       
