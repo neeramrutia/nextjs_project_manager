@@ -42,7 +42,7 @@ export default function ShowAllProjects() {
     },
   ]);
   const [status , setStatus] = useState('0');
-  const fetchData = useCallback(async (query : string) => {
+  const fetchData = useCallback(async (query : string , filter : string) => {
     if(query == ""){
       console.log(query)
       const data = await fetch("api/projects");
@@ -52,14 +52,14 @@ export default function ShowAllProjects() {
     }else{
       console.log("query : " , query)
       setLoadingProject(true);
-      const data = await fetch(`api/projects?query=${query}`);
+      const data = await fetch(`api/projects?query=${query}&filter=${filter}`);
       const res = await data.json();
       setLoadingProject(false)
       setmyData(res);
     }  
   }, []);
   useEffect(() => {
-    fetchData("").catch(console.error);
+    fetchData("" , filter.searchBy).catch(console.error);
     setLoading(false);
   }, []);
   const { setColorScheme } = useMantineColorScheme();
@@ -163,8 +163,8 @@ export default function ShowAllProjects() {
             comboboxProps={{ transitionProps: { transition: 'pop', duration: 200 }, shadow: 'md' }}
             data={['Any', 'Title', 'Mentor', 'Member Name' , 'Member Id']}
             defaultValue="Any"
-            value={value}
-            onChange={setValue}
+            value={filter.searchBy}
+            onChange={(e)=>{setFilter({searchBy:e || ""}); fetchData(query , e || "Any")}}
           />
           </Card>
           <Card m={"md"} withBorder shadow="lg">
@@ -188,7 +188,7 @@ export default function ShowAllProjects() {
       
           <Group justify="space-evenly" m={"xl"}>
           
-          <form style={{alignContent : "center"}} onSubmit={(e)=>{e.preventDefault();  fetchData(query);}}>
+          <form style={{alignContent : "center"}} onSubmit={(e)=>{e.preventDefault();  fetchData(query , filter.searchBy);}}>
             <TextInput
               m={"lg"}
               radius="xl"
