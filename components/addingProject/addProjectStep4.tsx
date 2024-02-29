@@ -6,7 +6,7 @@ const step4Object = {
 };
 
 export default function AddProjectStep4() {
-    const [value, setValue] = useState<string[]>(mainObject.technologyUsed);
+    const [value, setValue] = useState<string[]>(mainObject.technologyUsed[0]=="" ? [] : mainObject.technologyUsed );
     const [Project , setProject] = useState(mainObject.technologyUsed);
   const onSave = () => {
     console.log("onsave : " , value)
