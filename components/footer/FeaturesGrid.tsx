@@ -1,7 +1,11 @@
-import { ThemeIcon, Text, Title, Container, SimpleGrid, rem } from '@mantine/core';
+import { ThemeIcon, Text, Title, Container, SimpleGrid, rem, Tooltip } from '@mantine/core';
 import { IconGauge, IconCookie, IconUser, IconMessage2, IconLock } from '@tabler/icons-react';
 import classes from '../../public/FeaturesGrid.module.css';
-
+import { IconBrandReact , IconBrandPython , IconBrandNextjs , IconBrandGatsby , IconBrandJavascript , IconBrandTypescript , IconBrandDjango, IconBrandVue , IconBrandAngular , IconBrandGraphql , IconBrandAndroid , IconBrandAws , IconBrandAzure , IconBrandNodejs , IconBrandNuxt , IconBrandThreejs} from '@tabler/icons-react';
+const COLORS = ["#6BD731" , "#C02ADF" , "#5474B4" , "#2BDD66" , "#D9D02F" , "cyan" , "teal","#1F32C4" , "#7B2EDA"]
+const getRandomColor = ()=>{
+  return COLORS[Math.floor(Math.random()*COLORS.length)];
+}
 export const MOCKDATA = [
   {
     icon: IconGauge,
@@ -62,13 +66,121 @@ export function FeaturesGrid() {
 
   return (
     <Container className={classes.wrapper}>
-      <Title className={classes.title}>Integrate effortlessly with any technology stack</Title>
+      <Title className={classes.title}>Discover Innovations in Every Tech Field.</Title>
 
       <Container size={560} p={0}>
-        <Text size="sm" className={classes.description}>
-          Every once in a while, you’ll see a Golbat that’s missing some fangs. This happens when
-          hunger drives it to try biting a Steel-type Pokémon.
-        </Text>
+        <Tooltip label={"react"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandReact
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"python"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandPython
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Nextjs"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandNextjs
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Angular"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandAngular
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Django"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandDjango
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Gatsby"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandGatsby
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Javascript"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandJavascript
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Typescript"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandTypescript
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Vue"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandVue
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Graphql"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandGraphql
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Android"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandAndroid
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"AWS"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandAws
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Azure"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandAzure
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Nuxt"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandNuxt
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Nodejs"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandNodejs
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Threejs"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandThreejs
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
       </Container>
 
       <SimpleGrid

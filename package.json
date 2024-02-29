@@ -33,7 +33,8 @@
     "react-syntax-highlighter": "^15.5.0",
     "recharts": "^2.12.0",
     "swr": "^2.2.4",
-    "tabler-icons-react": "^1.56.0"
+    "tabler-icons-react": "^1.56.0",
+    "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

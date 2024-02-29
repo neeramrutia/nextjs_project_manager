@@ -1,29 +1,32 @@
-import { Button, Group, Stepper } from "@mantine/core";
+import { Button, Grid, Group, Stepper } from "@mantine/core";
 import { AddProjectStep1, step1Object } from "./addProjectStep1";
 import { AddProjectStep2, step2Object } from "./addProjectStep2";
 import { AddProjectStep3, step3Object } from "./addProjectStep3";
 import { step4Object } from "./addProjectStep4";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import LoadingState from "../States/LoadingState"; 
+import LoadingState from "../States/LoadingState";
 import SuccessState from "../States/SuccessState";
-import ErrorState from "../States/ErrorState"; 
+import ErrorState from "../States/ErrorState";
 import AddProjectStep4 from "./addProjectStep4";
+import DotLoader from "../Loader/loader";
 const mainObject = {
-    title: "",
-    status: "",
-    ProjectType: "",
-    ProjectLink: "",
-    Mentor: "none",
-    content: "",
-    members : [{
+  title: "",
+  status: "",
+  ProjectType: "",
+  ProjectLink: "",
+  Mentor: "none",
+  content: "",
+  members: [
+    {
       name: "",
       id: "",
-    }],
-    technologyUsed : [""]
-}
+    },
+  ],
+  technologyUsed: [""],
+};
 export default function AddProject() {
-  const [success , setSuccess] = useState(0);
+  const [success, setSuccess] = useState(0);
   const { data: session } = useSession();
   const [Project, setProject] = useState({
     title: "",
@@ -32,38 +35,35 @@ export default function AddProject() {
     ProjectLink: "",
     Mentor: "none",
     content: "",
-    userId:session?.user.id,
-    members : [{}],
-    technologyUsed : [""]
+    userId: session?.user.id,
+    members: [{}],
+    technologyUsed: [""],
   });
-  const resetProject = ()=>{
-    Project.Mentor='';
-    Project.title='';
-    Project.ProjectLink='';
-    Project.ProjectType='';
-    Project.content='';
-    Project.status='';
-    Project.members=[];
+  const resetProject = () => {
+    Project.Mentor = "";
+    Project.title = "";
+    Project.ProjectLink = "";
+    Project.ProjectType = "";
+    Project.content = "";
+    Project.status = "";
+    Project.members = [];
     Project.technologyUsed = [""];
-  }
-  const RegisterProject = async()=>{
-    const res = await fetch('api/projects',{
+  };
+  const RegisterProject = async () => {
+    const res = await fetch("api/projects", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(Project),
-    })
-    if(res.status == 201)
-    {
+    });
+    if (res.status == 201) {
       setSuccess(1);
-    }
-    else{
+    } else {
       setSuccess(-1);
     }
     resetProject();
-    
-  }
+  };
   const saveProject = () => {
     Project.title = step1Object.title;
     Project.status = step1Object.status;
@@ -95,72 +95,85 @@ export default function AddProject() {
           label="Third step"
           description="Add mentor details"
         ></Stepper.Step>
-        <Stepper.Step
-          label="Final step"
-          description="Add pics"
-        ></Stepper.Step>
+        <Stepper.Step label="Final step" description="Add pics"></Stepper.Step>
         <Stepper.Completed>
-          {active == 4 && success == 0 && 'Creating Project...'}
-          Creating Project...
-          
-          </Stepper.Completed>
+          {active == 4 && success == 0 && <DotLoader />}
+          {active == 4 && success == 1 && (
+            <>
+              <Group mih={"100"} justify="center">
+                <Button size="xl">View Project</Button>
+              </Group>
+            </>
+          )}
+          {active == 4 && success == -1 && (
+            <>
+              <Group justify="center">
+                <Button>Try Again</Button>
+              </Group>
+            </>
+          )}
+        </Stepper.Completed>
       </Stepper>
 
       {active == 0 && <AddProjectStep1 />}
       {active == 1 && <AddProjectStep2 />}
       {active == 2 && <AddProjectStep3 />}
       {active == 3 && <AddProjectStep4 />}
-      {active == 4 && success == 0 && (<><LoadingState /> </>)}
-      {active == 4 && success == 1 && (<><SuccessState /> </>)}
-      {active == 4 && success == -1 && (<><ErrorState /> </>)} 
-      {
-        (active == 1 || active == 0 || active == 2 || active == 3) && (
-      
-      <Group justify="center" mt="xl">
-        <Button
-          variant="default"
-          onClick={() => {
-            prevStep();
-            saveProject();
-          }}
-        >
-          Back
-        </Button>
-        {
-          active!=3 && (<Button
+      {active == 4 && success == 0 && (
+        <>
+          <LoadingState />{" "}
+        </>
+      )}
+      {active == 4 && success == 1 && (
+        <>
+          <SuccessState />{" "}
+        </>
+      )}
+      {active == 4 && success == -1 && (
+        <>
+          <ErrorState />{" "}
+        </>
+      )}
+      {(active == 1 || active == 0 || active == 2 || active == 3) && (
+        <Group justify="center" mt="xl">
+          <Button
+            variant="default"
             onClick={() => {
-              nextStep();
+              prevStep();
               saveProject();
             }}
-            color="cyan"
           >
-            Next step
-          </Button>)
-        }
-        
-      </Group>
-
-        )}
-
-        {
-          active == 3 && (
-            <Group justify="center" mt="xl">
+            Back
+          </Button>
+          {active != 3 && (
             <Button
-              variant="default"
               onClick={() => {
-                saveProject();
-                RegisterProject();
                 nextStep();
+                saveProject();
               }}
+              color="cyan"
             >
-              Add Project
+              Next step
             </Button>
-          </Group>
-          )
-        }
+          )}
+        </Group>
+      )}
+
+      {active == 3 && (
+        <Group justify="center" mt="xl">
+          <Button
+            variant="default"
+            onClick={() => {
+              saveProject();
+              RegisterProject();
+              nextStep();
+            }}
+          >
+            Add Project
+          </Button>
+        </Group>
+      )}
     </>
   );
 }
-export {mainObject}
-
-
+export { mainObject };
