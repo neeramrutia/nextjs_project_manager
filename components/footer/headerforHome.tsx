@@ -22,7 +22,7 @@ export function HeroText() {
 
         <Container p={0} size={600}>
           <Text size="lg" c="dimmed" className={classes.description}>
-          "Discover, Collaborate, Innovate: Your Gateway to Cutting-Edge Projects!"
+          Discover, Collaborate, Innovate: Your Gateway to Cutting-Edge Projects!
           </Text>
         </Container>
 

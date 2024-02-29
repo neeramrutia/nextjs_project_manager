@@ -61,7 +61,7 @@ const CREDENTIALS_PATH = "google-analytics-key.json"
       
   );
   const d = new Date();
-  const date = d.getFullYear()-1 + "-" + d.getMonth()+1 + "-" + d.getDate()
+  // const date = d.getFullYear()-1 + "-" + d.getMonth()+1 + "-" + d.getDate()
 export async function getOsData() {
 
   async function runReport() {
@@ -69,7 +69,7 @@ export async function getOsData() {
               property: `properties/${process.env.GA_PROPERTY_ID}`,
               dateRanges: [
                   {
-                      startDate: date,
+                      startDate: "365daysAgo",
                       endDate: 'today',
                   },
               ],
