@@ -1,7 +1,7 @@
 import { ThemeIcon, Text, Title, Container, SimpleGrid, rem, Tooltip } from '@mantine/core';
 import { IconGauge, IconCookie, IconUser, IconMessage2, IconLock } from '@tabler/icons-react';
 import classes from '../../public/FeaturesGrid.module.css';
-import { IconBrandReact , IconBrandPython , IconBrandNextjs , IconBrandGatsby , IconBrandJavascript , IconBrandTypescript , IconBrandDjango, IconBrandVue , IconBrandAngular , IconBrandGraphql , IconBrandAndroid , IconBrandAws , IconBrandAzure , IconBrandNodejs , IconBrandNuxt , IconBrandThreejs} from '@tabler/icons-react';
+import { IconBrandReact , IconBrandPython , IconBrandNextjs , IconBrandGatsby , IconBrandJavascript , IconBrandTypescript , IconBrandDjango, IconBrandVue , IconBrandAngular , IconBrandGraphql , IconBrandAndroid , IconBrandAws , IconBrandAzure , IconBrandNodejs , IconBrandNuxt , IconBrandThreejs , IconBrandCSharp , IconBrandMantine , IconBrandTailwind , IconBrandBootstrap , IconBrandCpp , IconBrandFlutter , IconBrandOauth , IconBrandGithub} from '@tabler/icons-react';
 const COLORS = ["#6BD731" , "#C02ADF" , "#5474B4" , "#2BDD66" , "#D9D02F" , "cyan" , "teal","#1F32C4" , "#7B2EDA"]
 const getRandomColor = ()=>{
   return COLORS[Math.floor(Math.random()*COLORS.length)];
@@ -71,6 +71,7 @@ export function FeaturesGrid() {
       <Container size={560} p={0}>
         <Tooltip label={"react"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandReact
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -78,6 +79,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"python"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandPython
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -85,6 +87,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Nextjs"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandNextjs
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -92,6 +95,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Angular"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandAngular
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -99,6 +103,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Django"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandDjango
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -106,6 +111,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Gatsby"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandGatsby
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -113,6 +119,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Javascript"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandJavascript
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -120,6 +127,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Typescript"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandTypescript
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -127,6 +135,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Vue"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandVue
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -134,6 +143,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Graphql"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandGraphql
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -141,6 +151,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Android"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandAndroid
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -148,6 +159,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"AWS"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandAws
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -155,6 +167,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Azure"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandAzure
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -162,6 +175,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Nuxt"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandNuxt
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -169,6 +183,7 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Nodejs"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandNodejs
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
@@ -176,6 +191,71 @@ export function FeaturesGrid() {
         </Tooltip>
         <Tooltip label={"Threejs"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
         <IconBrandThreejs
+        className={classes.element}
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"CSharp"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandCSharp
+        className={classes.element}
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Mantine"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandMantine
+        className={classes.element}
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Bootstrap"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandBootstrap
+        className={classes.element}
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Tailwind"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandTailwind
+        className={classes.element}
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Cpp"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandCpp
+        className={classes.element}
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Flutter"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandFlutter
+        className={classes.element}
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Oauth"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandOauth
+        className={classes.element}
+        style={{ width: rem(60), height: rem(60) , margin : "5px"}}
+        stroke={1.5}
+        color={getRandomColor()}
+        />
+        </Tooltip>
+        <Tooltip label={"Github"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+        <IconBrandGithub
+        className={classes.element}
         style={{ width: rem(60), height: rem(60) , margin : "5px"}}
         stroke={1.5}
         color={getRandomColor()}
