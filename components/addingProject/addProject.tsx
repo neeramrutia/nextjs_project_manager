@@ -14,20 +14,20 @@ import { FileWithPath } from "@mantine/dropzone";
 import { file } from "googleapis/build/src/apis/file";
 import { error } from "console";
 type MainObject = {
-  title : String;
-  status : String;
-  ProjectType : String;
-  ProjectLink : String;
-  Mentor : String;
+  title : string;
+  status : string;
+  ProjectType : string;
+  ProjectLink : string;
+  Mentor : string;
   content : String;
   members : Array<{
-    name : String;
-    id : String;
+    name : string;
+    id : string;
   }>
   technologyUsed : Array<string>;
   images : FileWithPath[]
 }
-const mainObject : MainObject = {
+const mainObject : MainObject  = {
   title: "",
   status: "",
   ProjectType: "",

@@ -13,7 +13,6 @@ const step4Object:any = {
   technologyUsed: [""],
   images : []
 };
-
 export default function AddProjectStep4(props: Partial<DropzoneProps>) {
   const [files, setFiles] = useState<FileWithPath[]>([]);
 

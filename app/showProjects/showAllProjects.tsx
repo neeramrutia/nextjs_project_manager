@@ -86,8 +86,8 @@ export default function ShowAllProjects() {
         <Carousel
         styles={{control:{backgroundColor:"black"}}}
           withIndicators
-          nextControlIcon={<IconArrowRight style={{ width: rem(16), height: rem(16) }} />}
-          previousControlIcon={<IconArrowLeft style={{ width: rem(16), height: rem(16) }} />}
+          nextControlIcon={<IconArrowRight color="white" style={{ width: rem(16), height: rem(16) }} />}
+          previousControlIcon={<IconArrowLeft color="white" style={{ width: rem(16), height: rem(16) }} />}
           loop
           classNames={{
             root: classes.carousel,
