@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { type } from "os";
 
 const ProjectSchema = new mongoose.Schema({
     title:{
@@ -40,6 +41,10 @@ const ProjectSchema = new mongoose.Schema({
         default : []
     } , 
     technologiesUsed:{
+        type : Array,
+        default : []
+    } ,
+    images : {
         type : Array,
         default : []
     }

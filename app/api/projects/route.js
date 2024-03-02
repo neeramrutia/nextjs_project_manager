@@ -44,10 +44,11 @@ export async function GET(request){
     }
 }
 export async function POST(request){
-    const { title , content , userId , status , ProjectType , Mentor , ProjectLink , members , technologyUsed} = await request.json();
+    const { title , content , userId , status , ProjectType , Mentor , ProjectLink , members , technologyUsed , images} = await request.json();
 
     // const loginToken = request.cookies.get("loginToken")?.value;
     // const data = jwt.verify(loginToken , process.env.JWT_KEY);
+    console.log("images from route : " , title , content , userId , status , ProjectType , Mentor , ProjectLink , members , technologyUsed , images);
     try {
         const project = new Project({
             title,
@@ -58,7 +59,8 @@ export async function POST(request){
             Mentor,
             ProjectLink,
             members,
-            technologiesUsed : technologyUsed
+            technologiesUsed : technologyUsed , 
+            images
             
         });
         const createdProject = await project.save();

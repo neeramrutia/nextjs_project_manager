@@ -10,7 +10,24 @@ import SuccessState from "../States/SuccessState";
 import ErrorState from "../States/ErrorState";
 import AddProjectStep4 from "./addProjectStep4";
 import DotLoader from "../Loader/loader";
-const mainObject = {
+import { FileWithPath } from "@mantine/dropzone";
+import { file } from "googleapis/build/src/apis/file";
+import { error } from "console";
+type MainObject = {
+  title : String;
+  status : String;
+  ProjectType : String;
+  ProjectLink : String;
+  Mentor : String;
+  content : String;
+  members : Array<{
+    name : String;
+    id : String;
+  }>
+  technologyUsed : Array<string>;
+  images : FileWithPath[]
+}
+const mainObject : MainObject = {
   title: "",
   status: "",
   ProjectType: "",
@@ -24,7 +41,22 @@ const mainObject = {
     },
   ],
   technologyUsed: [""],
+  images:[]
 };
+
+function convertToBase64(file : FileWithPath){
+  return new Promise((resolve , reject)=>{
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+    filereader.onload = () =>{
+      resolve(filereader.result)
+    }
+    filereader.onerror = (error) =>{
+      reject(error);
+    }
+  })
+}
+
 export default function AddProject() {
   const [success, setSuccess] = useState(0);
   const { data: session } = useSession();
@@ -38,6 +70,7 @@ export default function AddProject() {
     userId: session?.user.id,
     members: [{}],
     technologyUsed: [""],
+    images : [""]
   });
   const resetProject = () => {
     Project.Mentor = "";
@@ -48,8 +81,16 @@ export default function AddProject() {
     Project.status = "";
     Project.members = [];
     Project.technologyUsed = [""];
+    Project.images = []
   };
   const RegisterProject = async () => {
+    const base64:Array<string> = []
+    for(let i = 0 ; i < step4Object.images.length; i++){
+      const base64data : any = await convertToBase64(mainObject.images[i]);
+      console.log(base64data)
+      base64.push(base64data)
+    }
+    Project.images = base64;
     const res = await fetch("api/projects", {
       method: "POST",
       headers: {
@@ -64,7 +105,8 @@ export default function AddProject() {
     }
     resetProject();
   };
-  const saveProject = () => {
+  const saveProject = async() => {
+    
     Project.title = step1Object.title;
     Project.status = step1Object.status;
     Project.ProjectType = step1Object.ProjectType;
@@ -73,6 +115,8 @@ export default function AddProject() {
     Project.ProjectLink = step3Object.ProjectLink;
     Project.members = step3Object.members;
     Project.technologyUsed = step4Object.technologyUsed;
+
+    console.log("base 64 : " , Project.images)
   };
   const [active, setActive] = useState(0);
   const nextStep = () =>

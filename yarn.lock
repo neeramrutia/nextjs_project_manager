@@ -131,12 +131,17 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-2.0.1.tgz"
   integrity sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==
 
+"@mantine/carousel@^7.6.1":
+  version "7.6.1"
+  resolved "https://registry.npmjs.org/@mantine/carousel/-/carousel-7.6.1.tgz"
+  integrity sha512-tPxvS2LieczcpBzAhdp0k71bQ7Owp/Y5iO93aJcdUsFJXe2tbQKMRRImJf9rZhzXnszstxWm0kFPAjHnzprazg==
+
 "@mantine/charts@^7.5.2":
   version "7.5.2"
   resolved "https://registry.npmjs.org/@mantine/charts/-/charts-7.5.2.tgz"
   integrity sha512-olBulCKVJH/fDL5udIe98lGXKM/Uld0Q8pk+n3MSpLVWpvknJBBly4XHsWNEwQXdlBWgKb1tykizLL7PP2bH/A==
 
-"@mantine/core@7.2.1", "@mantine/core@7.2.2", "@mantine/core@7.4.2", "@mantine/core@7.5.2":
+"@mantine/core@7.2.1", "@mantine/core@7.2.2", "@mantine/core@7.4.2", "@mantine/core@7.5.2", "@mantine/core@7.6.1":
   version "7.2.1"
   resolved "https://registry.npmjs.org/@mantine/core/-/core-7.2.1.tgz"
   integrity sha512-vB5nMip/8fm+/9V49C856AGWEGocNzks6+KO/ocz4EKgd665F663Bs8x6cvop2onbZyVxhX/5Zge93ndX4UNFA==
@@ -148,6 +153,13 @@
     react-textarea-autosize "8.5.3"
     type-fest "^3.13.1"
 
+"@mantine/dropzone@^7.6.1":
+  version "7.6.1"
+  resolved "https://registry.npmjs.org/@mantine/dropzone/-/dropzone-7.6.1.tgz"
+  integrity sha512-qkj681fV5DmCPW44PBhS5cKB2iYtU3UsEWA2VfC2vizU5FpSqFRF8qmaiH6OXyPYzeDK0X+IaEjUma1pqB5ZWA==
+  dependencies:
+    react-dropzone-esm "15.0.1"
+
 "@mantine/form@^7.2.2":
   version "7.2.2"
   resolved "https://registry.npmjs.org/@mantine/form/-/form-7.2.2.tgz"
@@ -156,7 +168,7 @@
     fast-deep-equal "^3.1.3"
     klona "^2.0.5"
 
-"@mantine/hooks@7.2.1", "@mantine/hooks@7.2.2", "@mantine/hooks@7.4.2", "@mantine/hooks@7.5.2":
+"@mantine/hooks@7.2.1", "@mantine/hooks@7.2.2", "@mantine/hooks@7.4.2", "@mantine/hooks@7.5.2", "@mantine/hooks@7.6.1":
   version "7.2.1"
   resolved "https://registry.npmjs.org/@mantine/hooks/-/hooks-7.2.1.tgz"
   integrity sha512-v7GKjVQ6SV6dQ+hrs6HDHB50UB+ZXS5hhGp1bo2k6QGF3wcndws+eghCFO5hjKIVSLYm2YoaZxwKiQmjsZBXfQ==
@@ -1202,6 +1214,18 @@ ecdsa-sig-formatter@^1.0.11, ecdsa-sig-formatter@1.0.11:
   integrity sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==
   dependencies:
     safe-buffer "^5.0.1"
+
+embla-carousel-react@^7.1.0, embla-carousel-react@>=7.0.0:
+  version "7.1.0"
+  resolved "https://registry.npmjs.org/embla-carousel-react/-/embla-carousel-react-7.1.0.tgz"
+  integrity sha512-tbYRPRZSDNd2QLNqYDcArAakGIxtUbhS7tkP0dGXktXHGgcX+3ji3VrOUTOftBiujZrMV8kRxtrRUe/1soloIQ==
+  dependencies:
+    embla-carousel "7.1.0"
+
+embla-carousel@7.1.0:
+  version "7.1.0"
+  resolved "https://registry.npmjs.org/embla-carousel/-/embla-carousel-7.1.0.tgz"
+  integrity sha512-Bh8Pa8NWzgugLkf8sAGexQlBCNDFaej5BXiKgQdRJ1mUC9NWBrw9Z23YVPVGkguWoz5LMjZXXFVGCobl3UPt/Q==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -3251,6 +3275,13 @@ raf@^3.4.1:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-dropzone-esm@15.0.1:
+  version "15.0.1"
+  resolved "https://registry.npmjs.org/react-dropzone-esm/-/react-dropzone-esm-15.0.1.tgz"
+  integrity sha512-RdeGpqwHnoV/IlDFpQji7t7pTtlC2O1i/Br0LWkRZ9hYtLyce814S71h5NolnCZXsIN5wrZId6+8eQj2EBnEzg==
+  dependencies:
+    prop-types "^15.8.1"
+
 react-is@^16.10.2, react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -3346,7 +3377,7 @@ react-transition-group@^4.4.5, react-transition-group@4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-"react@^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.5.1 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18", "react@^17.x || ^18.x", "react@^18 || ^19", react@^18.2.0, "react@>= 0.14.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", react@>=16, react@>=16.6.0, react@>=16.8.0, react@>=18, react@18.2.0:
+"react@^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.5.1 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.1 || ^18.0.0", "react@^17.0.2 || ^18", "react@^17.x || ^18.x", "react@^18 || ^19", react@^18.2.0, "react@>= 0.14.0", "react@>= 16.8 || 18.0.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", react@>=16, react@>=16.6.0, react@>=16.8.0, react@>=18, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

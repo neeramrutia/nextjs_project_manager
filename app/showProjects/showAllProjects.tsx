@@ -2,7 +2,9 @@
 import { useCallback, useEffect, useState } from "react";
 import DotLoader from "../../components/Loader/loader";
 import Image from "next/image";
+import { Carousel } from '@mantine/carousel';
 import {
+  Image as IMage ,
   ActionIcon,
   AppShell,
   Burger,
@@ -21,7 +23,8 @@ import {
 } from "@mantine/core";
 import cx from "clsx";
 import classes from "../../public/Demo.module.css";
-import { IconArrowRight, IconMoon, IconSearch, IconSun } from "@tabler/icons-react";
+import "../../public/CarouselCard.module.css" 
+import { IconArrowLeft, IconArrowRight, IconMoon, IconSearch, IconStar, IconSun } from "@tabler/icons-react";
 import Link from "next/link";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 export default function ShowAllProjects() {
@@ -39,6 +42,7 @@ export default function ShowAllProjects() {
       new: false,
       status:"",
       _id: "",
+      images : [""]
     },
   ]);
   const [status , setStatus] = useState('0');
@@ -77,23 +81,62 @@ export default function ShowAllProjects() {
     var cards = data.map((card) => (
       (card.status == status || status == "0") ? 
       <Grid.Col span={isMobile ? 12 : isTab ? 6 : 4} key={counter++}>
-        <Card shadow="sm" padding="lg" radius="md" withBorder className="">
-          <Card.Section></Card.Section>
+        <Card radius="md" withBorder padding="xl">
+      <Card.Section>
+        <Carousel
+        styles={{control:{backgroundColor:"black"}}}
+          withIndicators
+          nextControlIcon={<IconArrowRight style={{ width: rem(16), height: rem(16) }} />}
+          previousControlIcon={<IconArrowLeft style={{ width: rem(16), height: rem(16) }} />}
+          loop
+          classNames={{
+            root: classes.carousel,
+            controls: classes.carouselControls,
+            indicator: classes.carouselIndicator,
+          }}
+        >
+          {
+            card.images.map((image) => (
+              <Carousel.Slide key={image}>
+                <IMage src={image} height={220} />
+              </Carousel.Slide>
+            ))
+          }
+        </Carousel>
+      </Card.Section>
 
-          <Group justify="center" mt="md" mb="xs">
-            <Text fw={500}>{card.title}</Text>
-          </Group>
+      <Group justify="space-between" mt="lg">
+        <Text fw={500} fz="lg">
+          {card.title}
+        </Text>
 
-          <Text size="sm" c="dimmed">
-            With Fjord Tours you can explore more of the magical fjord
-            landscapes with tours and activities on and around the fjords of
-            Norway
+        <Group gap={5}>
+          <IconStar style={{ width: rem(16), height: rem(16) }} />
+          <Text fz="xs" fw={500}>
+            4.78
           </Text>
+        </Group>
+      </Group>
 
-          <Button onClick={()=>{window.open(`/project/${card._id}`) , '_blank'}} variant="light" color="teal" fullWidth mt="md" radius="md">
-              Project Details
-          </Button>
-        </Card>
+      <Text fz="sm" c="dimmed" mt="sm">
+        Relax, rejuvenate and unplug in this unique contemporary Birdbox. Feel close to nature in
+        ultimate comfort. Enjoy the view of the epic mountain range of Blegja and the Førdefjord.
+      </Text>
+
+      <Group justify="space-between" mt="md">
+        <div>
+          <Text fz="xl" span fw={500} className={classes.price}>
+            397$
+          </Text>
+          <Text span fz="sm" c="dimmed">
+            {' '}
+            / night
+          </Text>
+        </div>
+
+        <Button radius="md" onClick={()=>{window.open(`/project/${card._id}`)}}>View Project</Button>
+      </Group>
+    </Card>
       </Grid.Col> : <></>
     ));
     
