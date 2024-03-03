@@ -64,6 +64,8 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
             />
             </Group>
             <Dropzone
+            activateOnDrag = {true}
+            maxFiles={3}
               maxSize={5 * 1024 ** 2}
               onReject={(files) => console.log("rejected files", files)}
               accept={IMAGE_MIME_TYPE}

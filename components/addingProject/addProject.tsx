@@ -81,7 +81,20 @@ export default function AddProject() {
     Project.status = "";
     Project.members = [];
     Project.technologyUsed = [""];
-    Project.images = []
+    Project.images = [];
+
+    mainObject.Mentor = "none";
+    mainObject.ProjectLink = "";
+    mainObject.ProjectType = "";
+    mainObject.content = "";
+    mainObject.members = [{
+      name: "",
+      id: "",
+    }];
+    mainObject.images = [];
+    mainObject.status = "";
+    mainObject.technologyUsed = [""];
+    mainObject.title = ""
   };
   const RegisterProject = async () => {
     const base64:Array<string> = []
