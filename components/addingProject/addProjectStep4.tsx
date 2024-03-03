@@ -31,12 +31,12 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
   );
   const [Project, setProject] = useState(mainObject.technologyUsed);
   const onSave = () => {
-    console.log("onsave : ", value);
+    // console.log("onsave : ", value);
     step4Object.technologyUsed = value;
     mainObject.technologyUsed = value;
     step4Object.images = files;
     mainObject.images = files ;
-    console.log("mainObj : " , mainObject);
+    // console.log("mainObj : " , mainObject);
   };
   return (
     <>

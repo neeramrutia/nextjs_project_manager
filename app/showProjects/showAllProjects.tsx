@@ -48,13 +48,13 @@ export default function ShowAllProjects() {
   const [status , setStatus] = useState('0');
   const fetchData = useCallback(async (query : string , filter : string) => {
     if(query == ""){
-      console.log(query)
+      // console.log(query)
       const data = await fetch("api/projects");
       const res = await data.json();
       setLoadingProject(false);
       setmyData(res);
     }else{
-      console.log("query : " , query)
+      // console.log("query : " , query)
       setLoadingProject(true);
       const data = await fetch(`api/projects?query=${query}&filter=${filter}`);
       const res = await data.json();

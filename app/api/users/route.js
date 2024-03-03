@@ -10,8 +10,8 @@ export async function GET(req,res){
         const LIMIT = req.nextUrl.searchParams.get("limit")
         const ROLE = req.nextUrl.searchParams.get("role")
         const SKIP = req.nextUrl.searchParams.get("skip")
-        console.log("LIMIT : " , LIMIT)
-        console.log("SKIP : " , SKIP)
+        // console.log("LIMIT : " , LIMIT)
+        // console.log("SKIP : " , SKIP)
         if(LIMIT != null && SKIP != null){
             users = await User.find({role : ROLE}).select("-password").limit(LIMIT).skip(SKIP);
             return NextResponse.json(users);
@@ -39,7 +39,7 @@ export async function POST(request){
             password
         })
         user.password = await bcrypt.hashSync(user.password , parseInt(process.env.BCRYPT_SALT));
-        console.log(user);
+        // console.log(user);
         const createdUser = await user.save();
         const response = NextResponse.json(user , {
             status:201

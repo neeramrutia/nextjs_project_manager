@@ -105,7 +105,7 @@ export async function getOsData() {
               ],
           });
 
-          console.log('Report result:');
+          // console.log('Report result:');
           response.rows.forEach(row => {
             if(row.dimensionValues[1].value == "desktop"){
               osMonthData[parseInt(row.dimensionValues[0].value)-1].desktop = row.metricValues[0].value
@@ -116,7 +116,7 @@ export async function getOsData() {
               osMonthData[parseInt(row.dimensionValues[0].value)-1].tablet = row.metricValues[0].value
             } 
           });
-          console.log(osMonthData)
+          // console.log(osMonthData)
           return osMonthData
       }
      

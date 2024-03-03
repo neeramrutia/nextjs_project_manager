@@ -100,7 +100,7 @@ export default function AddProject() {
     const base64:Array<string> = []
     for(let i = 0 ; i < step4Object.images.length; i++){
       const base64data : any = await convertToBase64(mainObject.images[i]);
-      console.log(base64data)
+      // console.log(base64data)
       base64.push(base64data)
     }
     Project.images = base64;
@@ -129,7 +129,7 @@ export default function AddProject() {
     Project.members = step3Object.members;
     Project.technologyUsed = step4Object.technologyUsed;
 
-    console.log("base 64 : " , Project.images)
+    // console.log("base 64 : " , Project.images)
   };
   const [active, setActive] = useState(0);
   const nextStep = () =>

@@ -54,7 +54,7 @@ export default function Users() {
   const fetchdata = useCallback(async () => {
     const res = await fetch("/api/users");
     const data = await res.json();
-    console.log("fetch data called");
+    // console.log("fetch data called");
     // console.log(data)
     setusersData(data);
     setLoading(false);

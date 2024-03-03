@@ -61,7 +61,7 @@ export default function SignedOutNavbar() {
   //   console.log(time)
   // }
   // Time()
-  console.log(session);
+  // console.log(session);
   return (
     <AppShell
       header={{ height: { base: 60, md: 70, lg: 80 } }}

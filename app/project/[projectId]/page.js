@@ -66,15 +66,15 @@ export default function specificProject() {
   const fetchData = useCallback(async () => {
     const res = await fetch(`/api/projects/${projectId}`);
     const data = await res.json();
-    console.log(res)
+    // console.log(res)
     if(data == null || res.status == 500){
       console.log("NO DATA FOUND");
       setProjectExist(false);
     }else{
-      console.log(data);
+      // console.log(data);
       setmyData(data);
       setLoading(false);
-      console.log(mydata);
+      // console.log(mydata);
     }
     
   }, []);

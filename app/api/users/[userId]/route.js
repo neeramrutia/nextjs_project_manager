@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function DELETE(request , {params}){
     const { userId } = params;
-    console.log(params);
+    // console.log(params);
 
     try {
         await User.deleteOne({
@@ -26,7 +26,7 @@ export async function DELETE(request , {params}){
 
 export async function GET(request , { params }){
     try {
-        console.log(params);
+        // console.log(params);
         const {userId} = params;
         const user = await User.findOne({_id:userId}).select("-password");
         return NextResponse.json(user , {

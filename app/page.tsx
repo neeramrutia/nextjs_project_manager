@@ -9,7 +9,7 @@ export default function MyHome() {
   
   useEffect(() => {
     async function connectToDB(){
-      console.log("useEffect running")
+      // console.log("useEffect running")
       let db = await dbconnect();
       setLoading(false);
     }

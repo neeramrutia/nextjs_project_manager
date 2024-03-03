@@ -6,8 +6,8 @@ import { NextResponse } from "next/server";
 export async function GET(request){
     const query = request.nextUrl.searchParams.get("query")
     const filter = request.nextUrl.searchParams.get("filter")
-    console.log(query);
-    console.log(filter);
+    // console.log(query);
+    // console.log(filter);
     try {
         if(query == null){
             const allProject = await Project.find().limit(10)
@@ -48,7 +48,7 @@ export async function POST(request){
 
     // const loginToken = request.cookies.get("loginToken")?.value;
     // const data = jwt.verify(loginToken , process.env.JWT_KEY);
-    console.log("images from route : " , title , content , userId , status , ProjectType , Mentor , ProjectLink , members , technologyUsed , images);
+    // console.log("images from route : " , title , content , userId , status , ProjectType , Mentor , ProjectLink , members , technologyUsed , images);
     try {
         const project = new Project({
             title,

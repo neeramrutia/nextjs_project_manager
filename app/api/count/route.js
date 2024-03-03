@@ -8,7 +8,7 @@ export async function GET(req, res) {
     try {
         const count =await User.countDocuments({role : ROLE})
         const obj = {count}
-        console.log("count" , count);
+        // console.log("count" , count);
         return NextResponse.json(obj);
     } catch (error) {
         console.log(error);

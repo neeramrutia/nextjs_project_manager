@@ -65,7 +65,7 @@ export default function SignedInNavbar() {
   const [opened, { toggle }] = useDisclosure();
   const [active, setActive] = useState(8);
   const { data: session } = useSession();
-  console.log(session);
+  // console.log(session);
   const networkStatus = useNetwork();
   const [toggled , setToggled] = useState(false)
     if(!toggled && !networkStatus.online ){
