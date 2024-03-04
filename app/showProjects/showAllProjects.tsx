@@ -20,6 +20,7 @@ import {
   rem,
   useComputedColorScheme,
   useMantineColorScheme,
+  Pill,
 } from "@mantine/core";
 import cx from "clsx";
 import classes from "../../public/Demo.module.css";
@@ -28,6 +29,10 @@ import { IconArrowLeft, IconArrowRight, IconMoon, IconSearch, IconStar, IconSun 
 import Link from "next/link";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 export default function ShowAllProjects() {
+  const COLORS = ["#6BD731" , "#C02ADF" , "#5474B4" , "#2BDD66" , "#D9D02F" , "cyan" , "teal","#1F32C4" , "#7B2EDA"]
+  const getRandomColor = ()=>{
+    return COLORS[Math.floor(Math.random()*COLORS.length)];
+  }
   const [opened, { toggle }] = useDisclosure();
   const [filter, setFilter] = useState({
     searchBy : "Any"
@@ -42,7 +47,8 @@ export default function ShowAllProjects() {
       new: false,
       status:"",
       _id: "",
-      images : [""]
+      images : [""],
+      technologiesUsed : [""]
     },
   ]);
   const [status , setStatus] = useState('0');
@@ -119,22 +125,18 @@ export default function ShowAllProjects() {
       </Group>
 
       <Text fz="sm" c="dimmed" mt="sm">
-        Relax, rejuvenate and unplug in this unique contemporary Birdbox. Feel close to nature in
-        ultimate comfort. Enjoy the view of the epic mountain range of Blegja and the Førdefjord.
+        {
+          card.technologiesUsed.map((tech)=>(
+            <>
+            <Pill size="lg" ml={"xs"} mb={"xs"}>{tech}</Pill>
+            </>
+          ))
+        }
       </Text>
 
-      <Group justify="space-between" mt="md">
-        <div>
-          <Text fz="xl" span fw={500} className={classes.price}>
-            397$
-          </Text>
-          <Text span fz="sm" c="dimmed">
-            {' '}
-            / night
-          </Text>
-        </div>
+      <Group justify="space-around" mt="md">
 
-        <Button radius="md" onClick={()=>{window.open(`/project/${card._id}`)}}>View Project</Button>
+        <Button color={"dark"} w={"100%"} radius="md" onClick={()=>{window.open(`/project/${card._id}`)}}>View Project</Button>
       </Group>
     </Card>
       </Grid.Col> : <></>

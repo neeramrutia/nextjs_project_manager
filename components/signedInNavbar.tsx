@@ -335,6 +335,10 @@ export default function SignedInNavbar() {
       </AppShell.Navbar>
       <AppShell.Main>
         {active == 8 && <Home />}
+        {active == 15 && <Home />}
+        {active == 14 && <Home />}
+        {active == 16 && <Home />}
+        {active == 13 && <Home />}
         {active == 9 && <RecentlyUploaded />}
         {active == 10 && <MostLiked />}
         {active == 12 && <AddProject />}
