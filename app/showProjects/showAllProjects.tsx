@@ -40,7 +40,16 @@ import { FooterLinks } from "../../components/footer/footer";
 let limit = 6;
 let skip = 0;
 let count = 0;
-let PROJECTS : any = [];
+let PROJECTS : any = [{
+  title: "",
+      content: "",
+      Mentor: "",
+      new: false,
+      status: "",
+      _id: "",
+      images: [""],
+      technologiesUsed: [""],
+}];
 let initialDataLoad = true;
 const fetcher = async (
   query: string,
@@ -152,7 +161,7 @@ export default function ShowAllProjects() {
       card.status == status || status == "0" ? (
         <Grid.Col span={isMobile ? 12 : isTab ? 6 : 4} key={counter++}>
           <Card
-            // ref={i === data.length - 1 ? ref : null}
+            ref={i === data.length - 1 ? ref : null}
             radius="md"
             withBorder
             padding="xl"
@@ -418,7 +427,7 @@ export default function ShowAllProjects() {
               {(skip + limit >= count && count != 0) && <Text>No more data to load</Text>}
             </Group>
             <Group justify="center">
-              <Skeleton ref={ref}></Skeleton>
+              <Skeleton ></Skeleton>
             </Group>
           </AppShell.Main>
         </AppShell>
