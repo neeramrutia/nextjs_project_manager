@@ -415,10 +415,10 @@ export default function ShowAllProjects() {
             }
             {((entry?.isIntersecting && count > skip))  && <DotLoader />}
             <Group justify="center">
-              {(skip >= count && count != 0) && <Text>No more data to load</Text>}
+              {(skip + limit >= count && count != 0) && <Text>No more data to load</Text>}
             </Group>
             <Group justify="center">
-              <Button ref={ref}>RETURN HOME</Button>
+              <Skeleton ref={ref}></Skeleton>
             </Group>
           </AppShell.Main>
         </AppShell>
