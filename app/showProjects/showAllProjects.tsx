@@ -126,7 +126,7 @@ export default function ShowAllProjects() {
         });
     }
     setLoading(false);
-  }, [entry]);
+  }, [entry , initialDataLoad]);
   const fetchdata = useCallback(async () => {
     setmyData(PROJECTS);
     setLoadingProject(false);
@@ -404,13 +404,13 @@ export default function ShowAllProjects() {
             {
               
               <Grid m={"lg"}>
-                {cards.length > 0 ? cards : "Nothing found..."}
+                {cards.length > 0 ? cards : <></>}
               </Grid>
               
             }
-            {entry?.isIntersecting && count > skip && <DotLoader />}
+            {((entry?.isIntersecting && count > skip))  && <DotLoader />}
             <Group justify="center">
-              {skip >= count && <Text>No more data to load</Text>}
+              {(skip >= count && count != 0) && <Text>No more data to load</Text>}
             </Group>
             <Skeleton ref={ref}></Skeleton>
           </AppShell.Main>
