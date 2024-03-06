@@ -82,6 +82,7 @@ const fetcher = async (
 };
 fetcher("", "", limit, skip);
 export default function ShowAllProjects() {
+  const [initialLoading , setInitialLoading] = useState(true)
   const [loading, setLoading] = useState(true);
   const [loadingProject, setLoadingProject] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -123,6 +124,7 @@ export default function ShowAllProjects() {
         .then(() => {
           setmyData(PROJECTS);
           setLoadingProject(false);
+          setInitialLoading(false)
         });
     }
     setLoading(false);
@@ -402,7 +404,7 @@ export default function ShowAllProjects() {
                 />
               </form>
             </Group>
-            {loadingProject && <DotLoader />}
+            {(loadingProject || initialLoading) && <DotLoader />}
 
             {
               
@@ -415,7 +417,9 @@ export default function ShowAllProjects() {
             <Group justify="center">
               {(skip >= count && count != 0) && <Text>No more data to load</Text>}
             </Group>
-            <Skeleton ref={ref}></Skeleton>
+            <Group justify="center">
+              <Button ref={ref}>RETURN HOME</Button>
+            </Group>
           </AppShell.Main>
         </AppShell>
         
