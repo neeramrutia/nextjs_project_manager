@@ -359,12 +359,15 @@ export default function ShowAllProjects() {
                 style={{ alignContent: "center" }}
                 onSubmit={(e) => {
                   e.preventDefault();
-                  setLoadingProject(true);
+                  if(query.trim() != ""){
+                    setLoadingProject(true);
                   fetcher(query, filter.searchBy, limit, 0).then(() => {
                     skip = 0;
                     fetchdata();
                     setLoadingProject(false);
                   });
+                  }
+                  
                 }}
               >
                 <TextInput
