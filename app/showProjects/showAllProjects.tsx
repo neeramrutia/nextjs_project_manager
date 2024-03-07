@@ -91,6 +91,7 @@ const fetcher = async (
 };
 fetcher("", "", limit, skip);
 export default function ShowAllProjects() {
+  const [fetching , setFetching] = useState(false);
   const [initialLoading , setInitialLoading] = useState(true)
   const [loading, setLoading] = useState(true);
   const [loadingProject, setLoadingProject] = useState(true);
@@ -120,11 +121,13 @@ export default function ShowAllProjects() {
   const [status, setStatus] = useState("0");
 
   useEffect(() => {
-    console.log("1st useEffect");
+    async function ASYNC(){
+      console.log("1st useEffect");
     if (
-      (entry?.isIntersecting && count > skip) ||
-      (entry?.isIntersecting && count == 0)
+      (entry?.isIntersecting && count > skip && !fetching) ||
+      (entry?.isIntersecting && count == 0 && !fetching)
     ) {
+      setFetching(true)
       console.log("intersecting");
       fetcher(query, filter.searchBy, limit, skip + limit)
         .then(() => {
@@ -133,11 +136,17 @@ export default function ShowAllProjects() {
         .then(() => {
           setmyData(PROJECTS);
           setLoadingProject(false);
-          setInitialLoading(false)
+          setInitialLoading(false);
+          setFetching(false)
         });
     }
+    }
+    
+      ASYNC();
+      
+    
     setLoading(false);
-  }, [entry , initialDataLoad]);
+  }, [entry?.isIntersecting , initialDataLoad]);
   const fetchdata = useCallback(async () => {
     setmyData(PROJECTS);
     setLoadingProject(false);
