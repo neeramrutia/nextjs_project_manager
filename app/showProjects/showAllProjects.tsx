@@ -429,6 +429,11 @@ export default function ShowAllProjects() {
             <Group justify="center">
               <Skeleton ref={ref} ></Skeleton>
             </Group>
+            <Group justify="center">
+              {
+                (query!="" && count == 0) && <Text >No projects found</Text>
+              }
+            </Group>
           </AppShell.Main>
         </AppShell>
         
