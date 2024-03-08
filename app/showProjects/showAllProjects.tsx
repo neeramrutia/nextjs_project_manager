@@ -40,16 +40,7 @@ import { FooterLinks } from "../../components/footer/footer";
 let limit = 6;
 let skip = 0;
 let count = 0;
-let PROJECTS : any = [{
-  title: "",
-      content: "",
-      Mentor: "",
-      new: false,
-      status: "",
-      _id: "",
-      images: [""],
-      technologiesUsed: [""],
-}];
+let PROJECTS : any = [];
 let initialDataLoad = true;
 const fetcher = async (
   query: string,
@@ -166,11 +157,11 @@ export default function ShowAllProjects() {
   const data = mydata;
   let counter = 1;
   if (!loading) {
-    var cards = data.map((card, i) =>
+    var cards = data?.map((card, i) =>
       card.status == status || status == "0" ? (
         <Grid.Col span={isMobile ? 12 : isTab ? 6 : 4} key={counter++}>
           <Card
-            ref={i === data.length - 1 ? ref : null}
+            //ref={i === data.length - 1 ? ref : null}
             radius="md"
             withBorder
             padding="xl"
@@ -198,7 +189,7 @@ export default function ShowAllProjects() {
                   indicator: classes.carouselIndicator,
                 }}
               >
-                {card.images.map((image) => (
+                {card?.images?.map((image) => (
                   <Carousel.Slide key={image}>
                     <IMage src={image} height={220} />
                   </Carousel.Slide>
@@ -220,7 +211,7 @@ export default function ShowAllProjects() {
             </Group>
 
             <Text fz="sm" c="dimmed" mt="sm">
-              {card.technologiesUsed.map((tech) => (
+              {card?.technologiesUsed?.map((tech) => (
                 <>
                   <Pill size="lg" ml={"xs"} mb={"xs"}>
                     {tech}
@@ -436,7 +427,7 @@ export default function ShowAllProjects() {
               {(skip + limit >= count && count != 0) && <Text>No more data to load</Text>}
             </Group>
             <Group justify="center">
-              <Skeleton ></Skeleton>
+              <Skeleton ref={ref} ></Skeleton>
             </Group>
           </AppShell.Main>
         </AppShell>
