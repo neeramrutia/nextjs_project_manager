@@ -10,8 +10,8 @@ export async function middleware(request : NextRequest){
     const { pathname  } = request.nextUrl
 
     const token = await getToken({req:request})
-    const adminRoutes = ["/admins" , "/users" , "/coordinators"]
-    const userRoutes = ["/home"]
+    const adminRoutes = ["/admins" , "/users" , "/coordinators" , "showProjects"]
+    const userRoutes = ["/home" , "/showProjects"]
     if(token == null && userRoutes.includes(pathname)){
         return NextResponse.redirect(new URL("/api/auth/signin" , request.url))
     }
