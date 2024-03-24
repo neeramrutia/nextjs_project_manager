@@ -13,12 +13,13 @@ import {
   Text,
   Loader,
   rem,
-  em
+  em,
+  Tooltip
 } from "@mantine/core";
 import { useMediaQuery } from '@mantine/hooks';
 import { IconTrash } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
-import { IconExternalLink } from "@tabler/icons-react";
+import { IconLink , IconPdf , IconReport , IconReportAnalytics } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 // import SyntaxHighlighter from "react-syntax-highlighter";
@@ -130,20 +131,38 @@ export default function specificProject() {
                 </Text>
               </Fieldset>
               <Group justify="space-around">
+              <Tooltip label={"Project Link"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
                 <ActionIcon
                   component="a"
                   href={mydata?.ProjectLink}
                   size="xl"
                   aria-label="Open in a new tab"
-                  color="cyan"
+                  color="black"
                   m={"lg"}
                   onClick={(event) => {
                     event.preventDefault();
-                    window.open(mydata?.ProjectLink, "_blank");
+                    window.open(mydata?.ProjectLink);
                   }}
                 >
-                  <IconExternalLink />
+                  <IconLink />
                 </ActionIcon>
+                </Tooltip>
+                <Tooltip label={"Report"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+                <ActionIcon
+                  component="a"
+                  href={mydata?.ProjectLink}
+                  size="xl"
+                  aria-label="Open in a new tab"
+                  color="black"
+                  m={"lg"}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    window.open(`https://drive.google.com/file/d/${mydata.DrivePdfId}/view?usp=drive_link`);
+                  }}
+                >
+                  <IconReport />
+                </ActionIcon>
+                </Tooltip>
               </Group>
             </Card>
           </Grid.Col>

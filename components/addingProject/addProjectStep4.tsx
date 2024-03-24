@@ -9,18 +9,24 @@ import {
   FileWithPath,
   DropzoneProps,
   PDF_MIME_TYPE,
+  MIME_TYPES,
 } from "@mantine/dropzone";
 import { IconUpload, IconX } from "@tabler/icons-react";
 const step4Object:any = {
   technologyUsed: [""],
   images : [] , 
   pdf : [] , 
-  pdfFile : {}
+  pdfFile : {} ,
+  video : [] ,
+  videoFile : {}
 };
 export default function AddProjectStep4(props: Partial<DropzoneProps>) {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [pdf , setPdf] = useState<FileWithPath[]>([]);
+  const [video , setVideo] = useState<FileWithPath[]>([]);
+  
   const [pdfFile , setPdfFile] = useState<any>(null)
+  const [videoFile , setVideoFile] = useState<any>(null)
  const handlepdfChange = (e : any)=>{
   const file = {
     preview: URL.createObjectURL(e.target.files[0]),
@@ -31,6 +37,17 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
   mainObject.pdfFile = file;
   step4Object.pdfFile = file;
  }
+
+
+ const handleVideoChange = (e : any)=>{
+  const file = {
+    preview: URL.createObjectURL(e.target.files[0]),
+    data: e.target.files[0],
+  };
+
+  console.log("file : " , file)
+  setVideoFile(video)
+}
 
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
@@ -48,6 +65,16 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
       <>
       <Text key={file.name}>
         PDF selected : 
+      {file.name}
+      </Text>
+      </>
+    )
+  })
+  const videoPreview = video.map((file , index)=>{
+    return(
+      <>
+      <Text key={file.name}>
+        Video selected : 
       {file.name}
       </Text>
       </>
@@ -71,13 +98,12 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
   return (
     <>
       <Group justify="center" m={"xl"}>
-        <Card shadow="sm" padding="lg" radius="md" withBorder mt={"15%"} maw={550}>
+        <Card shadow="sm" padding="lg" radius="md" withBorder mt={"10%"} maw={550}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
             }}
           >
-            <Group justify="center">
             <TagsInput
               label="Press Enter to submit a tag"
               description="Add up to 3 tags"
@@ -92,8 +118,8 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
               miw={220}
               maw={220}
             />
-            </Group>
             <Dropzone
+            m={"sm"}
             activateOnDrag = {true}
             maxFiles={3}
               maxSize={5 * 1024 ** 2}
@@ -125,15 +151,21 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
               </Dropzone.Reject>
             </Dropzone>
 
-            <SimpleGrid
+           {
+              previews.length > 0 && (
+                <SimpleGrid
+            m={"sm"}
               cols={{ base: 1, sm: 4 }}
-              mt={previews.length > 0 ? "xl" : 0}
             >
               {previews}
             </SimpleGrid>
+              )
+           }
+            
 
 
             <Dropzone
+            m={"sm"}
             activateOnDrag = {true}
             maxFiles={1}
               maxSize={15 * 1024 ** 2}
@@ -174,6 +206,57 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
                 />
               </Dropzone.Reject>
             </Dropzone>
+
+
+
+
+
+            <Dropzone
+            m={"sm"}
+            activateOnDrag = {true}
+            maxFiles={1}
+            onDrop={(video)=>{setVideo(video); console.log('accepted files', video); }}
+              maxSize={1500 * 1024 ** 2}
+              onReject={(files) => console.log("rejected files", files)}
+              accept={{
+                'video/* , .mkv': [],
+              }}
+              onChange={(e)=>{handleVideoChange(e)}}
+              {...props}
+            >
+             {
+                videoPreview.length == 0 && (
+                <Text ta="center">Drop Video here</Text>
+                )
+              }
+              {
+                videoPreview.length != 0 && (
+                videoPreview
+                )
+              }
+              
+              <Dropzone.Accept>
+                <IconUpload
+                  style={{
+                    width: rem(52),
+                    height: rem(52),
+                    color: "var(--mantine-color-blue-6)",
+                  }}
+                  stroke={1.5}
+                />
+              </Dropzone.Accept>
+              <Dropzone.Reject>
+                <IconX
+                  style={{
+                    width: rem(52),
+                    height: rem(52),
+                    color: "var(--mantine-color-red-6)",
+                  }}
+                  stroke={1.5}
+                />
+              </Dropzone.Reject>
+            </Dropzone>
+
 
             {/* <SimpleGrid
               cols={{ base: 1, sm: 4 }}
