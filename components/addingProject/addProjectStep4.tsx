@@ -2,19 +2,35 @@ import { useState } from "react";
 import { mainObject } from "./addProject";
 import { Button, Card, Group, TagsInput, rem } from "@mantine/core";
 import { Text, Image, SimpleGrid } from "@mantine/core";
+
 import {
   Dropzone,
   IMAGE_MIME_TYPE,
   FileWithPath,
   DropzoneProps,
+  PDF_MIME_TYPE,
 } from "@mantine/dropzone";
 import { IconUpload, IconX } from "@tabler/icons-react";
 const step4Object:any = {
   technologyUsed: [""],
-  images : []
+  images : [] , 
+  pdf : [] , 
+  pdfFile : {}
 };
 export default function AddProjectStep4(props: Partial<DropzoneProps>) {
   const [files, setFiles] = useState<FileWithPath[]>([]);
+  const [pdf , setPdf] = useState<FileWithPath[]>([]);
+  const [pdfFile , setPdfFile] = useState<any>(null)
+ const handlepdfChange = (e : any)=>{
+  const file = {
+    preview: URL.createObjectURL(e.target.files[0]),
+    data: e.target.files[0],
+  };
+  console.log("file : " , file)
+  setPdfFile(file);
+  mainObject.pdfFile = file;
+  step4Object.pdfFile = file;
+ }
 
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
@@ -26,6 +42,18 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
       />
     );
   });
+
+  const pdfPreview = pdf.map((file , index)=>{
+    return(
+      <>
+      <Text key={file.name}>
+        PDF selected : 
+      {file.name}
+      </Text>
+      </>
+    )
+  })
+
   const [value, setValue] = useState<string[]>(
     mainObject.technologyUsed[0] == "" ? [] : mainObject.technologyUsed
   );
@@ -36,6 +64,8 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
     mainObject.technologyUsed = value;
     step4Object.images = files;
     mainObject.images = files ;
+    step4Object.pdf = pdf;
+    mainObject.pdf = pdf;
     // console.log("mainObj : " , mainObject);
   };
   return (
@@ -101,6 +131,57 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
             >
               {previews}
             </SimpleGrid>
+
+
+            <Dropzone
+            activateOnDrag = {true}
+            maxFiles={1}
+              maxSize={15 * 1024 ** 2}
+              onReject={(files) => console.log("rejected files", files)}
+              accept={PDF_MIME_TYPE}
+              onDrop={(pdf)=>{setPdf(pdf); console.log('accepted files', pdf); }}
+              onChange={(e)=>{handlepdfChange(e)}}
+              {...props}
+            >
+              {
+                pdfPreview.length == 0 && (
+                <Text ta="center">Drop pdf here</Text>
+                )
+              }
+              {
+                pdfPreview.length != 0 && (
+                pdfPreview
+                )
+              }
+              <Dropzone.Accept>
+                <IconUpload
+                  style={{
+                    width: rem(52),
+                    height: rem(52),
+                    color: "var(--mantine-color-blue-6)",
+                  }}
+                  stroke={1.5}
+                />
+              </Dropzone.Accept>
+              <Dropzone.Reject>
+                <IconX
+                  style={{
+                    width: rem(52),
+                    height: rem(52),
+                    color: "var(--mantine-color-red-6)",
+                  }}
+                  stroke={1.5}
+                />
+              </Dropzone.Reject>
+            </Dropzone>
+
+            {/* <SimpleGrid
+              cols={{ base: 1, sm: 4 }}
+              mt={previews.length > 0 ? "xl" : 0}
+            >
+              {pdfPreview}
+            </SimpleGrid> */}
+
             <Button
               color="teal"
               fullWidth

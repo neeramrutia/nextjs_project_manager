@@ -47,6 +47,10 @@ const ProjectSchema = new mongoose.Schema({
     images : {
         type : Array,
         default : []
+    },
+    DrivePdfId : {
+        type : String ,
+        default : ""
     }
 });
 

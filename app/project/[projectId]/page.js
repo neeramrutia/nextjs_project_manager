@@ -40,7 +40,8 @@ export default function specificProject() {
     status: "",
     ProjectType: "",
     ProjectLink: "",
-    members : [{}]
+    members : [{}],
+    DrivePdfId : ""
   });
   const isMobile = useMediaQuery(`(max-width: ${em(900)})`);
   const mem = mydata?.members.map((m)=>{
@@ -199,6 +200,9 @@ export default function specificProject() {
           </Grid.Col>
         </Grid>
           )
+        }
+        {
+          mydata.DrivePdfId
         }
       </>
     );

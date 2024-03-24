@@ -11,8 +11,7 @@ import ErrorState from "../States/ErrorState";
 import AddProjectStep4 from "./addProjectStep4";
 import DotLoader from "../Loader/loader";
 import { FileWithPath } from "@mantine/dropzone";
-import { file } from "googleapis/build/src/apis/file";
-import { error } from "console";
+
 type MainObject = {
   title : string;
   status : string;
@@ -25,7 +24,10 @@ type MainObject = {
     id : string;
   }>
   technologyUsed : Array<string>;
-  images : FileWithPath[]
+  images : FileWithPath[],
+  pdf : FileWithPath[],
+  pdfFile : any,
+  DrivePdfId : string
 }
 const mainObject : MainObject  = {
   title: "",
@@ -41,7 +43,10 @@ const mainObject : MainObject  = {
     },
   ],
   technologyUsed: [""],
-  images:[]
+  images:[],
+  pdf : [],
+  pdfFile : {},
+  DrivePdfId : ""
 };
 
 function convertToBase64(file : FileWithPath){
@@ -60,6 +65,7 @@ function convertToBase64(file : FileWithPath){
 export default function AddProject() {
   const [success, setSuccess] = useState(0);
   const { data: session } = useSession();
+  const [pdfUploadLoading , setPdfUploadLoading] = useState(true);
   const [Project, setProject] = useState({
     title: "",
     status: "",
@@ -70,7 +76,8 @@ export default function AddProject() {
     userId: session?.user.id,
     members: [{}],
     technologyUsed: [""],
-    images : [""]
+    images : [""],
+    DrivePdfId : ""
   });
   const resetProject = () => {
     Project.Mentor = "";
@@ -82,6 +89,7 @@ export default function AddProject() {
     Project.members = [];
     Project.technologyUsed = [""];
     Project.images = [];
+    Project.DrivePdfId = ""
 
     mainObject.Mentor = "none";
     mainObject.ProjectLink = "";
@@ -94,7 +102,8 @@ export default function AddProject() {
     mainObject.images = [];
     mainObject.status = "";
     mainObject.technologyUsed = [""];
-    mainObject.title = ""
+    mainObject.title = "";
+    mainObject.DrivePdfId = "";
   };
   const RegisterProject = async () => {
     const base64:Array<string> = []
@@ -118,6 +127,23 @@ export default function AddProject() {
     }
     resetProject();
   };
+  const uploadPdf = async() =>{
+    let formData = new FormData();
+    formData.append("file", mainObject.pdfFile.data);
+    formData.append("fileName" , mainObject.pdfFile.data.name);
+    console.log("pdfFile form addProject" , mainObject.pdfFile)
+    console.log("pdfFile.data form addProject" , mainObject.pdfFile.data)
+    const response = await fetch("/api/upload" , {
+      method : "POST" ,
+      body : formData
+    })
+    const pdfUploadResult = await response.json();
+    console.log(pdfUploadResult)
+    if(pdfUploadResult?.docId != null){
+      mainObject.DrivePdfId = pdfUploadResult.docId;
+      setPdfUploadLoading(false);
+    }
+  }
   const saveProject = async() => {
     
     Project.title = step1Object.title;
@@ -128,6 +154,7 @@ export default function AddProject() {
     Project.ProjectLink = step3Object.ProjectLink;
     Project.members = step3Object.members;
     Project.technologyUsed = step4Object.technologyUsed;
+    Project.DrivePdfId = mainObject.DrivePdfId;
 
     // console.log("base 64 : " , Project.images)
   };
@@ -154,11 +181,28 @@ export default function AddProject() {
         ></Stepper.Step>
         <Stepper.Step label="Final step" description="Add pics"></Stepper.Step>
         <Stepper.Completed>
-          {active == 4 && success == 0 && <DotLoader />}
+          {active == 4 && success == 0 && <>
+            Project : <DotLoader />
+          </>}
+          {
+            pdfUploadLoading && (
+              <>
+                Uploading Pdf : 
+                <DotLoader/>
+              </>
+            )
+          }
+          {
+            !pdfUploadLoading && (
+              <>
+                 Pdf Uploaded 
+              </>
+            )
+          }
           {active == 4 && success == 1 && (
             <>
               <Group mih={"100"} justify="center">
-                <Button size="xl">View Project</Button>
+                <Button size="xl">Project Uploaded</Button>
               </Group>
             </>
           )}
@@ -221,8 +265,10 @@ export default function AddProject() {
           <Button
             variant="default"
             onClick={() => {
-              saveProject();
-              RegisterProject();
+              uploadPdf().then(()=>{saveProject();}).then(()=>{RegisterProject();})
+              // saveProject();
+              // RegisterProject();
+              
               nextStep();
             }}
           >
