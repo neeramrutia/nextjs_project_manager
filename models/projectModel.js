@@ -51,6 +51,10 @@ const ProjectSchema = new mongoose.Schema({
     DrivePdfId : {
         type : String ,
         default : ""
+    },
+    DriveVideoId : {
+        type : String ,
+        default : ""
     }
 });
 

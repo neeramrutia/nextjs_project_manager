@@ -47,6 +47,8 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
 
   console.log("file : " , file)
   setVideoFile(video)
+  mainObject.videoFile = file;
+  step4Object.videoFile = file;
 }
 
   const previews = files.map((file, index) => {
@@ -63,7 +65,7 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
   const pdfPreview = pdf.map((file , index)=>{
     return(
       <>
-      <Text key={file.name}>
+      <Text key={index}>
         PDF selected : 
       {file.name}
       </Text>
@@ -73,7 +75,7 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
   const videoPreview = video.map((file , index)=>{
     return(
       <>
-      <Text key={file.name}>
+      <Text key={index}>
         Video selected : 
       {file.name}
       </Text>
@@ -168,7 +170,7 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
             m={"sm"}
             activateOnDrag = {true}
             maxFiles={1}
-              maxSize={15 * 1024 ** 2}
+              maxSize={4 * 1024 ** 2}
               onReject={(files) => console.log("rejected files", files)}
               accept={PDF_MIME_TYPE}
               onDrop={(pdf)=>{setPdf(pdf); console.log('accepted files', pdf); }}
@@ -216,7 +218,7 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
             activateOnDrag = {true}
             maxFiles={1}
             onDrop={(video)=>{setVideo(video); console.log('accepted files', video); }}
-              maxSize={1500 * 1024 ** 2}
+              maxSize={4 * 1024 ** 2}
               onReject={(files) => console.log("rejected files", files)}
               accept={{
                 'video/* , .mkv': [],

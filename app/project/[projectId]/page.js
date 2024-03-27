@@ -19,7 +19,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { IconTrash } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
-import { IconLink , IconPdf , IconReport , IconReportAnalytics } from "@tabler/icons-react";
+import { IconLink , IconReport , IconVideo } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 // import SyntaxHighlighter from "react-syntax-highlighter";
@@ -42,7 +42,8 @@ export default function specificProject() {
     ProjectType: "",
     ProjectLink: "",
     members : [{}],
-    DrivePdfId : ""
+    DrivePdfId : "",
+    DriveVideoId : ""
   });
   const isMobile = useMediaQuery(`(max-width: ${em(900)})`);
   const mem = mydata?.members.map((m)=>{
@@ -141,7 +142,8 @@ export default function specificProject() {
                   m={"lg"}
                   onClick={(event) => {
                     event.preventDefault();
-                    window.open(mydata?.ProjectLink);
+                    window.location.href = mydata?.ProjectLink
+                    // window.open(mydata?.ProjectLink);
                   }}
                 >
                   <IconLink />
@@ -150,17 +152,32 @@ export default function specificProject() {
                 <Tooltip label={"Report"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
                 <ActionIcon
                   component="a"
-                  href={mydata?.ProjectLink}
                   size="xl"
                   aria-label="Open in a new tab"
                   color="black"
                   m={"lg"}
                   onClick={(event) => {
                     event.preventDefault();
-                    window.open(`https://drive.google.com/file/d/${mydata.DrivePdfId}/view?usp=drive_link`);
+                    window.location.href = `https://drive.google.com/file/d/${mydata.DrivePdfId}/view?usp=drive_link`
+                    // window.open(`https://drive.google.com/file/d/${mydata.DrivePdfId}/view?usp=drive_link`);
                   }}
                 >
                   <IconReport />
+                </ActionIcon>
+                </Tooltip>
+                <Tooltip label={"Video Description"} transitionProps={{ transition: 'skew-up', duration: 300 }}>
+                <ActionIcon
+                  component="a"
+                  size="xl"
+                  aria-label="Open in a new tab"
+                  color="black"
+                  m={"lg"}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    window.location.href = `https://drive.google.com/file/d/${mydata.DriveVideoId}/view`
+                  }}
+                >
+                  <IconVideo />
                 </ActionIcon>
                 </Tooltip>
               </Group>
@@ -221,7 +238,7 @@ export default function specificProject() {
           )
         }
         {
-          mydata.DrivePdfId
+          JSON.stringify(mydata.DriveVideoId)
         }
       </>
     );

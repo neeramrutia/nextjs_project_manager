@@ -47,7 +47,8 @@ export async function GET(request){
     }
 }
 export async function POST(request){
-    const { title , content , userId , status , ProjectType , Mentor , ProjectLink , members , technologyUsed , images , DrivePdfId} = await request.json();
+    const { title , content , userId , status , ProjectType , Mentor , ProjectLink , members , technologyUsed , images , DrivePdfId , DriveVideoId} = await request.json();
+    console.log("DriveVideoId : " , DriveVideoId)
 
     // const loginToken = request.cookies.get("loginToken")?.value;
     // const data = jwt.verify(loginToken , process.env.JWT_KEY);
@@ -64,8 +65,8 @@ export async function POST(request){
             members,
             technologiesUsed : technologyUsed , 
             images,
-            DrivePdfId
-            
+            DrivePdfId,
+            DriveVideoId
         });
         const createdProject = await project.save();
         return NextResponse.json(createdProject , {

@@ -1,4 +1,4 @@
-import { Button, Grid, Group, Stepper } from "@mantine/core";
+import { Button, Grid, Group, rem, Stepper } from "@mantine/core";
 import { AddProjectStep1, step1Object } from "./addProjectStep1";
 import { AddProjectStep2, step2Object } from "./addProjectStep2";
 import { AddProjectStep3, step3Object } from "./addProjectStep3";
@@ -11,25 +11,28 @@ import ErrorState from "../States/ErrorState";
 import AddProjectStep4 from "./addProjectStep4";
 import DotLoader from "../Loader/loader";
 import { FileWithPath } from "@mantine/dropzone";
-
+import { IconCircleX } from "@tabler/icons-react";
 type MainObject = {
-  title : string;
-  status : string;
-  ProjectType : string;
-  ProjectLink : string;
-  Mentor : string;
-  content : String;
-  members : Array<{
-    name : string;
-    id : string;
-  }>
-  technologyUsed : Array<string>;
-  images : FileWithPath[],
-  pdf : FileWithPath[],
-  pdfFile : any,
-  DrivePdfId : string
-}
-const mainObject : MainObject  = {
+  title: string;
+  status: string;
+  ProjectType: string;
+  ProjectLink: string;
+  Mentor: string;
+  content: String;
+  members: Array<{
+    name: string;
+    id: string;
+  }>;
+  technologyUsed: Array<string>;
+  images: FileWithPath[];
+  pdf: FileWithPath[];
+  pdfFile: any;
+  DrivePdfId: string;
+  video: FileWithPath[];
+  videoFile: any;
+  DriveVideoId: string;
+};
+const mainObject: MainObject = {
   title: "",
   status: "",
   ProjectType: "",
@@ -43,29 +46,35 @@ const mainObject : MainObject  = {
     },
   ],
   technologyUsed: [""],
-  images:[],
-  pdf : [],
-  pdfFile : {},
-  DrivePdfId : ""
+  images: [],
+  pdf: [],
+  pdfFile: {},
+  DrivePdfId: "",
+  video: [],
+  videoFile: {},
+  DriveVideoId: "",
 };
 
-function convertToBase64(file : FileWithPath){
-  return new Promise((resolve , reject)=>{
+function convertToBase64(file: FileWithPath) {
+  return new Promise((resolve, reject) => {
     const filereader = new FileReader();
     filereader.readAsDataURL(file);
-    filereader.onload = () =>{
-      resolve(filereader.result)
-    }
-    filereader.onerror = (error) =>{
+    filereader.onload = () => {
+      resolve(filereader.result);
+    };
+    filereader.onerror = (error) => {
       reject(error);
-    }
-  })
+    };
+  });
 }
 
 export default function AddProject() {
   const [success, setSuccess] = useState(0);
   const { data: session } = useSession();
-  const [pdfUploadLoading , setPdfUploadLoading] = useState(true);
+  const [pdfUploadLoading, setPdfUploadLoading] = useState(true);
+  const [videoUploadLoading, setVideoUploadLoading] = useState(true);
+  const [pdfUploadSuccess, setPdfUploadSuccess] = useState(0);
+  const [videoUploadSuccess, setVideoUploadSuccess] = useState(0);
   const [Project, setProject] = useState({
     title: "",
     status: "",
@@ -76,8 +85,9 @@ export default function AddProject() {
     userId: session?.user.id,
     members: [{}],
     technologyUsed: [""],
-    images : [""],
-    DrivePdfId : ""
+    images: [""],
+    DrivePdfId: "",
+    DriveVideoId: "",
   });
   const resetProject = () => {
     Project.Mentor = "";
@@ -89,28 +99,32 @@ export default function AddProject() {
     Project.members = [];
     Project.technologyUsed = [""];
     Project.images = [];
-    Project.DrivePdfId = ""
+    Project.DrivePdfId = "";
+    Project.DriveVideoId = "";
 
     mainObject.Mentor = "none";
     mainObject.ProjectLink = "";
     mainObject.ProjectType = "";
     mainObject.content = "";
-    mainObject.members = [{
-      name: "",
-      id: "",
-    }];
+    mainObject.members = [
+      {
+        name: "",
+        id: "",
+      },
+    ];
     mainObject.images = [];
     mainObject.status = "";
     mainObject.technologyUsed = [""];
     mainObject.title = "";
     mainObject.DrivePdfId = "";
+    mainObject.DriveVideoId = "";
   };
   const RegisterProject = async () => {
-    const base64:Array<string> = []
-    for(let i = 0 ; i < step4Object.images.length; i++){
-      const base64data : any = await convertToBase64(mainObject.images[i]);
+    const base64: Array<string> = [];
+    for (let i = 0; i < step4Object.images.length; i++) {
+      const base64data: any = await convertToBase64(mainObject.images[i]);
       // console.log(base64data)
-      base64.push(base64data)
+      base64.push(base64data);
     }
     Project.images = base64;
     const res = await fetch("api/projects", {
@@ -127,25 +141,55 @@ export default function AddProject() {
     }
     resetProject();
   };
-  const uploadPdf = async() =>{
+  const uploadPdf = async () => {
     let formData = new FormData();
     formData.append("file", mainObject.pdfFile.data);
-    formData.append("fileName" , mainObject.pdfFile.data.name);
-    console.log("pdfFile form addProject" , mainObject.pdfFile)
-    console.log("pdfFile.data form addProject" , mainObject.pdfFile.data)
-    const response = await fetch("/api/upload" , {
-      method : "POST" ,
-      body : formData
-    })
+    formData.append("fileName", mainObject.pdfFile.data.name);
+    console.log("pdfFile form addProject", mainObject.pdfFile);
+    console.log("pdfFile.data form addProject", mainObject.pdfFile.data);
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
     const pdfUploadResult = await response.json();
-    console.log(pdfUploadResult)
-    if(pdfUploadResult?.docId != null){
+    console.log(pdfUploadResult);
+    if (pdfUploadResult.success == false) {
+      setPdfUploadSuccess(-1);
+    }
+    if (pdfUploadResult.success == true) {
       mainObject.DrivePdfId = pdfUploadResult.docId;
       setPdfUploadLoading(false);
     }
-  }
-  const saveProject = async() => {
-    
+  };
+
+  const uploadVideo = async () => {
+    let formData = new FormData();
+    formData.append("file", mainObject.videoFile.data);
+    formData.append("fileName", mainObject.videoFile.data.name);
+    console.log("videoFile form addProject", mainObject.videoFile);
+    console.log("videoFile.data form addProject", mainObject.videoFile.data);
+
+    const response = await fetch("/api/upload/video", {
+      method: "POST",
+      body: formData,
+    });
+    const videoUploadResult = await response.json();
+    console.log("videoUploadResult : ", videoUploadResult);
+    if (videoUploadResult.success == false) {
+      setVideoUploadSuccess(-1);
+    }
+    if (videoUploadResult.success == true) {
+      console.log("videoUploadResult.docId : ", videoUploadResult.docId);
+      mainObject.DriveVideoId = videoUploadResult.docId;
+      Project.DriveVideoId = videoUploadResult.docId;
+      setVideoUploadLoading(false);
+      saveProject().then(() => {
+        RegisterProject();
+      });
+    }
+  };
+
+  const saveProject = async () => {
     Project.title = step1Object.title;
     Project.status = step1Object.status;
     Project.ProjectType = step1Object.ProjectType;
@@ -155,6 +199,7 @@ export default function AddProject() {
     Project.members = step3Object.members;
     Project.technologyUsed = step4Object.technologyUsed;
     Project.DrivePdfId = mainObject.DrivePdfId;
+    Project.DriveVideoId = mainObject.DriveVideoId;
 
     // console.log("base 64 : " , Project.images)
   };
@@ -179,40 +224,68 @@ export default function AddProject() {
           label="Third step"
           description="Add mentor details"
         ></Stepper.Step>
-        <Stepper.Step label="Final step" description="Add pics"></Stepper.Step>
+        <Stepper.Step label="Final step" description="Add pics , report & video"></Stepper.Step>
         <Stepper.Completed>
-          {active == 4 && success == 0 && <>
-            Project : <DotLoader />
-          </>}
+          <Group h={"80vh"} justify="center">
+            <Stepper
+              styles={{ separator: { outlineOffset: rem(-20) } }}
+              wrap={false}
+              size="xl"
+              active={pdfUploadLoading ? 1 : videoUploadLoading ? 2 : 3}
+              orientation="vertical"
+            >
+              <Stepper.Step
+                label="Step 1"
+                description="uploading pdf"
+                loading={pdfUploadLoading}
+                color={pdfUploadSuccess == -1 ? "red" : ""}
+                completedIcon={
+                  pdfUploadSuccess == -1 && (
+                    <IconCircleX style={{ width: rem(20), height: rem(20) }} />
+                  )
+                }
+              />
+              <Stepper.Step
+                label="Step 2"
+                description="uploading video"
+                loading={videoUploadLoading && !pdfUploadLoading}
+                color={videoUploadSuccess == -1 ? "red" : ""}
+                completedIcon={
+                  videoUploadSuccess == -1 && (
+                    <IconCircleX style={{ width: rem(20), height: rem(20) }} />
+                  )
+                }
+              />
+              <Stepper.Step
+                label="Step 3"
+                description="Creating project"
+                loading={
+                  active == 4 &&
+                  success == 0 &&
+                  !videoUploadLoading &&
+                  !pdfUploadLoading
+                }
+                color={active == 4 && success == -1 ? "red" : ""}
+                completedIcon={
+                  active == 4 &&
+                  success == -1 && (
+                    <IconCircleX style={{ width: rem(20), height: rem(20) }} />
+                  )
+                }
+              />
+            </Stepper>
+            
+          </Group>
+          <Group>
           {
-            pdfUploadLoading && (
-              <>
-                Uploading Pdf : 
-                <DotLoader/>
-              </>
-            )
-          }
-          {
-            !pdfUploadLoading && (
-              <>
-                 Pdf Uploaded 
-              </>
-            )
-          }
-          {active == 4 && success == 1 && (
-            <>
-              <Group mih={"100"} justify="center">
-                <Button size="xl">Project Uploaded</Button>
-              </Group>
-            </>
-          )}
-          {active == 4 && success == -1 && (
-            <>
-              <Group justify="center">
-                <Button>Try Again</Button>
-              </Group>
-            </>
-          )}
+              (pdfUploadSuccess == -1 || videoUploadSuccess == -1 || (active == 4 && success == -1)) && (
+                <>
+                  <Button>Retry</Button>
+                </>
+              )
+            }
+          </Group>
+
         </Stepper.Completed>
       </Stepper>
 
@@ -265,10 +338,9 @@ export default function AddProject() {
           <Button
             variant="default"
             onClick={() => {
-              uploadPdf().then(()=>{saveProject();}).then(()=>{RegisterProject();})
-              // saveProject();
-              // RegisterProject();
-              
+              uploadPdf().then(() => {
+                uploadVideo();
+              });
               nextStep();
             }}
           >
