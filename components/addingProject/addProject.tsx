@@ -310,7 +310,9 @@ export default function AddProject() {
       )}
       {(active == 1 || active == 0 || active == 2 || active == 3) && (
         <Group justify="center" mt="xl">
-          <Button
+          {
+            active != 0 &&
+            <Button
             variant="default"
             onClick={() => {
               prevStep();
@@ -319,6 +321,7 @@ export default function AddProject() {
           >
             Back
           </Button>
+          }
           {active != 3 && (
             <Button
               onClick={() => {

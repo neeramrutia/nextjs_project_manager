@@ -35,6 +35,10 @@ export async function getStatData(){
     Data[0].stats = data.userCount
     Data[1].stats = data.coordinatorCount
     Data[2].stats = data.adminCount
+
+    const projects = await getProjectCount();
+    console.log("counts = " , projects);
+    Data[3].stats = projects.data.count;
     return Data
 }
 
@@ -122,4 +126,18 @@ export async function getOsData() {
      
    const res = await runReport();
   return res;
+}
+
+export async function getProjectCount(){
+  try {
+    const res = await fetch(`${base_url}/api/count/projects`);
+    const data = await res.json();
+    return {
+      success:true , data
+    };
+  } catch (error) {
+    return {
+      success: false
+    }
+  }
 }
