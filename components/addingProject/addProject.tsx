@@ -143,28 +143,37 @@ export default function AddProject() {
   };
   const uploadPdf = async () => {
     let formData = new FormData();
-    formData.append("file", mainObject.pdfFile.data);
-    formData.append("fileName", mainObject.pdfFile.data.name);
-    console.log("pdfFile form addProject", mainObject.pdfFile);
-    console.log("pdfFile.data form addProject", mainObject.pdfFile.data);
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const pdfUploadResult = await response.json();
-    console.log(pdfUploadResult);
-    if (pdfUploadResult.success == false) {
+    if (
+      mainObject.pdfFile.data != undefined ||
+      mainObject.pdfFile.data != null
+    ) {
+      formData.append("file", mainObject.pdfFile.data);
+      formData.append("fileName", mainObject.pdfFile.data.name);
+      console.log("pdfFile form addProject", mainObject.pdfFile);
+      console.log("pdfFile.data form addProject", mainObject.pdfFile.data);
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const pdfUploadResult = await response.json();
+      console.log(pdfUploadResult);
+      if (pdfUploadResult.success == false) {
+        setPdfUploadSuccess(-1);
+      }
+      if (pdfUploadResult.success == true) {
+        mainObject.DrivePdfId = pdfUploadResult.docId;
+        setPdfUploadLoading(false);
+      }
+    } else {
       setPdfUploadSuccess(-1);
-    }
-    if (pdfUploadResult.success == true) {
-      mainObject.DrivePdfId = pdfUploadResult.docId;
-      setPdfUploadLoading(false);
     }
   };
 
   const uploadVideo = async () => {
+
     let formData = new FormData();
-    formData.append("file", mainObject.videoFile.data);
+    if(mainObject.videoFile.data != undefined || mainObject.videoFile.data != null){
+      formData.append("file", mainObject.videoFile.data);
     formData.append("fileName", mainObject.videoFile.data.name);
     console.log("videoFile form addProject", mainObject.videoFile);
     console.log("videoFile.data form addProject", mainObject.videoFile.data);
@@ -187,6 +196,11 @@ export default function AddProject() {
         RegisterProject();
       });
     }
+    }
+    else{
+      setVideoUploadSuccess(-1);
+    }
+    
   };
 
   const saveProject = async () => {
@@ -224,7 +238,10 @@ export default function AddProject() {
           label="Third step"
           description="Add mentor details"
         ></Stepper.Step>
-        <Stepper.Step label="Final step" description="Add pics , report & video"></Stepper.Step>
+        <Stepper.Step
+          label="Final step"
+          description="Add pics , report & video"
+        ></Stepper.Step>
         <Stepper.Completed>
           <Group h={"80vh"} justify="center">
             <Stepper
@@ -274,18 +291,16 @@ export default function AddProject() {
                 }
               />
             </Stepper>
-            
           </Group>
-          <Group>
-          {
-              (pdfUploadSuccess == -1 || videoUploadSuccess == -1 || (active == 4 && success == -1)) && (
-                <>
-                  <Button>Retry</Button>
-                </>
-              )
-            }
+          <Group align="center">
+            {(pdfUploadSuccess == -1 ||
+              videoUploadSuccess == -1 ||
+              (active == 4 && success == -1)) && (
+              <>
+                <Button>Retry</Button>
+              </>
+            )}
           </Group>
-
         </Stepper.Completed>
       </Stepper>
 
@@ -310,18 +325,17 @@ export default function AddProject() {
       )}
       {(active == 1 || active == 0 || active == 2 || active == 3) && (
         <Group justify="center" mt="xl">
-          {
-            active != 0 &&
+          {active != 0 && (
             <Button
-            variant="default"
-            onClick={() => {
-              prevStep();
-              saveProject();
-            }}
-          >
-            Back
-          </Button>
-          }
+              variant="default"
+              onClick={() => {
+                prevStep();
+                saveProject();
+              }}
+            >
+              Back
+            </Button>
+          )}
           {active != 3 && (
             <Button
               onClick={() => {
