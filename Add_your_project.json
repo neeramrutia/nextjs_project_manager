@@ -1,0 +1,13 @@
+{
+    "projects" : [
+        {
+            "name" : "sample_name",
+            "description" : "sample_description",
+            "members" : ["member name 1" , "member name 2"],
+            "mentor" : ["mentor name 1" , "mentor name 2"],
+            "tech_stack" : ["tech_1" , "tech_2"],
+            "github" : "repo link" ,
+            "deployed_project" : "deployed project link (empty string if not deployed)"
+        }
+    ]
+}
