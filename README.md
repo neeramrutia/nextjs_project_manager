@@ -1,13 +1,3 @@
-# NextJS Project_Manager
-
-https://nextjs-project-manager-phi.vercel.app/
-
-# Roles
-
-
-
-
-
 # PROJECT CATALOG 📚
 
 Welcome to **PROJECT CATALOG**, a platform where students can refer to past projects added by admins/co-ordinators.
@@ -23,15 +13,20 @@ Welcome to **PROJECT CATALOG**, a platform where students can refer to past proj
 
 1. **Simple User** 👤
    - Can only view projects.
+   - A new user is always a simple user
 
 2. **Co-ordinator** 🛠️
    - Can add a project.
    - Can view projects.
+   - Username : 10@gmail.com   
+   - Password : 10
 
 3. **Admin** 👑
    - Can add projects.
    - Can view projects.
    - Can promote/demote a user or co-ordinator.
+   - Username : 1@gmail.com
+   - Password : 1
 
 ## Live Deployment 🌍
 
