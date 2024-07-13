@@ -52,8 +52,12 @@ const ProjectSchema = new mongoose.Schema({
         type : String ,
         default : ""
     },
-    DriveVideoId : {
-        type : String ,
+    // DriveVideoId : {
+    //     type : String ,
+    //     default : ""
+    // }
+    youtubeLink : {
+        type : String,
         default : ""
     }
 });

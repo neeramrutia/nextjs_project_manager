@@ -6,6 +6,7 @@ export async function GET(request , { params }){
     const { projectId } = params;
     try {
         const project = await Project.findOne({_id:projectId});
+        //console.log(project);
         return NextResponse.json(project,{
             success:true,
             status:200,

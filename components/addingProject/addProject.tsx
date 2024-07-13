@@ -31,6 +31,7 @@ type MainObject = {
   video: FileWithPath[];
   videoFile: any;
   DriveVideoId: string;
+  youtubeLink:string;
 };
 const mainObject: MainObject = {
   title: "",
@@ -53,6 +54,7 @@ const mainObject: MainObject = {
   video: [],
   videoFile: {},
   DriveVideoId: "",
+  youtubeLink:""
 };
 
 function convertToBase64(file: FileWithPath) {
@@ -88,6 +90,7 @@ export default function AddProject() {
     images: [""],
     DrivePdfId: "",
     DriveVideoId: "",
+    youtubeLink:""
   });
   const resetProject = () => {
     Project.Mentor = "";
@@ -101,6 +104,7 @@ export default function AddProject() {
     Project.images = [];
     Project.DrivePdfId = "";
     Project.DriveVideoId = "";
+    Project.youtubeLink = "";
 
     mainObject.Mentor = "none";
     mainObject.ProjectLink = "";
@@ -118,6 +122,7 @@ export default function AddProject() {
     mainObject.title = "";
     mainObject.DrivePdfId = "";
     mainObject.DriveVideoId = "";
+    mainObject.youtubeLink = "";
   };
   const RegisterProject = async () => {
     const base64: Array<string> = [];
@@ -161,7 +166,9 @@ export default function AddProject() {
         setPdfUploadSuccess(-1);
       }
       if (pdfUploadResult.success == true) {
+        console.log(pdfUploadResult.docId)
         mainObject.DrivePdfId = pdfUploadResult.docId;
+        saveProject()
         setPdfUploadLoading(false);
       }
     } else {
@@ -169,39 +176,39 @@ export default function AddProject() {
     }
   };
 
-  const uploadVideo = async () => {
+  // const uploadVideo = async () => {
 
-    let formData = new FormData();
-    if(mainObject.videoFile.data != undefined || mainObject.videoFile.data != null){
-      formData.append("file", mainObject.videoFile.data);
-    formData.append("fileName", mainObject.videoFile.data.name);
-    console.log("videoFile form addProject", mainObject.videoFile);
-    console.log("videoFile.data form addProject", mainObject.videoFile.data);
+  //   let formData = new FormData();
+  //   if(mainObject.videoFile.data != undefined || mainObject.videoFile.data != null){
+  //     formData.append("file", mainObject.videoFile.data);
+  //   formData.append("fileName", mainObject.videoFile.data.name);
+  //   console.log("videoFile form addProject", mainObject.videoFile);
+  //   console.log("videoFile.data form addProject", mainObject.videoFile.data);
 
-    const response = await fetch("/api/upload/video", {
-      method: "POST",
-      body: formData,
-    });
-    const videoUploadResult = await response.json();
-    console.log("videoUploadResult : ", videoUploadResult);
-    if (videoUploadResult.success == false) {
-      setVideoUploadSuccess(-1);
-    }
-    if (videoUploadResult.success == true) {
-      console.log("videoUploadResult.docId : ", videoUploadResult.docId);
-      mainObject.DriveVideoId = videoUploadResult.docId;
-      Project.DriveVideoId = videoUploadResult.docId;
-      setVideoUploadLoading(false);
-      saveProject().then(() => {
-        RegisterProject();
-      });
-    }
-    }
-    else{
-      setVideoUploadSuccess(-1);
-    }
+  //   const response = await fetch("/api/upload/video", {
+  //     method: "POST",
+  //     body: formData,
+  //   });
+  //   const videoUploadResult = await response.json();
+  //   console.log("videoUploadResult : ", videoUploadResult);
+  //   if (videoUploadResult.success == false) {
+  //     setVideoUploadSuccess(-1);
+  //   }
+  //   if (videoUploadResult.success == true) {
+  //     console.log("videoUploadResult.docId : ", videoUploadResult.docId);
+  //     mainObject.DriveVideoId = videoUploadResult.docId;
+  //     Project.DriveVideoId = videoUploadResult.docId;
+  //     setVideoUploadLoading(false);
+  //     saveProject().then(() => {
+  //       RegisterProject();
+  //     });
+  //   }
+  //   }
+  //   else{
+  //     setVideoUploadSuccess(-1);
+  //   }
     
-  };
+  // };
 
   const saveProject = async () => {
     Project.title = step1Object.title;
@@ -214,7 +221,7 @@ export default function AddProject() {
     Project.technologyUsed = step4Object.technologyUsed;
     Project.DrivePdfId = mainObject.DrivePdfId;
     Project.DriveVideoId = mainObject.DriveVideoId;
-
+    Project.youtubeLink = step3Object.youtubeLink;
     // console.log("base 64 : " , Project.images)
   };
   const [active, setActive] = useState(0);
@@ -262,7 +269,7 @@ export default function AddProject() {
                   )
                 }
               />
-              <Stepper.Step
+              {/* <Stepper.Step
                 label="Step 2"
                 description="uploading video"
                 loading={videoUploadLoading && !pdfUploadLoading}
@@ -272,14 +279,14 @@ export default function AddProject() {
                     <IconCircleX style={{ width: rem(20), height: rem(20) }} />
                   )
                 }
-              />
+              /> */}
               <Stepper.Step
-                label="Step 3"
+                label="Step 2"
                 description="Creating project"
                 loading={
                   active == 4 &&
                   success == 0 &&
-                  !videoUploadLoading &&
+                  //!videoUploadLoading &&
                   !pdfUploadLoading
                 }
                 color={active == 4 && success == -1 ? "red" : ""}
@@ -356,7 +363,8 @@ export default function AddProject() {
             variant="default"
             onClick={() => {
               uploadPdf().then(() => {
-                uploadVideo();
+                //uploadVideo();
+                RegisterProject();
               });
               nextStep();
             }}

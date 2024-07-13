@@ -39,17 +39,17 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
  }
 
 
- const handleVideoChange = (e : any)=>{
-  const file = {
-    preview: URL.createObjectURL(e.target.files[0]),
-    data: e.target.files[0],
-  };
+//  const handleVideoChange = (e : any)=>{
+//   const file = {
+//     preview: URL.createObjectURL(e.target.files[0]),
+//     data: e.target.files[0],
+//   };
 
-  console.log("file : " , file)
-  setVideoFile(video)
-  mainObject.videoFile = file;
-  step4Object.videoFile = file;
-}
+//   console.log("file : " , file)
+//   setVideoFile(video)
+//   mainObject.videoFile = file;
+//   step4Object.videoFile = file;
+// }
 
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
@@ -72,16 +72,16 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
       </>
     )
   })
-  const videoPreview = video.map((file , index)=>{
-    return(
-      <>
-      <Text key={index}>
-        Video selected : 
-      {file.name}
-      </Text>
-      </>
-    )
-  })
+  // const videoPreview = video.map((file , index)=>{
+  //   return(
+  //     <>
+  //     <Text key={index}>
+  //       Video selected : 
+  //     {file.name}
+  //     </Text>
+  //     </>
+  //   )
+  // })
 
   const [value, setValue] = useState<string[]>(
     mainObject.technologyUsed[0] == "" ? [] : mainObject.technologyUsed
@@ -213,7 +213,7 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
 
 
 
-            <Dropzone
+            {/* <Dropzone
             m={"sm"}
             activateOnDrag = {true}
             maxFiles={1}
@@ -257,7 +257,7 @@ export default function AddProjectStep4(props: Partial<DropzoneProps>) {
                   stroke={1.5}
                 />
               </Dropzone.Reject>
-            </Dropzone>
+            </Dropzone> */}
 
 
             {/* <SimpleGrid

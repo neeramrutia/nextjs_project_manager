@@ -15,6 +15,7 @@ const step3Object = {
   ProjectLink: "",
   Mentor: "",
   members: [{name : "" , id : ""}],
+  youtubeLink:""
 };
 export function AddProjectStep3() {
   const [data, setData] = useState(mainObject.members);
@@ -26,6 +27,7 @@ export function AddProjectStep3() {
   const [Project, setProject] = useState({
     ProjectLink: mainObject.ProjectLink,
     Mentor: mainObject.Mentor,
+    youtubeLink:mainObject.youtubeLink
   });
   let rows = data.map((row) => (
     <Table.Tr key={row.name}>
@@ -51,6 +53,8 @@ export function AddProjectStep3() {
     mainObject.ProjectLink = Project.ProjectLink;
     step3Object.members = data;
     mainObject.members = data;
+    step3Object.youtubeLink = Project.youtubeLink;
+    mainObject.youtubeLink = Project.youtubeLink;
   };
 
   return (
@@ -77,6 +81,17 @@ export function AddProjectStep3() {
             value={Project.ProjectLink}
             onChange={(e) => {
               setProject({ ...Project, ProjectLink: e.target.value });
+            }}
+          />
+          <TextInput
+            m={"sm"}
+            withAsterisk
+            label="Youtube description Video Link"
+            placeholder="Video description Link"
+            required
+            value={Project.youtubeLink}
+            onChange={(e) => {
+              setProject({ ...Project, youtubeLink: e.target.value });
             }}
           />
           <TextInput

@@ -74,10 +74,10 @@ export default function specificProject() {
       console.log("NO DATA FOUND");
       setProjectExist(false);
     }else{
-      // console.log(data);
+       console.log(data);
       setmyData(data);
       setLoading(false);
-      // console.log(mydata);
+       //console.log(mydata);
     }
     
   }, []);
@@ -174,7 +174,7 @@ export default function specificProject() {
                   m={"lg"}
                   onClick={(event) => {
                     event.preventDefault();
-                    window.location.href = `https://drive.google.com/file/d/${mydata.DriveVideoId}/view`
+                    window.location.href = `${mydata.youtubeLink}`
                   }}
                 >
                   <IconVideo />
