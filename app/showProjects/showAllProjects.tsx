@@ -37,7 +37,7 @@ import {
 import Link from "next/link";
 import { useDisclosure, useIntersection, useMediaQuery } from "@mantine/hooks";
 import { FooterLinks } from "../../components/footer/footer";
-let limit = 6;
+let limit = 3;
 let skip = 0;
 let count = 0;
 let PROJECTS : any = [];
@@ -55,7 +55,7 @@ const fetcher = async (
   count = countData.count;
   console.log(count);
   if (query == "") {
-    console.log("this is fetching when query is null");
+    //console.log("this is fetching when query is null");
     const data = await fetch(`api/projects?limit=${limit}&skip=${skip}`);
     const res = await data.json();
     console.log("res from query null" , res)
