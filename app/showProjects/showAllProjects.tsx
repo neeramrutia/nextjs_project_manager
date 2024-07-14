@@ -37,7 +37,7 @@ import {
 import Link from "next/link";
 import { useDisclosure, useIntersection, useMediaQuery } from "@mantine/hooks";
 import { FooterLinks } from "../../components/footer/footer";
-let limit = 6;
+let limit = 3;
 let skip = 0;
 let count = 0;
 let PROJECTS : any = [];
