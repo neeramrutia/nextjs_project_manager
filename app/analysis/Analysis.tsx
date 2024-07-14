@@ -14,6 +14,8 @@ interface d {
 let data: d[] = [];
 
 export default function Analysis() {
+  //const [maximum , setMaximum] = useState(0);
+  let maximum = 0;
   const [loadingOsData, setLoadingOsData] = useState(true);
   const [loading, setLoading] = useState(true);
   const [newData, setnewData] = useState([
@@ -39,15 +41,24 @@ export default function Analysis() {
     setLoading(false);
   };
   const fetchOsData = async () => {
-    const res = await getOsData().then().catch(console.error);
-    setOsMonth(res || []);
+    const res:any = await getOsData().then().catch(console.error);
+    console.log(res);
+    for(let i=0;i<res.length;i++){
+      await console.log(res[i]["mobile"])
+      maximum = Math.max(maximum , res[i]["mobile"])
+      maximum = Math.max(maximum , res[i]["desktop"])
+    }
+    await console.log(maximum)
+    await setOsMonth(res || []);
     
   };
-
   useEffect(() => {
-    fetchData();
-    fetchOsData().then(()=>{setLoadingOsData(false);});
-  }, [osMonth , osMonthData]);
+    async function ASYNC(){
+      await fetchData();
+      await fetchOsData().then(()=>{setLoadingOsData(false);});
+    }
+    ASYNC();
+  },[]);
 
   if (!loading) {
     const stats = newData.map((stat) => (
@@ -67,10 +78,10 @@ export default function Analysis() {
         )}
         <Card m={"xl"}>
           {
-            !loadingOsData &&
+            !loading && !loadingOsData &&
             <AreaChart
               tooltipAnimationDuration={200}
-              yAxisProps={{ domain: [0, 20] }}
+              yAxisProps={{ domain: [0, Math.max(...osMonth.map(o=>o.desktop))] }}
               unit=" users"
               h={300}
               data={!loadingOsData ? osMonth : []}

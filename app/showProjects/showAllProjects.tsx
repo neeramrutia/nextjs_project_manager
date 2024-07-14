@@ -37,7 +37,7 @@ import {
 import Link from "next/link";
 import { useDisclosure, useIntersection, useMediaQuery } from "@mantine/hooks";
 import { FooterLinks } from "../../components/footer/footer";
-let limit = 3;
+let limit = 6;
 let skip = 0;
 let count = 0;
 let PROJECTS : any = [];
@@ -55,8 +55,10 @@ const fetcher = async (
   count = countData.count;
   console.log(count);
   if (query == "") {
+    console.log("this is fetching when query is null");
     const data = await fetch(`api/projects?limit=${limit}&skip=${skip}`);
     const res = await data.json();
+    console.log("res from query null" , res)
     if (PROJECTS.length == 1) {
       PROJECTS = [...res];
     } else {
@@ -118,17 +120,17 @@ export default function ShowAllProjects() {
       (entry?.isIntersecting && count > skip && !fetching) ||
       (entry?.isIntersecting && count == 0 && !fetching)
     ) {
-      setFetching(true)
+      await setFetching(true)
       console.log("intersecting");
-      fetcher(query, filter.searchBy, limit, skip + limit)
+      await fetcher(query, filter.searchBy, limit, skip + limit)
         .then(() => {
           skip = skip + limit;
         })
-        .then(() => {
-          setmyData(PROJECTS);
-          setLoadingProject(false);
-          setInitialLoading(false);
-          setFetching(false)
+        .then(async() => {
+          await setmyData(PROJECTS);
+          await setLoadingProject(false);
+          await setInitialLoading(false);
+          await setFetching(false)
         });
     }
     }
@@ -202,12 +204,6 @@ export default function ShowAllProjects() {
                 {card.title}
               </Text>
 
-              <Group gap={5}>
-                <IconStar style={{ width: rem(16), height: rem(16) }} />
-                <Text fz="xs" fw={500}>
-                  4.78
-                </Text>
-              </Group>
             </Group>
 
             <Text fz="sm" c="dimmed" mt="sm">

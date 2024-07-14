@@ -234,7 +234,7 @@ export default function SignedInNavbar() {
           }}
           color="cyan"
         />
-        <NavLink
+        {/* <NavLink
           leftSection={<IconHistory size="1rem" stroke={1.5} />}
           label="Recently uploaded projects"
           active={9 === active}
@@ -243,8 +243,8 @@ export default function SignedInNavbar() {
             toggle();
           }}
           color="cyan"
-        />
-        <NavLink
+        /> */}
+        {/* <NavLink
           leftSection={<IconFileLike size="1rem" stroke={1.5} />}
           label="Most Liked Projects"
           active={10 === active}
@@ -253,7 +253,7 @@ export default function SignedInNavbar() {
             toggle();
           }}
           color="cyan"
-        />
+        /> */}
         <NavLink
           label="Show All Projects"
           active={13 === active}
@@ -339,8 +339,8 @@ export default function SignedInNavbar() {
         {active == 14 && <Home />}
         {active == 16 && <Home />}
         {active == 13 && <Home />}
-        {active == 9 && <RecentlyUploaded />}
-        {active == 10 && <MostLiked />}
+        {/* {active == 9 && <RecentlyUploaded />} */}
+        {/* {active == 10 && <MostLiked />} */}
         {active == 12 && <AddProject />}
         <Modal
           opened={opens}

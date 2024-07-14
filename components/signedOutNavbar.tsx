@@ -108,16 +108,8 @@ export default function SignedOutNavbar() {
                 <Text></Text>
               )
             }
-          
-          
-          
         </Group>
-        
       </AppShell.Header>
-     
-         
-        
-      
       <AppShell.Navbar p="md">
       {/* <LoadingOverlay visible={time} loaderProps={{color:"teal" , type:"dots"}}/> */}
         <NavLink
@@ -203,27 +195,27 @@ export default function SignedOutNavbar() {
             active={7 === active}
           />
         </NavLink>
-        <NavLink
+        {/* <NavLink
           leftSection={<IconHistory size="1rem" stroke={1.5} />}
           label="Recently uploaded projects"
           active={9 === active}
           onClick={() => {setActive(9);toggle()}}
           color="cyan"
-        />
-        <NavLink
+        /> */}
+        {/* <NavLink
           leftSection={<IconFileLike size="1rem" stroke={1.5} />}
           label="Most Liked Projects"
           active={10 === active}
           onClick={() => {setActive(10);toggle()}}
           color="cyan"
-        />
+        /> */}
       </AppShell.Navbar>
       <AppShell.Main>
         {active == 8 && <Home />}
         {active == 0 && <Home />}
         {active == 4 && <Home />}
-        {active == 9 && <RecentlyUploaded />}
-        {active == 10 && <MostLiked />}
+        {/* {active == 9 && <RecentlyUploaded />} */}
+        {/* {active == 10 && <MostLiked />} */}
         {active == 3 && <SignUpWithCred/>}
       </AppShell.Main>
     </AppShell>

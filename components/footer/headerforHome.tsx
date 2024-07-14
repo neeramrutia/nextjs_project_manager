@@ -25,15 +25,6 @@ export function HeroText() {
           Discover, Collaborate, Innovate: Your Gateway to Cutting-Edge Projects!
           </Text>
         </Container>
-
-        <div className={classes.controls}>
-          <Button mt={'lg'} className={classes.control} size="lg" variant="default" color="gray">
-            Contact admin to add project
-          </Button>
-          <Button mt={'lg'} className={classes.control} size="lg">
-            View Catalog
-          </Button>
-        </div>
       </div>
     </Container>
   );
