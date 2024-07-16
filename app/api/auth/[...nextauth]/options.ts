@@ -78,7 +78,6 @@ export const options: NextAuthOptions = {
         }
         ,
         async jwt({ token , user} : {token : JWT , user : CustomUser}){
-            
             if(user)
             {
                token.role = user.role
@@ -115,11 +114,22 @@ export const options: NextAuthOptions = {
                 {
                 var userExist = await User.findOne({email : profile?.email});
                 if(!userExist){
-                    const usertobecreated = await User.create({
+                    if(user.email?.endsWith("@ddu.ac.in")){
+                        const usertobecreated = await User.create({
                         email : profile?.email,
                         name : profile?.name,
-                        password : "1234"
+                        password : makeid(10),
+                        role : "Coordinator"
                     })
+                    }
+                    else{
+                         const usertobecreated = await User.create({
+                        email : profile?.email,
+                        name : profile?.name,
+                        password : makeid(10)
+                    })
+                    }
+                   
                 }
                 return true;
             }
@@ -135,14 +145,14 @@ export const options: NextAuthOptions = {
     
 }
 
-// function makeid(length : number) {
-//     let result = '';
-//     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//     const charactersLength = characters.length;
-//     let counter = 0;
-//     while (counter < length) {
-//       result += characters.charAt(Math.floor(Math.random() * charactersLength));
-//       counter += 1;
-//     }
-//     return result;
-// }
+function makeid(length : number) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
