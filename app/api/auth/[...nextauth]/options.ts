@@ -119,7 +119,9 @@ export const options: NextAuthOptions = {
                         email : profile?.email,
                         name : profile?.name,
                         password : makeid(10),
-                        role : "Coordinator"
+                        role : "Coordinator",
+                        isCoordinator : true,
+                        isAdmin : false
                     })
                     }
                     else{
