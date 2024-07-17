@@ -269,7 +269,7 @@ export function FeaturesGrid() {
         spacing={{ base: 'xl', md: 50 }}
         verticalSpacing={{ base: 'xl', md: 50 }}
       >
-        {features}
+        {/* {features} */}
       </SimpleGrid>
     </Container>
   );

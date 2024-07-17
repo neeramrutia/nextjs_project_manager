@@ -57,7 +57,7 @@ export function FooterLinks() {
 
   return (
     <footer className={classes.footer}>
-      <Container className={classes.inner}>
+      {/* <Container className={classes.inner}>
         <div className={classes.logo}>
         <Image src="/logo.png" alt="logo" width={30} height={30}></Image>
           <Text size="xs" c="dimmed" className={classes.description}>
@@ -65,10 +65,10 @@ export function FooterLinks() {
           </Text>
         </div>
         <div className={classes.groups}>{groups}</div>
-      </Container>
+      </Container> */}
       <Container className={classes.afterFooter}>
         <Text c="dimmed" size="sm">
-          © 2023 NextGen Project Management. All rights reserved.
+          Dharmsinh Desai Uni. IT Department
         </Text>
         <Text c="dimmed"size="sm">
          Built by {" "}
