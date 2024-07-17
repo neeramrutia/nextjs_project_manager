@@ -134,8 +134,8 @@ export default function SignedInNavbar() {
         <Group h="100%" px="md" justify="space-between">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           {/* <MantineLogo size={30} /> */}
-          <Group>
-            <Image src="/logo.png" alt="logo" width={50} height={50}></Image>
+          <Group onClick={()=>{window.location.href="/"}} style={{cursor : "pointer"}}>
+            <Image  src="/logo.png" alt="logo" width={50} height={50}></Image>
             <Text
               size={isMobile ? "md" : "xl"}
               fw={"bolder"}

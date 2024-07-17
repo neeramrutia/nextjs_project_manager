@@ -77,7 +77,7 @@ export default function SignedOutNavbar() {
         <Group h="100%" px="md" w="100%" justify="space-between">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           {/* <MantineLogo size={30} /> */}
-          <Group>
+          <Group onClick={()=>{window.location.href="/"}} style={{cursor : "pointer"}}>
           <Image src="/logo.png" alt="logo" width={50} height={50}></Image>
           <Text
             size={isMobile ? "md": "xl"}
