@@ -23,7 +23,7 @@ export async function GET(request){
         else{
             let queryRelatedProjects;
             if(filter == null || filter == "Any" || filter == "")
-                queryRelatedProjects = await Project.find({"$or":[{title : new RegExp(query) },{ Mentor : new RegExp(query)} , {"members.id":new RegExp(query)}]}).limit(LIMIT).skip(SKIP)
+                queryRelatedProjects = await Project.find({"$or":[{title : new RegExp(query) },{ Mentor : new RegExp(query)} , {"members.id":new RegExp(query)} , {"members.name":new RegExp(query)} ]}).limit(LIMIT).skip(SKIP)
             else if( filter == "Mentor" )
                 queryRelatedProjects = await Project.find({"$or":[{ Mentor : new RegExp(query)}]}).limit(LIMIT).skip(SKIP)
             else if( filter ==  "Member Name")
@@ -32,7 +32,7 @@ export async function GET(request){
                 queryRelatedProjects = await Project.find({"$or":[{"members.id":new RegExp(query)}]}).limit(LIMIT).skip(SKIP)
             else if( filter == "Title" )
                 queryRelatedProjects = await Project.find({"$or":[{"title":new RegExp(query)}]}).limit(LIMIT).skip(SKIP) 
-            else  queryRelatedProjects = await Project.find({"$or":[{title : new RegExp(query) },{ Mentor : new RegExp(query)} , {"members.id":new RegExp(query)}]}).limit(LIMIT).skip(SKIP)
+            else  queryRelatedProjects = await Project.find({"$or":[{title : new RegExp(query) },{ Mentor : new RegExp(query)} , {"members.id":new RegExp(query)} , {"members.name":new RegExp(query)}]}).limit(LIMIT).skip(SKIP)
             return NextResponse.json(queryRelatedProjects , {
                 success:true,
                 statusText : "fetched query related projects successfully",

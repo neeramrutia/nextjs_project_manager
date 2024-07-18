@@ -12,7 +12,7 @@ export async function GET(req, res) {
         }
         else{
             if(FILTER == null || FILTER == "Any" || FILTER == "")
-                count = await Project.countDocuments({"$or":[{title : new RegExp(QUERY) },{ Mentor : new RegExp(QUERY)} , {"members.id":new RegExp(QUERY)}]})
+                count = await Project.countDocuments({"$or":[{title : new RegExp(QUERY) },{ Mentor : new RegExp(QUERY)} , {"members.id":new RegExp(QUERY)} , {"members.name":new RegExp(QUERY)}]})
             else if( FILTER == "Mentor" )
                 count = await Project.countDocuments({"$or":[{ Mentor : new RegExp(QUERY)}]})
             else if( FILTER ==  "Member Name")
@@ -21,7 +21,7 @@ export async function GET(req, res) {
                 count = await Project.countDocuments({"$or":[{"members.id":new RegExp(QUERY)}]})
             else if( FILTER == "Title" )
                 count = await Project.countDocuments({"$or":[{"title":new RegExp(QUERY)}]})
-            else  count = await Project.countDocuments({"$or":[{title : new RegExp(QUERY) },{ Mentor : new RegExp(QUERY)} , {"members.id":new RegExp(QUERY)}]})
+            else  count = await Project.countDocuments({"$or":[{title : new RegExp(QUERY) },{ Mentor : new RegExp(QUERY)} , {"members.id":new RegExp(QUERY)} , {"members.name":new RegExp(QUERY)}]})
             }
         const obj = {count}
         // console.log("count" , count);
